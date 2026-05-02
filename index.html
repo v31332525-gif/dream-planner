@@ -2045,7 +2045,10 @@ document.getElementById('import-input').addEventListener('change', e => {
         }
       }
       saveToLocal();
-      showSaveStatus('✓ 資料已還原', true);
+      buildCalendar();
+      updateStats();
+      showSaveStatus('✓ 資料已還原，共 ' + Object.keys(data.chips||{}).length + ' 個方塊', true);
+      alert('✓ 匯入成功！共還原 ' + Object.keys(data.chips||{}).length + ' 個方塊');
     } catch(err) {
       alert('匯入失敗：' + err.message);
     }
@@ -2330,10 +2333,27 @@ async function gistPull() {
 
 function openGistModal() {
   const { token, gistId } = gistGetConfig();
-  document.getElementById('gist-token-input').value = token;
+  // 有 token 就顯示遮罩，不清空
+  const tokenInput = document.getElementById('gist-token-input');
+  if (token) {
+    tokenInput.value = token.slice(0,4) + '••••••••••••' + token.slice(-4);
+    tokenInput.dataset.masked = 'true';
+    tokenInput.style.color = 'var(--text2)';
+  } else {
+    tokenInput.value = '';
+    tokenInput.dataset.masked = '';
+  }
+  // 點擊輸入框時清空讓用戶重新輸入
+  tokenInput.onfocus = function() {
+    if (this.dataset.masked) {
+      this.value = '';
+      this.dataset.masked = '';
+      this.style.color = '';
+    }
+  };
   document.getElementById('gist-id-input').value = gistId;
   document.getElementById('gist-id-row').style.display = gistId ? '' : 'none';
-  gistSetStatus('');
+  gistSetStatus(token ? '✓ Token 已儲存，可直接推送或拉取' : '', token ? '#2DA44E' : '');
   document.getElementById('gist-modal').classList.add('show');
 }
 
@@ -2345,8 +2365,14 @@ document.getElementById('btn-gist-sync').addEventListener('click', () => {
   gistPush();
 });
 
+function getTokenFromInput() {
+  const input = document.getElementById('gist-token-input');
+  if (input.dataset.masked) return gistGetConfig().token; // 用已存的
+  return input.value.trim();
+}
+
 document.getElementById('gist-save-btn').addEventListener('click', () => {
-  const token = document.getElementById('gist-token-input').value.trim();
+  const token = getTokenFromInput();
   const gistId = document.getElementById('gist-id-input').value.trim();
   if (!token) { gistSetStatus('請輸入 Token', '#C04040'); return; }
   localStorage.setItem('gist-token', token);
@@ -2357,13 +2383,13 @@ document.getElementById('gist-save-btn').addEventListener('click', () => {
 });
 
 document.getElementById('gist-push-btn').addEventListener('click', () => {
-  const token = document.getElementById('gist-token-input').value.trim();
+  const token = getTokenFromInput();
   if (token) localStorage.setItem('gist-token', token);
   gistPush();
 });
 
 document.getElementById('gist-pull-btn').addEventListener('click', () => {
-  const token = document.getElementById('gist-token-input').value.trim();
+  const token = getTokenFromInput();
   const gistId = document.getElementById('gist-id-input').value.trim();
   if (token) localStorage.setItem('gist-token', token);
   if (gistId) localStorage.setItem('gist-id', gistId);

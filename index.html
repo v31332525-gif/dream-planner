@@ -2271,36 +2271,41 @@ async function gistPush() {
   const body = { files: { [GIST_FILENAME]: { content: JSON.stringify(payload, null, 2) } } };
   try {
     let res, data;
+    const headers = {
+      Authorization: `token ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.github.v3+json',
+    };
     if (gistId) {
-      // PATCH 更新現有 Gist
       res = await fetch(`https://api.github.com/gists/${gistId}`, {
-        method: 'PATCH',
-        headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        method: 'PATCH', mode: 'cors', headers, body: JSON.stringify(body),
       });
     } else {
-      // POST 建立新 Gist
       body.description = '夢想行程規劃器備份';
       body.public = false;
       res = await fetch('https://api.github.com/gists', {
-        method: 'POST',
-        headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        method: 'POST', mode: 'cors', headers, body: JSON.stringify(body),
       });
     }
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.message || `HTTP ${res.status}`);
+    }
     data = await res.json();
-    if (!res.ok) throw new Error(data.message || res.status);
     if (!gistId) {
       localStorage.setItem('gist-id', data.id);
-      document.getElementById('gist-id-input').value = data.id;
+      const el = document.getElementById('gist-id-input');
+      if (el) el.value = data.id;
     }
     gistSetBtnState('synced');
     gistSetStatus('✓ 已推送到雲端 ' + new Date().toLocaleTimeString('zh-TW', {hour:'2-digit',minute:'2-digit'}), '#2DA44E');
     showSaveStatus('☁ 已同步到 Gist', true);
   } catch(e) {
     gistSetBtnState('err');
-    gistSetStatus('推送失敗：' + e.message, '#C04040');
-    setTimeout(() => gistSetBtnState('idle'), 3000);
+    const msg = e.message || String(e);
+    gistSetStatus('推送失敗：' + msg, '#C04040');
+    console.error('[Gist Push]', e);
+    setTimeout(() => gistSetBtnState('idle'), 4000);
   }
 }
 
@@ -2311,10 +2316,17 @@ async function gistPull() {
   gistSetStatus('拉取中…', '#F0A030');
   try {
     const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-      headers: { Authorization: `token ${token}` },
+      method: 'GET', mode: 'cors',
+      headers: {
+        Authorization: `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+      },
     });
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.message || `HTTP ${res.status}`);
+    }
     const data = await res.json();
-    if (!res.ok) throw new Error(data.message || res.status);
     const content = data.files[GIST_FILENAME]?.content;
     if (!content) throw new Error('找不到備份檔案');
     const parsed = JSON.parse(content);
@@ -2326,8 +2338,10 @@ async function gistPull() {
     showSaveStatus('☁ 已從 Gist 還原', true);
   } catch(e) {
     gistSetBtnState('err');
-    gistSetStatus('拉取失敗：' + e.message, '#C04040');
-    setTimeout(() => gistSetBtnState('idle'), 3000);
+    const msg = e.message || String(e);
+    gistSetStatus('拉取失敗：' + msg, '#C04040');
+    console.error('[Gist Pull]', e);
+    setTimeout(() => gistSetBtnState('idle'), 4000);
   }
 }
 

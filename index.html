@@ -7,34 +7,34 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="夢想規劃器">
-<meta name="theme-color" content="#F7F5F0">
+<meta name="theme-color" content="#F5F1EA">
 <!-- 產生 SVG icon 作為 apple-touch-icon -->
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%234A7FD4'/%3E%3Ctext x='90' y='120' text-anchor='middle' font-size='90' font-family='system-ui'%3E🌱%3C/text%3E%3C/svg%3E">
 <title>夢想行程規劃器</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600&family=DM+Mono:wght@400;500&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#F7F5F0;--surface:#FFF;--surface2:#F0EDE8;
-  --border:rgba(0,0,0,0.07);--border2:rgba(0,0,0,0.13);
-  --text:#1A1A1A;--text2:#6B6B6B;--text3:#A0A0A0;
-  --accent:#4A7FD4;--radius:10px;--radius-sm:6px;
-  --c1f:#FDF3E0;--c1t:#92600A;--c1b:#EFC97A;
-  --c2f:#EEEDFE;--c2t:#3C3489;--c2b:#AFA9EC;
-  --c3f:#FBEAF0;--c3t:#72243E;--c3b:#ED93B1;
-  --c4f:#EBF3FD;--c4t:#1A5FA8;--c4b:#92BFEF;
-  --c5f:#E1F5EE;--c5t:#085041;--c5b:#5DCAA5;
-  --c6f:#FFF0E0;--c6t:#7A3500;--c6b:#F4A05A;
-  --c7f:#E8F0FE;--c7t:#1A3A8F;--c7b:#7BA7F5;
-  --c8f:#E8F5EE;--c8t:#1A6B42;--c8b:#8ECBAB;
-  --c9f:#F5F5F5;--c9t:#555;--c9b:#CCC;
-  --c10f:#FFF0F5;--c10t:#8B3A6B;--c10b:#E8A0C8;
-  --c11f:#FFF4E0;--c11t:#7A4A00;--c11b:#F5C07A;
-  --done-f:#F0F0F0;--done-t:#999;
+  --bg:#F5F1EA;--surface:#FDFAF5;--surface2:#EDE9E1;
+  --border:rgba(80,60,30,0.07);--border2:rgba(80,60,30,0.14);
+  --text:#2C2416;--text2:#7A6E5F;--text3:#B0A898;
+  --accent:#7C6A4E;--radius:10px;--radius-sm:6px;
+  --c1f:#FDF5E6;--c1t:#8B6914;--c1b:#D4A843;
+  --c2f:#EEEBF8;--c2t:#4A3F8A;--c2b:#9B92D4;
+  --c3f:#F9E8EE;--c3t:#7A2E4A;--c3b:#D47A9B;
+  --c4f:#EAF2F8;--c4t:#2A5F7A;--c4b:#7AAFC4;
+  --c5f:#E6F2EC;--c5t:#1A5C3A;--c5b:#5CAA85;
+  --c6f:#FBF0E2;--c6t:#7A4010;--c6b:#D48A4A;
+  --c7f:#E6EEF8;--c7t:#1A3A7A;--c7b:#6A9AD4;
+  --c8f:#E6F0E8;--c8t:#1A5C2C;--c8b:#6AAA82;
+  --c9f:#F0EDE8;--c9t:#6A5C4A;--c9b:#B4A898;
+  --c10f:#F8EAF2;--c10t:#7A3060;--c10b:#C47AAA;
+  --c11f:#FBF2E2;--c11t:#7A4A00;--c11b:#D4A060;
+  --done-f:#EDEAE4;--done-t:#A09080;
 }
 body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:14px 16px;}
-h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
-.sub{font-size:11px;color:var(--text2);margin-bottom:10px;}
+h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-family:'Noto Serif TC',serif;color:var(--text);}
+.sub{font-size:11px;color:var(--text2);margin-bottom:10px;letter-spacing:.03em;}
 
 .data-bar{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
 .data-label{font-size:10px;color:var(--text3);font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
@@ -43,6 +43,10 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 .data-btn.synced{border-color:#2DA44E;color:#2DA44E;}
 .data-btn.syncing{border-color:#F0A030;color:#F0A030;}
 .data-btn.sync-err{border-color:#C04040;color:#C04040;}
+/* weekly report */
+.wr-week-btn{padding:4px 10px;font-size:10px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text2);cursor:pointer;transition:all .15s;}
+.wr-week-btn.on{background:#E8F5EE;border-color:#2DA44E;color:#2DA44E;}
+.wr-week-btn:hover{border-color:#2DA44E;color:#2DA44E;}
 .save-status{font-size:10px;color:var(--text3);margin-left:4px;}
 .save-status.ok{color:#1A6B42;}
 
@@ -52,7 +56,7 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 .edit-field{width:100%;padding:5px 7px;font-size:12px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;margin-bottom:6px;transition:border-color .15s;}
 .edit-field:focus{border-color:var(--accent);}
 .edit-actions{display:flex;gap:5px;margin-top:4px;}
-.edit-save{flex:1;padding:5px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:var(--radius-sm);background:var(--accent);color:#fff;cursor:pointer;}
+.edit-save{flex:1;padding:5px;font-size:11px;font-weight:500;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:var(--radius-sm);background:var(--accent);color:#FDFAF5;cursor:pointer;}
 .edit-del{padding:5px 8px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:0.5px solid #F0C0C0;border-radius:var(--radius-sm);background:#FFF0F0;color:#C04040;cursor:pointer;}
 .edit-done{flex:1;padding:5px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:0.5px solid #B8E0C8;border-radius:var(--radius-sm);background:#E8F5EE;color:#1A6B42;cursor:pointer;}
 .edit-done:hover{background:#D0EDD8;}
@@ -82,8 +86,13 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 .expense-add-btn{width:100%;padding:4px;font-size:10px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border-radius:var(--radius-sm);border:0.5px dashed var(--border2);background:transparent;color:var(--text2);cursor:pointer;}
 .expense-add-btn:hover{border-color:var(--accent);color:var(--accent);}
 .expense-shortcuts{display:flex;gap:3px;margin-bottom:5px;flex-wrap:wrap;}
-.exp-shortcut{padding:3px 7px;font-size:10px;font-family:'Noto Sans TC',sans-serif;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap;}
-.exp-shortcut:hover{border-color:var(--accent);color:var(--accent);background:#EEF5FF;}
+.exp-shortcut{padding:3px 8px;font-size:10px;font-family:'Noto Sans TC',sans-serif;border-radius:20px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.exp-shortcut:hover{border-color:var(--accent);color:var(--accent);}
+.exp-shortcut-input{width:72px;padding:3px 8px;font-size:10px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:20px;background:var(--surface2);color:var(--text);outline:none;transition:border-color .15s;flex-shrink:0;}
+.exp-shortcut-input:focus{border-color:var(--accent);}
+.exp-shortcut-input::placeholder{color:var(--text3);}
+.exp-shortcut-add-btn{padding:3px 8px;font-size:11px;border-radius:20px;border:0.5px dashed var(--border2);background:transparent;color:var(--text3);cursor:pointer;flex-shrink:0;transition:all .15s;}
+.exp-shortcut-add-btn:hover{border-color:var(--accent);color:var(--accent);}
 
 /* expanded placed block */
 .placed{overflow:hidden;}
@@ -115,8 +124,8 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 
 .stats-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:10px;}
 .stat-card{background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--radius);padding:9px 11px;}
-.stat-val{font-size:18px;font-weight:700;font-family:'DM Mono',monospace;}
-.stat-val.green{color:#1A6B42;}
+.stat-val{font-size:18px;font-weight:600;font-family:'Noto Serif TC',serif;letter-spacing:.01em;}
+.stat-val.green{color:#1A5C3A;}
 .stat-lbl{font-size:9px;color:var(--text2);margin-top:1px;}
 .praise{background:#FFF8E1;border:0.5px solid #F0C050;border-radius:var(--radius);padding:9px 13px;font-size:11px;color:#7A5000;font-weight:500;margin-bottom:10px;display:none;align-items:center;gap:7px;}
 .praise.show{display:flex;}
@@ -124,7 +133,7 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 .planner{display:flex;gap:11px;align-items:flex-start;}
 .sidebar{width:208px;flex-shrink:0;display:flex;flex-direction:column;gap:9px;}
 .panel{background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--radius);padding:11px;}
-.ptitle{font-size:9px;font-weight:700;letter-spacing:0.07em;color:var(--text3);text-transform:uppercase;margin-bottom:9px;}
+.ptitle{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:9px;font-family:'Noto Sans TC',sans-serif;}
 
 .form-row{margin-bottom:6px;}
 .form-row label{display:block;font-size:10px;color:var(--text2);margin-bottom:2px;}
@@ -150,7 +159,7 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 .cbt.on[data-c="eat"]   {background:var(--c11f);border-color:var(--c11b);color:var(--c11t);}
 .cbt[data-custom].on{background:var(--cc-bg,#eee);border-color:var(--cc-border,#aaa);color:var(--cc-text,#333);}
 
-.add-btn{width:100%;padding:7px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#fff;cursor:pointer;transition:opacity .15s,transform .1s;margin-top:3px;}
+.add-btn{width:100%;padding:7px;font-size:11px;font-weight:500;font-family:'Noto Sans TC',sans-serif;border-radius:var(--radius-sm);border:0.5px solid var(--accent);background:var(--accent);color:#FDFAF5;cursor:pointer;transition:opacity .15s,transform .1s;margin-top:3px;letter-spacing:.04em;}
 .add-btn:hover{opacity:.88;}.add-btn:active{transform:scale(.97);}
 
 .chip-pool{display:flex;flex-direction:column;gap:4px;max-height:280px;overflow-y:auto;min-height:40px;}
@@ -193,7 +202,7 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 .cal-wrap{flex:1;overflow-x:auto;}
 .cal-outer{background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--radius);overflow:hidden;}
 .cal-grid{display:grid;}
-.ch{font-size:9px;font-weight:700;color:var(--text2);padding:5px 2px;text-align:center;background:var(--surface2);border-bottom:1px solid var(--border2);border-right:0.5px solid var(--border);line-height:1.4;white-space:pre-line;}
+.ch{font-size:9px;font-weight:600;letter-spacing:.04em;color:var(--text2);padding:5px 2px;text-align:center;background:var(--surface2);border-bottom:1px solid var(--border2);border-right:0.5px solid var(--border);line-height:1.4;white-space:pre-line;}
 .ch.wk{color:#C04040;}.ch.corner{border-right:1px solid var(--border2);}.ch.tdh{background:var(--c4f);color:var(--c4t);}
 .tc{font-size:7px;font-family:'DM Mono',monospace;color:var(--text3);padding:1px 3px;text-align:right;border-right:1px solid var(--border2);border-bottom:0.5px solid var(--border);min-height:22px;display:flex;align-items:flex-start;justify-content:flex-end;padding-top:2px;}
 .tc.hf{color:rgba(160,160,160,.45);border-bottom:0.5px dashed var(--border);}
@@ -260,7 +269,7 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 .review-overlay.show{display:flex;}
 .review-panel{background:var(--surface);border-radius:14px;box-shadow:0 12px 48px rgba(0,0,0,.22);width:min(680px,95vw);max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
 .review-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:0.5px solid var(--border2);}
-.review-title{font-size:15px;font-weight:700;color:var(--text);}
+.review-title{font-size:15px;font-weight:600;color:var(--text);font-family:'Noto Serif TC',serif;letter-spacing:.04em;}
 .review-date{font-size:11px;color:var(--text2);margin-top:1px;}
 .review-close{background:none;border:none;cursor:pointer;font-size:16px;color:var(--text3);padding:2px 4px;}
 .review-close:hover{color:var(--text);}
@@ -314,7 +323,7 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 
 /* ── 手機版 RWD ── */
 @media (max-width: 768px) {
-  body{padding:10px 0 0 0;}
+  body{padding:10px 0 0 0;padding-top:calc(10px + env(safe-area-inset-top));}
   h1{font-size:14px;padding:0 12px 8px;}
   .page-sub{padding:0 12px;margin-bottom:8px;}
   .stats-bar{grid-template-columns:repeat(5,1fr);gap:4px;padding:0 12px;margin-bottom:8px;}
@@ -343,6 +352,21 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
   .panel.collapsed .ptitle::after{content:'▸';}
   .panel.collapsed > *:not(.ptitle){display:none!important;}
 
+  /* 時間佔比縮小 */
+  .breakdown{margin-top:4px;padding-top:4px;}
+  .bdtitle{font-size:8px;margin-bottom:3px;}
+  .bd-row{font-size:8px;padding:1px 0;}
+  .bd-dot{width:6px;height:6px;}
+  .bd-val{font-size:8px;}
+
+  /* 新增目標 + 待排方塊並排 */
+  .mobile-row-panels{display:flex;gap:8px;padding:0 12px;margin-bottom:4px;}
+  .mobile-row-panels .panel{flex:1;min-width:0;border:0.5px solid var(--border2);border-radius:var(--radius);padding:8px 10px;margin-bottom:0;}
+  .mobile-row-panels .ptitle{font-size:9px;}
+  .mobile-row-panels .ptitle::after{display:none;}
+  .mobile-row-panels .panel.collapsed > *:not(.ptitle){display:block!important;}
+  .mobile-row-panels .chip-pool{max-height:120px;}
+
   /* 編輯卡片：底部彈出 */
   .edit-card{
     position:fixed!important;
@@ -364,6 +388,11 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
   /* 底部安全區 */
   .pwa-banner{padding-bottom:calc(12px + env(safe-area-inset-bottom));}
 }
+.ai-tab{padding:5px 14px;font-size:10px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border-radius:20px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;transition:all .15s;letter-spacing:.03em;}
+.ai-tab.on{background:var(--accent);color:#FDFAF5;border-color:var(--accent);}
+.ai-tab:hover:not(.on){border-color:var(--accent);color:var(--accent);}
+#ai-tab-plan:hover, #ai-tab-review:hover{border-color:var(--accent)!important;color:var(--accent)!important;background:var(--surface)!important;box-shadow:0 2px 12px rgba(124,106,78,.13);}
+#ai-back-btn:hover{color:var(--accent)!important;}
 </style>
 </head>
 <body>
@@ -437,15 +466,16 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
 
 <div class="data-bar">
   <span class="data-label">資料</span>
+  <button class="data-btn" id="btn-gist-sync" title="GitHub Gist 雲端同步" style="display:flex;align-items:center;gap:4px;">
+    <span id="gist-sync-icon">☁</span> 雲端同步
+  </button>
+  <button class="data-btn" id="btn-ai-coach" title="一鍵產生上週複盤＋下週規劃，複製給 AI 或存成紀錄" style="border-color:var(--accent);color:var(--accent);">🤖 AI 教練</button>
   <button class="data-btn" id="btn-export" title="匯出 JSON 備份">⬇ 匯出備份</button>
   <label class="data-btn" title="匯入 JSON 還原" style="cursor:pointer">
     ⬆ 匯入資料
     <input type="file" id="import-input" accept=".json" style="display:none">
   </label>
   <button class="data-btn" id="btn-ics" title="匯出 Google Calendar 可讀格式">📅 匯出至 Google</button>
-  <button class="data-btn" id="btn-gist-sync" title="GitHub Gist 雲端同步" style="display:flex;align-items:center;gap:4px;">
-    <span id="gist-sync-icon">☁</span> 雲端同步
-  </button>
   <span class="save-status" id="save-status"></span>
 </div>
 
@@ -475,7 +505,7 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
       <div id="ds-detail-list"></div>
     </div>
 
-    <div class="panel">
+    <div class="panel" id="add-goal-panel">
       <div class="ptitle">新增目標</div>
 
       <div class="form-row"><label>分類</label>
@@ -531,7 +561,7 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
       <button class="add-btn" id="add-btn">＋ 新增並產生方塊</button>
     </div>
 
-    <div class="panel">
+    <div class="panel" id="pool-panel">
       <div class="ptitle">待排方塊</div>
       <div class="chip-pool" id="chip-pool"><div class="pool-hint">所有方塊已排入行程！</div></div>
       <div class="breakdown" id="breakdown" style="">
@@ -576,9 +606,9 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
   <div class="expense-shortcuts" id="expense-shortcuts">
     <!-- rendered by JS -->
   </div>
-  <div style="display:flex;gap:4px;margin-bottom:6px;">
-    <input class="edit-field" id="exp-shortcut-new" placeholder="新增快捷鍵名稱" style="margin-bottom:0;flex:1;font-size:10px;">
-    <button id="exp-shortcut-add" style="padding:0 8px;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);font-size:11px;cursor:pointer;flex-shrink:0;white-space:nowrap;" title="新增快捷鍵">＋</button>
+  <div style="display:flex;gap:3px;align-items:center;margin-bottom:6px;flex-wrap:nowrap;">
+    <input class="exp-shortcut-input" id="exp-shortcut-new" placeholder="新增標籤">
+    <button id="exp-shortcut-add" class="exp-shortcut-add-btn" title="新增快捷標籤">＋</button>
   </div>
 
   <div style="display:flex;gap:4px;margin-bottom:6px;">
@@ -701,6 +731,87 @@ h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:2px;}
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- 週報 Modal -->
+<div class="modal-overlay" id="weekly-report-modal" style="z-index:2100;">
+  <div class="modal-box" style="max-width:580px;width:95vw;max-height:92vh;display:flex;flex-direction:column;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;flex-shrink:0;">
+      <div class="modal-title" style="font-family:'Noto Serif TC',serif;letter-spacing:.05em;">📓 週報</div>
+      <button id="weekly-report-close" style="background:none;border:none;cursor:pointer;font-size:15px;color:var(--text3);">✕</button>
+    </div>
+    <div id="weekly-report-range" style="font-size:10px;color:var(--text2);margin-bottom:10px;flex-shrink:0;"></div>
+
+    <!-- 週次選擇 -->
+    <div style="display:flex;gap:6px;margin-bottom:12px;flex-shrink:0;flex-wrap:wrap;">
+      <button class="wr-week-btn on" data-offset="0">本週</button>
+      <button class="wr-week-btn" data-offset="-1">上週</button>
+      <button class="wr-week-btn" data-offset="-2">兩週前</button>
+      <button class="wr-week-btn" data-offset="-3">三週前</button>
+    </div>
+
+    <textarea id="weekly-report-output" readonly
+      style="flex:1;min-height:320px;padding:12px 14px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.9;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;margin-bottom:10px;"></textarea>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-shrink:0;">
+      <span id="wr-copy-badge" style="font-size:10px;color:#2DA44E;opacity:0;transition:opacity .4s;">✓ 已複製</span>
+      <button class="modal-cancel" id="wr-copy-btn" style="border-color:#4A7FD4;color:#4A7FD4;">📋 複製給 AI</button>
+      <button class="modal-ok" id="wr-download-btn" style="background:#2DA44E;">💾 下載 .txt</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── AI 教練 Modal ── -->
+<div class="modal-overlay" id="ai-coach-modal" style="z-index:2100;">
+  <div class="modal-box" style="max-width:560px;width:95vw;max-height:92vh;display:flex;flex-direction:column;">
+
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;flex-shrink:0;">
+      <div>
+        <div class="modal-title" style="font-family:'Noto Serif TC',serif;letter-spacing:.05em;">🤖 AI 教練週報</div>
+        <div style="font-size:10px;color:var(--text2);margin-top:3px;line-height:1.6;">填寫後按「產生」，一份文字同時包含上週複盤＋下週規劃，<br>貼給 AI 或存成紀錄，每週只需 5 分鐘。</div>
+      </div>
+      <button id="ai-coach-close" style="background:none;border:none;cursor:pointer;font-size:15px;color:var(--text3);flex-shrink:0;margin-left:10px;">✕</button>
+    </div>
+
+    <!-- 捲動內容區 -->
+    <div style="flex:1;overflow-y:auto;padding-right:2px;">
+
+      <!-- 上週複盤 -->
+      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--text3);text-transform:uppercase;margin:10px 0 8px;padding-bottom:4px;border-bottom:0.5px solid var(--border2);">🔍 上週複盤</div>
+
+      <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:3px;">🌟 最有成就感的事</div>
+      <textarea id="ai-review-win" placeholder="例如：連續三天準時完成工作、第一次去看電影放鬆了…" style="width:100%;height:54px;padding:8px 10px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;margin-bottom:8px;box-sizing:border-box;"></textarea>
+
+      <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:3px;">😓 這週覺得最難的事</div>
+      <textarea id="ai-review-struggle" placeholder="例如：下班後太累都沒有去運動、一直拖延英文複習…" style="width:100%;height:54px;padding:8px 10px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;margin-bottom:8px;box-sizing:border-box;"></textarea>
+
+      <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:3px;">🎯 最想改變的一件事</div>
+      <textarea id="ai-review-next" placeholder="例如：想早點下班、想多安排休息時間…" style="width:100%;height:46px;padding:8px 10px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;margin-bottom:8px;box-sizing:border-box;"></textarea>
+
+      <!-- 下週規劃 -->
+      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--text3);text-transform:uppercase;margin:4px 0 8px;padding-bottom:4px;border-bottom:0.5px solid var(--border2);">📋 下週規劃</div>
+
+      <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:3px;">📌 下週最想做到的事</div>
+      <textarea id="ai-plan-goal" placeholder="例如：完成英文課程、每天運動、控制飲食花費在 $300 以內…" style="width:100%;height:54px;padding:8px 10px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;margin-bottom:8px;box-sizing:border-box;"></textarea>
+
+      <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:3px;">💭 想請 AI 教練聊聊的事</div>
+      <textarea id="ai-plan-question" placeholder="例如：我最近很容易拖延，不知道怎麼改善…" style="width:100%;height:46px;padding:8px 10px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;margin-bottom:10px;box-sizing:border-box;"></textarea>
+
+      <!-- 輸出區 -->
+      <textarea id="ai-coach-output" readonly placeholder="按下「產生」後，文字會出現在這裡…"
+        style="width:100%;height:180px;padding:10px 12px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.8;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;box-sizing:border-box;"></textarea>
+
+    </div><!-- /scroll area -->
+
+    <!-- 固定底部按鈕 -->
+    <div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end;align-items:center;flex-shrink:0;">
+      <span id="ai-copy-badge" style="font-size:10px;color:var(--accent);opacity:0;transition:opacity .4s;">✓ 已複製</span>
+      <button class="modal-cancel" id="ai-coach-regen">⚡ 產生</button>
+      <button class="modal-cancel" id="ai-coach-copy" style="border-color:#4A7FD4;color:#4A7FD4;">📋 複製給 AI</button>
+      <button class="modal-ok" id="ai-coach-download" style="background:#2DA44E;">💾 下載紀錄</button>
+    </div>
+
   </div>
 </div>
 
@@ -847,6 +958,94 @@ let chips = {};
 let dragging = null;
 let prevCells = [];
 
+// ─── touch drag support ────────────────────────────────
+let touchDragEl = null;   // the ghost element following finger
+let touchDragId = null;
+let touchDragFrom = null;
+
+function getCellFromPoint(x, y) {
+  const els = document.elementsFromPoint(x, y);
+  for (const el of els) {
+    if (el.dataset.m && el.dataset.d && el.dataset.s) return el;
+  }
+  return null;
+}
+
+function createTouchGhost(srcEl) {
+  const ghost = srcEl.cloneNode(true);
+  ghost.style.cssText = `position:fixed;z-index:9999;pointer-events:none;opacity:0.75;width:${srcEl.offsetWidth}px;height:${srcEl.offsetHeight}px;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.25);`;
+  document.body.appendChild(ghost);
+  return ghost;
+}
+
+function moveTouchGhost(ghost, x, y) {
+  ghost.style.left = (x - ghost.offsetWidth/2) + 'px';
+  ghost.style.top  = (y - ghost.offsetHeight/2) + 'px';
+}
+
+function addTouchDrag(el, id, from) {
+  el.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    // long press 300ms to start drag
+    el._touchTimer = setTimeout(() => {
+      e.preventDefault();
+      touchDragId = id;
+      touchDragFrom = from;
+      dragging = { id, from };
+      touchDragEl = createTouchGhost(el);
+      moveTouchGhost(touchDragEl, t.clientX, t.clientY);
+      el.style.opacity = '0.2';
+      if (navigator.vibrate) navigator.vibrate(30);
+    }, 300);
+  }, { passive: true });
+
+  el.addEventListener('touchmove', e => {
+    clearTimeout(el._touchTimer);
+    if (!touchDragEl) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    moveTouchGhost(touchDragEl, t.clientX, t.clientY);
+    // highlight target cell
+    const cell = getCellFromPoint(t.clientX, t.clientY);
+    clearPreview();
+    if (cell && dragging) showPreview(cell, durSlots(chips[dragging.id]?.dur||1));
+  }, { passive: false });
+
+  el.addEventListener('touchend', e => {
+    clearTimeout(el._touchTimer);
+    if (!touchDragEl) return;
+    e.preventDefault();
+    const t = e.changedTouches[0];
+    touchDragEl.remove(); touchDragEl = null;
+    el.style.opacity = '';
+    clearPreview();
+
+    const cell = getCellFromPoint(t.clientX, t.clientY);
+    if (cell && cell.dataset.m) {
+      placeChip(touchDragId, parseInt(cell.dataset.m), parseInt(cell.dataset.d), parseInt(cell.dataset.s));
+    } else {
+      // dropped on pool area → return to pool
+      const poolEl = document.getElementById('chip-pool');
+      if (poolEl) {
+        const pr = poolEl.getBoundingClientRect();
+        if (t.clientX >= pr.left && t.clientX <= pr.right && t.clientY >= pr.top && t.clientY <= pr.bottom) {
+          if (touchDragFrom === 'cell') returnToPool(touchDragId);
+        }
+      }
+    }
+    dragging = null; touchDragId = null; touchDragFrom = null;
+  }, { passive: false });
+
+  el.addEventListener('touchcancel', () => {
+    clearTimeout(el._touchTimer);
+    if (touchDragEl) { touchDragEl.remove(); touchDragEl = null; }
+    el.style.opacity = '';
+    clearPreview();
+    dragging = null; touchDragId = null; touchDragFrom = null;
+  });
+}
+
 // ─── helpers ───────────────────────────────────────────
 function el(tag, cls, txt) {
   const e = document.createElement(tag);
@@ -992,6 +1191,7 @@ function makePoolChip(id) {
   div.innerHTML=`<div class="chip-n">${ch.name}</div><div class="chip-m">${cat.icon} ${ch.isRev?'複習':cat.label} · ${ch.dur}hr</div>`;
   div.addEventListener('dragstart',()=>{dragging={id,from:'pool'};setTimeout(()=>div.classList.add('drag'),0);});
   div.addEventListener('dragend',()=>{div.classList.remove('drag');clearPreview();});
+  addTouchDrag(div, id, 'pool');
   div.addEventListener('dblclick', e => {
     e.stopPropagation();
     div.remove();
@@ -1158,6 +1358,7 @@ function renderPlaced(id) {
     div.appendChild(db);
     div.addEventListener('dragstart',()=>{dragging={id,from:'cell'};setTimeout(()=>div.style.opacity='.2',0);});
     div.addEventListener('dragend',()=>{div.style.opacity='1';clearPreview();});
+    addTouchDrag(div, id, 'cell');
     div.addEventListener('dblclick', e => {
       e.stopPropagation();
       removeFromCal(id);
@@ -1954,15 +2155,15 @@ document.getElementById('btn-export').addEventListener('click', () => {
 
 // ─── ICS export ────────────────────────────────────────
 function slotToDateTime(month, day, slot) {
-  // slot 0 = 0:00, slot 17 = 8:30, etc.
   const totalMins = slot * 30;
   const h = Math.floor(totalMins / 60);
   const m = totalMins % 60;
+  const yyyy = new Date().getFullYear();
   const mm = String(month).padStart(2,'0');
   const dd = String(day).padStart(2,'0');
   const hh = String(h).padStart(2,'0');
   const mn = String(m).padStart(2,'0');
-  return `20260${mm}${dd}T${hh}${mn}00`;
+  return `${yyyy}${mm}${dd}T${hh}${mn}00`;
 }
 
 function escapeICS(str) {
@@ -2235,6 +2436,119 @@ document.addEventListener('keydown', e => {
   if (open && (e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); saveReview(); }
 });
 
+// ── 週報 ──────────────────────────────────────────────
+let wrOffset = 0;
+
+function generateWeeklyReport(offsetWeeks) {
+  const { mon, sun } = aiGetWeekRange(offsetWeeks);
+  const weekChips = aiGetWeekChips(offsetWeeks);
+  const fmt = d => `${d.getMonth()+1}/${d.getDate()}`;
+  const weekLabel = `${fmt(mon)}（週一）– ${fmt(sun)}（週日）`;
+  const weekNum = Math.ceil((Math.floor((mon - new Date(2026,0,1))/86400000) + 1) / 7);
+
+  const lines = [];
+  lines.push(`✦ 夢想週報 2026 第 ${weekNum} 週`);
+  lines.push(weekLabel);
+  lines.push('');
+
+  // 時間分配
+  const catHrs = {}, doneHrs = {};
+  weekChips.forEach(c => {
+    catHrs[c.cat] = (catHrs[c.cat]||0) + c.dur;
+    if (c.done) doneHrs[c.cat] = (doneHrs[c.cat]||0) + c.dur;
+  });
+  const totalHrs = Object.values(catHrs).reduce((s,v)=>s+v, 0);
+  const totalDoneHrs = Object.values(doneHrs).reduce((s,v)=>s+v, 0);
+
+  if (totalHrs > 0) {
+    lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    lines.push('📊 本週時間分配');
+    lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    Object.entries(catHrs).sort((a,b)=>b[1]-a[1]).forEach(([cat,hrs]) => {
+      const info = getCatInfo(cat);
+      const pct = Math.round(hrs/totalHrs*100);
+      const done = doneHrs[cat] || 0;
+      const barLen = Math.max(1, Math.round(pct/10));
+      const bar = '█'.repeat(barLen) + '░'.repeat(10-barLen);
+      lines.push(`  ${info.icon} ${info.label}　${hrs}hr ${bar} ${pct}%${done<hrs ? '（完成'+done+'hr）':''}`);
+    });
+    const doneCount = weekChips.filter(c=>c.done).length;
+    const pct = weekChips.length > 0 ? Math.round(doneCount/weekChips.length*100) : 0;
+    lines.push('');
+    lines.push(`  ✓ 完成率：${pct}%（${doneCount}/${weekChips.length} 個方塊）`);
+    lines.push(`  ⏱ 計劃 ${totalHrs}hr　完成 ${totalDoneHrs}hr`);
+  }
+
+  // 花費
+  const allExp = weekChips.flatMap(c => (c.expenses||[]).map(e=>({...e,cat:c.cat})));
+  const totalSpend = allExp.reduce((s,e)=>s+e.amt, 0);
+  if (totalSpend > 0) {
+    lines.push('');
+    lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    lines.push(`💰 本週花費：$${totalSpend.toLocaleString()}`);
+    lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    const byCat = {};
+    allExp.forEach(e => { byCat[e.cat] = (byCat[e.cat]||0) + e.amt; });
+    Object.entries(byCat).sort((a,b)=>b[1]-a[1]).forEach(([cat,amt]) => {
+      const info = getCatInfo(cat);
+      lines.push(`  ${info.icon} ${info.label}：$${amt.toLocaleString()}`);
+    });
+    lines.push(`  明細：${allExp.map(e=>`${e.name} $${e.amt}`).join('、')}`);
+  }
+
+  // 每日明細 + 小白板
+  lines.push('');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push('📅 每日記錄');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(mon); d.setDate(mon.getDate() + i);
+    const m = d.getMonth()+1, day = d.getDate();
+    const dow = DOW_NAMES[d.getDay()];
+    const dayChips = weekChips.filter(c => c.month===m && c.day===day);
+    const rv = reviewData[`${m}-${day}`] || {};
+    const hasContent = dayChips.length > 0 || rv.highlight || rv.reflect || rv.tomorrow || rv.free;
+    if (!hasContent) continue;
+
+    lines.push('');
+    lines.push(`【${m}/${day} 週${dow}】`);
+
+    if (dayChips.length > 0) {
+      const dayDone = dayChips.filter(c=>c.done).length;
+      lines.push(`  行程（${dayDone}/${dayChips.length} 完成）`);
+      dayChips.sort((a,b)=>a.startSlot-b.startSlot).forEach(c => {
+        const info = getCatInfo(c.cat);
+        const s = aiFormatTime(c.startSlot), e = aiFormatTime(c.startSlot+durSlots(c.dur));
+        lines.push(`    ${c.done?'✓':'○'} ${info.icon} ${c.name}　${s}–${e}（${c.dur}hr）`);
+      });
+    }
+    if (rv.highlight) lines.push(`  🌟 亮點：${rv.highlight}`);
+    if (rv.reflect)   lines.push(`  🔍 反思：${rv.reflect}`);
+    if (rv.tomorrow)  lines.push(`  🎯 明日目標：${rv.tomorrow}`);
+    if (rv.free)      lines.push(`  💭 隨筆：${rv.free}`);
+  }
+
+  lines.push('');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push(`生成時間：${new Date().toLocaleString('zh-TW')}`);
+
+  return { text: lines.join('\n'), weekLabel, weekNum };
+}
+
+function openWeeklyReport() {
+  wrOffset = 0;
+  document.querySelectorAll('.wr-week-btn').forEach(b => b.classList.toggle('on', b.dataset.offset==='0'));
+  renderWeeklyReport();
+  document.getElementById('weekly-report-modal').classList.add('show');
+}
+
+function renderWeeklyReport() {
+  const { text, weekLabel } = generateWeeklyReport(wrOffset);
+  document.getElementById('weekly-report-output').value = text;
+  document.getElementById('weekly-report-range').textContent = weekLabel;
+}
+
 // ── GitHub Gist 同步 ─────────────────────────────────
 const GIST_FILENAME = 'dream-planner-data.json';
 
@@ -2262,6 +2576,28 @@ function gistSetBtnState(state) {
   if (gistGetConfig().token && state === 'idle') { btn.classList.add('synced'); icon.textContent = '☁'; }
 }
 
+// XHR wrapper for Safari compatibility
+function xhrRequest(method, url, token, bodyObj) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.setRequestHeader('Authorization', 'token ' + token);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Accept', 'application/vnd.github.v3+json');
+    xhr.timeout = 15000;
+    xhr.onload = () => {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        if (xhr.status >= 200 && xhr.status < 300) resolve(data);
+        else reject(new Error(data.message || 'HTTP ' + xhr.status));
+      } catch(e) { reject(new Error('回應解析失敗')); }
+    };
+    xhr.onerror = () => reject(new Error('網路連線失敗，請檢查網路'));
+    xhr.ontimeout = () => reject(new Error('連線逾時，請再試一次'));
+    xhr.send(bodyObj ? JSON.stringify(bodyObj) : null);
+  });
+}
+
 async function gistPush() {
   const { token, gistId } = gistGetConfig();
   if (!token) { openGistModal(); return; }
@@ -2270,29 +2606,15 @@ async function gistPush() {
   const payload = buildSaveData();
   const body = { files: { [GIST_FILENAME]: { content: JSON.stringify(payload, null, 2) } } };
   try {
-    let res, data;
-    const headers = {
-      Authorization: `token ${token}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.github.v3+json',
-    };
+    let data;
     if (gistId) {
-      res = await fetch(`https://api.github.com/gists/${gistId}`, {
-        method: 'PATCH', mode: 'cors', headers, body: JSON.stringify(body),
-      });
+      data = await xhrRequest('PATCH', `https://api.github.com/gists/${gistId}`, token, body);
     } else {
       body.description = '夢想行程規劃器備份';
       body.public = false;
-      res = await fetch('https://api.github.com/gists', {
-        method: 'POST', mode: 'cors', headers, body: JSON.stringify(body),
-      });
+      data = await xhrRequest('POST', 'https://api.github.com/gists', token, body);
     }
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      throw new Error(errData.message || `HTTP ${res.status}`);
-    }
-    data = await res.json();
-    if (!gistId) {
+    if (!gistId && data.id) {
       localStorage.setItem('gist-id', data.id);
       const el = document.getElementById('gist-id-input');
       if (el) el.value = data.id;
@@ -2302,8 +2624,7 @@ async function gistPush() {
     showSaveStatus('☁ 已同步到 Gist', true);
   } catch(e) {
     gistSetBtnState('err');
-    const msg = e.message || String(e);
-    gistSetStatus('推送失敗：' + msg, '#C04040');
+    gistSetStatus('推送失敗：' + (e.message || String(e)), '#C04040');
     console.error('[Gist Push]', e);
     setTimeout(() => gistSetBtnState('idle'), 4000);
   }
@@ -2315,19 +2636,8 @@ async function gistPull() {
   gistSetBtnState('syncing');
   gistSetStatus('拉取中…', '#F0A030');
   try {
-    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-      method: 'GET', mode: 'cors',
-      headers: {
-        Authorization: `token ${token}`,
-        'Accept': 'application/vnd.github.v3+json',
-      },
-    });
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      throw new Error(errData.message || `HTTP ${res.status}`);
-    }
-    const data = await res.json();
-    const content = data.files[GIST_FILENAME]?.content;
+    const data = await xhrRequest('GET', `https://api.github.com/gists/${gistId}`, token, null);
+    const content = data.files?.[GIST_FILENAME]?.content;
     if (!content) throw new Error('找不到備份檔案');
     const parsed = JSON.parse(content);
     restoreData(parsed);
@@ -2338,8 +2648,7 @@ async function gistPull() {
     showSaveStatus('☁ 已從 Gist 還原', true);
   } catch(e) {
     gistSetBtnState('err');
-    const msg = e.message || String(e);
-    gistSetStatus('拉取失敗：' + msg, '#C04040');
+    gistSetStatus('拉取失敗：' + (e.message || String(e)), '#C04040');
     console.error('[Gist Pull]', e);
     setTimeout(() => gistSetBtnState('idle'), 4000);
   }
@@ -2454,7 +2763,256 @@ if (window.innerWidth <= 768) {
       title.closest('.panel').classList.toggle('collapsed');
     });
   });
+
+  // 新增目標 + 待排方塊並排
+  const addPanel = document.getElementById('add-goal-panel');
+  const poolPanel = document.getElementById('pool-panel');
+  if (addPanel && poolPanel && !addPanel.closest('.mobile-row-panels')) {
+    const row = document.createElement('div');
+    row.className = 'mobile-row-panels';
+    addPanel.parentNode.insertBefore(row, addPanel);
+    row.appendChild(addPanel);
+    row.appendChild(poolPanel);
+    // 兩個都展開，不折疊
+    addPanel.classList.remove('collapsed');
+    poolPanel.classList.remove('collapsed');
+  }
 }
+
+// ══════════════════════════════════════════
+// ── AI 教練摘要 ──────────────────────────
+// ══════════════════════════════════════════
+const DOW_NAMES = ['日','一','二','三','四','五','六'];
+
+function aiFormatTime(slot) {
+  const m = slot*30, h=Math.floor(m/60), mn=m%60;
+  return `${String(h).padStart(2,'0')}:${mn===0?'00':'30'}`;
+}
+
+function aiGetWeekRange(offsetWeeks) {
+  // offsetWeeks: 0=本週, -1=上週
+  const today = new Date();
+  const dow = today.getDay();
+  const diffToMon = dow === 0 ? -6 : 1 - dow;
+  const mon = new Date(today); mon.setDate(today.getDate() + diffToMon + offsetWeeks * 7);
+  const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
+  return { mon, sun };
+}
+
+function aiGetWeekChips(offsetWeeks) {
+  const { mon, sun } = aiGetWeekRange(offsetWeeks);
+  return Object.values(chips).filter(c => {
+    if (!c.placed && !c.done) return false;
+    const d = new Date(2026, (c.month||5)-1, c.day||1);
+    return d >= mon && d <= sun;
+  });
+}
+
+function aiFormatWeekStats(weekChips) {
+  const catHrs = {};
+  weekChips.forEach(c => { catHrs[c.cat] = (catHrs[c.cat]||0) + c.dur; });
+  const total = Object.values(catHrs).reduce((s,v)=>s+v, 0);
+  const lines = [];
+  Object.entries(catHrs).sort((a,b)=>b[1]-a[1]).forEach(([cat,hrs]) => {
+    const info = getCatInfo(cat);
+    const pct = total > 0 ? Math.round(hrs/total*100) : 0;
+    lines.push(`  ${info.icon} ${info.label}：${hrs}hr（${pct}%）`);
+  });
+  const spend = weekChips.reduce((s,c)=>s+(c.expenses||[]).reduce((ss,e)=>ss+e.amt,0),0);
+  if (spend > 0) lines.push(`  💰 總花費：$${spend.toLocaleString()}`);
+  return { lines, total, catHrs };
+}
+
+function aiGenerateWeekly() {
+  const win      = document.getElementById('ai-review-win')?.value?.trim() || '';
+  const struggle = document.getElementById('ai-review-struggle')?.value?.trim() || '';
+  const next     = document.getElementById('ai-review-next')?.value?.trim() || '';
+  const goal     = document.getElementById('ai-plan-goal')?.value?.trim() || '';
+  const question = document.getElementById('ai-plan-question')?.value?.trim() || '';
+
+  const lastWeek = aiGetWeekChips(-1);
+  const nextWeek = aiGetWeekChips(0);  // 「本週」行程當作下週規劃參考
+  const { mon: lastMon, sun: lastSun } = aiGetWeekRange(-1);
+  const { mon: nextMon, sun: nextSun } = aiGetWeekRange(0);
+
+  const today = new Date();
+  const dateStr = `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()}`;
+
+  const lines = [];
+  lines.push(`【AI 教練週報｜${dateStr}】`);
+  lines.push('你好！以下是我使用行程規劃工具的數據＋我自己的感受，請以生活教練的角色幫我做上週複盤，並協助規劃下週。');
+  lines.push('');
+
+  // ── 上週數據 ──
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push(`📊 上週執行數據（${lastMon.getMonth()+1}/${lastMon.getDate()} – ${lastSun.getMonth()+1}/${lastSun.getDate()}）`);
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+
+  if (lastWeek.length > 0) {
+    const done = lastWeek.filter(c=>c.done);
+    const pct = Math.round(done.length/lastWeek.length*100);
+    lines.push(`完成率：${pct}%（${done.length}/${lastWeek.length} 個任務）`);
+
+    // 分類對比
+    const planHrs = {}, doneHrs = {};
+    lastWeek.forEach(c => {
+      planHrs[c.cat] = (planHrs[c.cat]||0) + c.dur;
+      if (c.done) doneHrs[c.cat] = (doneHrs[c.cat]||0) + c.dur;
+    });
+    lines.push('');
+    lines.push('各分類（計劃 → 實際完成）：');
+    Object.entries(planHrs).sort((a,b)=>b[1]-a[1]).forEach(([cat,plan]) => {
+      const actual = doneHrs[cat] || 0;
+      const info = getCatInfo(cat);
+      const mark = actual >= plan ? '✓' : actual === 0 ? '✗' : '△';
+      lines.push(`  ${mark} ${info.icon} ${info.label}：${plan}hr → ${actual}hr`);
+    });
+
+    // 每日明細
+    const byDay = {};
+    lastWeek.forEach(c => {
+      const k = `${c.month}-${c.day}`;
+      if (!byDay[k]) byDay[k] = [];
+      byDay[k].push(c);
+    });
+    lines.push('');
+    lines.push('每日明細：');
+    Object.entries(byDay).sort((a,b)=>{
+      const [am,ad]=a[0].split('-').map(Number),[bm,bd]=b[0].split('-').map(Number);
+      return am!==bm?am-bm:ad-bd;
+    }).forEach(([key,dayChips])=>{
+      const [m,d]=key.split('-').map(Number);
+      const dayDone=dayChips.filter(c=>c.done).length;
+      lines.push(`【${m}/${d} 週${DOW_NAMES[getDayOfWeek(m,d)]}】 完成 ${dayDone}/${dayChips.length}`);
+      dayChips.sort((a,b)=>a.startSlot-b.startSlot).forEach(c=>{
+        const info=getCatInfo(c.cat);
+        lines.push(`  ${c.done?'✓':'✗'} ${info.icon} ${c.name}（${c.dur}hr）`);
+      });
+    });
+
+    // 花費
+    const spend = lastWeek.reduce((s,c)=>s+(c.expenses||[]).reduce((ss,e)=>ss+e.amt,0),0);
+    if (spend > 0) {
+      lines.push('');
+      lines.push(`上週總花費：$${spend.toLocaleString()}`);
+      lastWeek.flatMap(c=>(c.expenses||[]).map(e=>({...e,cat:c.cat}))).forEach(e=>{
+        const info=getCatInfo(e.cat);
+        lines.push(`  ${info.icon} ${e.name}：$${e.amt}`);
+      });
+    }
+  } else {
+    lines.push('（上週尚無行程記錄）');
+  }
+
+  // ── 上週感受 ──
+  lines.push('');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push('💬 上週主觀感受');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push(`🌟 最有成就感的事：${win || '（未填寫）'}`);
+  lines.push(`😓 最難的事：${struggle || '（未填寫）'}`);
+  lines.push(`🎯 最想改變的事：${next || '（未填寫）'}`);
+  const mood = document.getElementById('mood')?.value?.trim();
+  if (mood) lines.push(`🌡 整體心情：${mood}`);
+
+  // ── 下週規劃 ──
+  lines.push('');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push(`📅 下週已排行程（${nextMon.getMonth()+1}/${nextMon.getDate()} – ${nextSun.getMonth()+1}/${nextSun.getDate()}）`);
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+
+  if (nextWeek.length > 0) {
+    const byDay2 = {};
+    nextWeek.forEach(c => {
+      const k = `${c.month}-${c.day}`;
+      if (!byDay2[k]) byDay2[k] = [];
+      byDay2[k].push(c);
+    });
+    Object.entries(byDay2).sort((a,b)=>{
+      const [am,ad]=a[0].split('-').map(Number),[bm,bd]=b[0].split('-').map(Number);
+      return am!==bm?am-bm:ad-bd;
+    }).forEach(([key,dayChips])=>{
+      const [m,d]=key.split('-').map(Number);
+      lines.push(`【${m}/${d} 週${DOW_NAMES[getDayOfWeek(m,d)]}】`);
+      dayChips.sort((a,b)=>a.startSlot-b.startSlot).forEach(c=>{
+        const info=getCatInfo(c.cat);
+        const s=aiFormatTime(c.startSlot),e=aiFormatTime(c.startSlot+durSlots(c.dur));
+        lines.push(`  ○ ${info.icon} ${c.name}　${s}–${e}（${c.dur}hr）`);
+      });
+    });
+    const { lines: statLines } = aiFormatWeekStats(nextWeek);
+    lines.push('');
+    lines.push('下週時間分配：');
+    statLines.forEach(l => lines.push(l));
+  } else {
+    lines.push('（下週尚無已排行程）');
+  }
+
+  lines.push('');
+  lines.push(`📌 下週想達成的目標：${goal || '（未填寫）'}`);
+  if (question) {
+    lines.push('');
+    lines.push(`💭 想請教你的事：${question}`);
+  }
+
+  // ── AI 請求 ──
+  lines.push('');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push('請以生活教練的角色：');
+  lines.push('1. 分析上週完成率與時間分配，肯定做得好的地方。');
+  lines.push('2. 找出未完成的項目，推測可能原因並給具體改善建議。');
+  lines.push('3. 結合我的感受與下週行程，給我 3 個下週可以執行的調整建議。');
+  lines.push('4. 評估下週目標的可行性，必要時幫我微調優先順序。');
+  if (question) lines.push('5. 針對我的疑問給一些實用建議。');
+  lines.push('請用溫暖親切的語氣，像朋友一樣跟我說話 😊');
+
+  return lines.join('\n');
+}
+
+function openAiCoach(){
+  document.getElementById('ai-coach-output').value = '';
+  document.getElementById('ai-coach-modal').classList.add('show');
+}
+
+document.getElementById('btn-ai-coach').addEventListener('click', openAiCoach);
+document.getElementById('ai-coach-close').addEventListener('click', ()=>document.getElementById('ai-coach-modal').classList.remove('show'));
+document.getElementById('ai-coach-modal').addEventListener('click', e=>{
+  if(e.target===document.getElementById('ai-coach-modal')) document.getElementById('ai-coach-modal').classList.remove('show');
+});
+
+document.getElementById('ai-coach-regen').addEventListener('click', ()=>{
+  document.getElementById('ai-coach-output').value = aiGenerateWeekly();
+});
+
+document.getElementById('ai-coach-copy').addEventListener('click', ()=>{
+  let text = document.getElementById('ai-coach-output').value;
+  if (!text) {
+    text = aiGenerateWeekly();
+    document.getElementById('ai-coach-output').value = text;
+  }
+  const badge = document.getElementById('ai-copy-badge');
+  const show = () => { badge.style.opacity='1'; setTimeout(()=>badge.style.opacity='0', 2000); };
+  navigator.clipboard?.writeText(text).then(show).catch(()=>{
+    const el = document.getElementById('ai-coach-output');
+    el.select(); document.execCommand('copy'); show();
+  });
+});
+
+document.getElementById('ai-coach-download').addEventListener('click', ()=>{
+  let text = document.getElementById('ai-coach-output').value;
+  if (!text) {
+    text = aiGenerateWeekly();
+    document.getElementById('ai-coach-output').value = text;
+  }
+  const today = new Date();
+  const dateStr = `${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}`;
+  const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `AI教練週報_${dateStr}.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
 </script>
 
 

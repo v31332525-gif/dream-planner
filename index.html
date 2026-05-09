@@ -77,7 +77,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .edit-section-title{font-size:9px;font-weight:700;letter-spacing:.05em;color:var(--text3);text-transform:uppercase;margin:8px 0 5px;padding-top:8px;border-top:0.5px solid var(--border2);}
 .expense-row{display:flex;gap:4px;margin-bottom:5px;align-items:center;}
 .expense-row .edit-field{margin-bottom:0;flex:1;}
-.expense-item-list{display:flex;flex-direction:column;gap:3px;margin-bottom:5px;max-height:100px;overflow-y:auto;}
+.expense-item-list{display:flex;flex-direction:column;gap:3px;margin-bottom:5px;max-height:140px;overflow-y:auto;}
 .expense-item{display:flex;align-items:center;gap:4px;font-size:10px;padding:3px 5px;background:var(--surface2);border-radius:var(--radius-sm);}
 .expense-item-name{flex:1;color:var(--text);}
 .expense-item-amt{font-family:'DM Mono',monospace;color:var(--accent);font-size:10px;}
@@ -393,6 +393,71 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .ai-tab:hover:not(.on){border-color:var(--accent);color:var(--accent);}
 #ai-tab-plan:hover, #ai-tab-review:hover{border-color:var(--accent)!important;color:var(--accent)!important;background:var(--surface)!important;box-shadow:0 2px 12px rgba(124,106,78,.13);}
 #ai-back-btn:hover{color:var(--accent)!important;}
+
+/* ── 財務面板 overlay ── */
+.finance-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:1500;display:none;align-items:flex-end;justify-content:center;}
+.finance-overlay.show{display:flex;}
+.finance-panel{background:var(--surface);border-radius:20px 20px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.18);width:min(680px,100vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
+.finance-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:0.5px solid var(--border2);flex-shrink:0;}
+.finance-title{font-size:16px;font-weight:700;color:var(--text);font-family:'Noto Serif TC',serif;}
+.finance-close{background:none;border:none;cursor:pointer;font-size:16px;color:var(--text3);padding:4px;}
+.finance-close:hover{color:var(--text);}
+.finance-body{flex:1;overflow-y:auto;padding:16px 20px;}
+.fin-budget-card{background:linear-gradient(135deg,#4A7FD4 0%,#7C6A4E 100%);border-radius:14px;padding:18px 20px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden;}
+.fin-budget-card::after{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);}
+.fin-budget-label{font-size:10px;opacity:.8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+.fin-budget-remaining{font-size:32px;font-weight:700;font-family:'DM Mono',monospace;line-height:1;}
+.fin-budget-sub{font-size:11px;opacity:.75;margin-top:4px;}
+.fin-budget-bar-wrap{margin-top:12px;background:rgba(255,255,255,.2);border-radius:6px;height:6px;overflow:hidden;}
+.fin-budget-bar{height:100%;border-radius:6px;background:#fff;transition:width .4s;}
+.fin-budget-bar.warn{background:#FFD580;}
+.fin-budget-bar.danger{background:#FF8A8A;}
+.fin-budget-edit-row{display:flex;gap:8px;margin-top:12px;align-items:center;}
+.fin-budget-input{flex:1;padding:6px 10px;font-size:13px;font-family:'DM Mono',monospace;border:none;border-radius:8px;background:rgba(255,255,255,.2);color:#fff;outline:none;}
+.fin-budget-input::placeholder{color:rgba(255,255,255,.5);}
+.fin-budget-input:focus{background:rgba(255,255,255,.3);}
+.fin-budget-set-btn{padding:6px 14px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:8px;background:rgba(255,255,255,.25);color:#fff;cursor:pointer;}
+.fin-budget-set-btn:hover{background:rgba(255,255,255,.4);}
+.fin-section-title{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:10px;}
+.fin-cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.fin-cat-card{background:var(--surface2);border:0.5px solid var(--border2);border-radius:10px;padding:10px 12px;cursor:pointer;transition:all .15s;position:relative;}
+.fin-cat-card:hover{border-color:var(--accent);background:var(--surface);}
+.fin-cat-card.over-budget{border-color:#E57373!important;background:#FFF5F5;}
+.fin-cat-icon{font-size:14px;margin-bottom:4px;}
+.fin-cat-name{font-size:9px;color:var(--text2);margin-bottom:5px;}
+.fin-cat-spent{font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text);}
+.fin-cat-limit{font-size:9px;color:var(--text3);margin-top:1px;}
+.fin-cat-bar-wrap{margin-top:6px;background:var(--border2);border-radius:3px;height:3px;overflow:hidden;}
+.fin-cat-bar{height:100%;border-radius:3px;background:var(--accent);transition:width .3s;}
+.fin-cat-bar.warn{background:#F0A030;}
+.fin-cat-bar.danger{background:#E57373;}
+.fin-cards-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.fin-card-row{background:var(--surface2);border:0.5px solid var(--border2);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;}
+.fin-card-icon{font-size:18px;flex-shrink:0;}
+.fin-card-info{flex:1;}
+.fin-card-name{font-size:11px;font-weight:700;color:var(--text);}
+.fin-card-spent{font-size:10px;color:var(--text2);font-family:'DM Mono',monospace;}
+.fin-card-amt{font-size:16px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent);flex-shrink:0;}
+.fin-card-add-row{display:flex;gap:6px;margin-bottom:10px;}
+.fin-card-input{flex:1;padding:6px 10px;font-size:11px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text);outline:none;}
+.fin-card-input:focus{border-color:var(--accent);}
+.fin-card-add-btn{padding:6px 12px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer;}
+.fin-manual-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;max-height:200px;overflow-y:auto;}
+.fin-manual-row{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--surface2);border-radius:8px;font-size:11px;}
+.fin-manual-cat{font-size:12px;flex-shrink:0;}
+.fin-manual-name{flex:1;color:var(--text);}
+.fin-manual-card{font-size:9px;color:var(--text3);white-space:nowrap;padding:1px 5px;background:var(--border2);border-radius:4px;}
+.fin-manual-amt{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);flex-shrink:0;}
+.fin-manual-del{color:var(--text3);cursor:pointer;font-size:10px;padding:0 4px;}
+.fin-manual-del:hover{color:#E57373;}
+.fin-add-row{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;}
+.fin-add-row select,.fin-add-row input{padding:6px 8px;font-size:11px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text);outline:none;}
+.fin-add-row select:focus,.fin-add-row input:focus{border-color:var(--accent);}
+.finance-fab{position:fixed;bottom:24px;right:16px;z-index:1400;padding:10px 18px;font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:50px;background:var(--accent);color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.22);display:flex;align-items:center;gap:6px;transition:all .2s;}
+.finance-fab:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.28);}
+.finance-fab-badge{background:#E57373;color:#fff;border-radius:50%;width:18px;height:18px;font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;flex-shrink:0;}
+.finance-fab-badge.show{display:flex;}
+@media(max-width:768px){.finance-panel{max-height:88vh;border-radius:16px 16px 0 0;}.fin-cat-grid{grid-template-columns:repeat(2,1fr);}.fin-add-row{flex-wrap:wrap;}.finance-fab{bottom:calc(16px + env(safe-area-inset-bottom));}}
 </style>
 </head>
 <body>
@@ -496,14 +561,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 <div class="planner">
   <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="daily-spend-block panel" id="daily-spend-block">
-      <div class="ptitle">花費明細</div>
-      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">
-        <div class="ds-total" id="ds-total">$0</div>
-        <div class="ds-lbl" id="ds-lbl">今日總支出</div>
-      </div>
-      <div id="ds-detail-list"></div>
-    </div>
+<!-- daily-spend-block removed -->
 
     <div class="panel" id="add-goal-panel">
       <div class="ptitle">新增目標</div>
@@ -600,21 +658,27 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
   </div>
   <input class="edit-field" id="edit-name" placeholder="名稱">
   <input class="edit-field" id="edit-dur" type="number" min="0.5" max="10" step="0.5" placeholder="時數（hr）" inputmode="decimal">
+  <div id="edit-dur-preview" style="font-size:10px;color:var(--accent);margin:-4px 0 8px 2px;min-height:14px;font-family:'DM Mono',monospace;letter-spacing:.02em;"></div>
 
   <div class="edit-section-title">💰 花費記錄</div>
 
-  <div class="expense-shortcuts" id="expense-shortcuts">
-    <!-- rendered by JS -->
-  </div>
-  <div style="display:flex;gap:3px;align-items:center;margin-bottom:6px;flex-wrap:nowrap;">
-    <input class="exp-shortcut-input" id="exp-shortcut-new" placeholder="新增標籤">
-    <button id="exp-shortcut-add" class="exp-shortcut-add-btn" title="新增快捷標籤">＋</button>
+  <div class="expense-shortcuts" id="expense-shortcuts"></div>
+  <div style="display:flex;gap:3px;align-items:center;margin-bottom:4px;">
+    <input class="exp-shortcut-input" id="exp-shortcut-new" placeholder="＋ 新增快捷">
+    <button id="exp-shortcut-add" class="exp-shortcut-add-btn">＋</button>
   </div>
 
-  <div style="display:flex;gap:4px;margin-bottom:6px;">
-    <input class="edit-field" id="expense-item-name" placeholder="品項" style="margin-bottom:0;flex:1;">
-    <input class="edit-field" id="expense-item-amt" type="number" min="0" step="1" placeholder="$" style="margin-bottom:0;width:60px;" inputmode="numeric">
-    <button id="expense-add-btn" style="padding:0 8px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;">＋</button>
+  <!-- 第一行：類別 + 卡別 + 品項名稱 -->
+  <div style="display:flex;gap:3px;margin-bottom:3px;">
+    <select id="expense-fin-cat" style="width:72px;flex-shrink:0;padding:5px 4px;font-size:10px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;"></select>
+    <select id="expense-fin-card" style="width:72px;flex-shrink:0;padding:5px 4px;font-size:10px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;"></select>
+    <input class="edit-field" id="expense-item-name" placeholder="品項名稱" style="margin-bottom:0;flex:1;min-width:0;">
+  </div>
+
+  <!-- 第二行：金額 + ＋ -->
+  <div style="display:flex;gap:3px;margin-bottom:6px;">
+    <input class="edit-field" id="expense-item-amt" type="number" min="0" step="1" placeholder="金額 $" style="margin-bottom:0;flex:1;" inputmode="numeric">
+    <button id="expense-add-btn" style="padding:0 12px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#fff;font-size:14px;cursor:pointer;flex-shrink:0;">＋</button>
   </div>
 
   <div class="expense-item-list" id="expense-item-list"></div>
@@ -1453,23 +1517,32 @@ function renderExpenseList() {
   const exps = ch.expenses || [];
 
   exps.forEach((exp, i) => {
+    const finCatDef = (typeof FIN_CAT_DEF !== 'undefined') ? FIN_CAT_DEF.find(d => d.key === exp.finCat) : null;
+    const cardLabel = (typeof finData !== 'undefined' && exp.cardId) ? (finData.cards.find(c => c.id === exp.cardId)?.name || '現金') : '現金';
+
     const row = document.createElement('div');
     row.className = 'expense-item';
-    row.innerHTML = `<span class="expense-item-name">${exp.name}</span><span class="expense-item-amt">$${Number(exp.amt).toLocaleString()}</span><span class="expense-item-del" data-i="${i}">✕</span>`;
+    row.style.cssText = 'display:grid;grid-template-columns:auto auto 1fr auto auto;align-items:center;gap:4px;padding:4px 4px;border-radius:5px;background:var(--surface2);';
+    row.innerHTML =
+      // 類別 icon
+      `<span style="font-size:12px;flex-shrink:0;" title="${finCatDef?.label||'雜項'}">${finCatDef?.icon||'📦'}</span>` +
+      // 付款方式
+      `<span style="font-size:8px;color:var(--text3);background:var(--border2);padding:1px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0;">` +
+        `${exp.cardId ? '💳' : '💵'} ${cardLabel}</span>` +
+      // 品項名稱
+      `<span style="font-size:10px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${exp.name}</span>` +
+      // 金額
+      `<span style="font-size:10px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent);white-space:nowrap;">$${Number(exp.amt).toLocaleString()}</span>` +
+      // 刪除
+      `<span class="expense-item-del" data-i="${i}" style="cursor:pointer;color:var(--text3);font-size:11px;padding:0 2px;flex-shrink:0;">✕</span>`;
+
     row.querySelector('.expense-item-del').addEventListener('click', e => {
       e.stopPropagation();
       ch.expenses.splice(i, 1);
       renderExpenseList();
       updateDailySpend();
       saveToLocal();
-    });
-    row.addEventListener('dblclick', e => {
-      e.stopPropagation();
-      ch.expenses.splice(i, 1);
-      renderExpenseList();
-      updateDailySpend();
-      saveToLocal();
-      showSaveStatus('已刪除：' + exp.name, false);
+      if (typeof finRender === 'function') { finRender(); finUpdateFabBadge(); }
     });
     list.appendChild(row);
   });
@@ -1495,8 +1568,10 @@ function addExpenseItem() {
     nameEl.focus();
     return;
   }
+  const finCat = document.getElementById('expense-fin-cat')?.value || 'misc';
+  const cardId = document.getElementById('expense-fin-card')?.value || '';
   if (!ch.expenses) ch.expenses = [];
-  ch.expenses.push({ name, amt });
+  ch.expenses.push({ name, amt, finCat, cardId });
   nameEl.value = '';
   amtEl.value = '';
   // 收起數字鍵盤
@@ -1508,7 +1583,19 @@ function addExpenseItem() {
   renderExpenseList();
   updateDailySpend();
   saveToLocal();
+  if (typeof finRender === 'function') { finRender(); finUpdateFabBadge(); }
   showSaveStatus('✓ $' + amt.toLocaleString() + ' 已記錄', true);
+}
+
+function updateDurPreview() {
+  const ch = editingId !== null ? chips[editingId] : null;
+  const preview = document.getElementById('edit-dur-preview');
+  if (!preview) return;
+  if (!ch || !ch.placed) { preview.textContent = ''; return; }
+  const dur = parseFloat(document.getElementById('edit-dur').value) || ch.dur;
+  const start = ch.startSlot;
+  const end = start + durSlots(dur);
+  preview.textContent = slotLabel(start) + ' → ' + slotLabel(Math.min(end, SLOT_END + 1));
 }
 
 function openEditCard(id, anchorEl) {
@@ -1516,8 +1603,22 @@ function openEditCard(id, anchorEl) {
   editingId = id;
   document.getElementById('edit-name').value = ch.name;
   document.getElementById('edit-dur').value = ch.dur;
+  updateDurPreview();
   document.getElementById('expense-item-name').value = '';
   document.getElementById('expense-item-amt').value = '';
+  // populate card dropdown from finance module
+  const cardSel = document.getElementById('expense-fin-card');
+  if (cardSel && typeof finData !== 'undefined') {
+    cardSel.innerHTML = '<option value="">💵 現金</option>';
+    (finData.cards || []).forEach(card => {
+      const opt = document.createElement('option');
+      opt.value = card.id;
+      opt.textContent = '💳 ' + card.name;
+      cardSel.appendChild(opt);
+    });
+  }
+  // 確保財務分類 select 有選項
+  if (typeof finUpdateManualCatSelect === 'function') finUpdateManualCatSelect();
 
   // reflect done state on button
   const doneBtn = document.getElementById('edit-done');
@@ -1691,6 +1792,7 @@ document.getElementById('edit-done').addEventListener('click', e => {
   updateStats();
 });
 
+document.getElementById('edit-dur').addEventListener('input', updateDurPreview);
 document.getElementById('edit-close').addEventListener('click', e => { e.stopPropagation(); closeEditCard(); });
 
 document.getElementById('edit-save').addEventListener('click', e => {
@@ -1805,10 +1907,10 @@ function updateDailySpend() {
   const displayLabel = hasToday ? '今日總支出' : (allWithExpenses.length > 0 ? '全部花費' : '尚無花費記錄');
 
   const grandTotal = displayChips.reduce((s,c) => s + c.expenses.reduce((ss,e)=>ss+e.amt,0), 0);
-  document.getElementById('ds-total').textContent = '$' + grandTotal.toLocaleString();
-  document.getElementById('ds-lbl').textContent = displayLabel;
+  if(document.getElementById('ds-total')) document.getElementById('ds-total').textContent = '$' + grandTotal.toLocaleString();
+  if(document.getElementById('ds-lbl')) document.getElementById('ds-lbl').textContent = displayLabel;
 
-  const detailList = document.getElementById('ds-detail-list');
+  const detailList = document.getElementById('ds-detail-list'); if (!detailList) return;
   detailList.innerHTML = '';
 
   if (displayChips.length === 0) {
@@ -3015,5 +3117,594 @@ document.getElementById('ai-coach-download').addEventListener('click', ()=>{
 });
 </script>
 
+
+
+<!-- ── 財務總覽面板 ── -->
+<button class="finance-fab" id="finance-fab">💳 財務<span class="finance-fab-badge" id="finance-fab-badge">!</span></button>
+<div class="finance-overlay" id="finance-overlay">
+  <div class="finance-panel">
+    <div class="finance-header">
+      <div class="finance-title">💳 財務總覽</div>
+      <div style="display:flex;align-items:center;gap:10px;"><span id="fin-month-label" style="font-size:11px;color:var(--text2);"></span><button class="finance-close" id="finance-close">✕</button></div>
+    </div>
+    <div class="finance-body">
+      <div class="fin-budget-card">
+        <div class="fin-budget-label">本月可支出餘額</div>
+        <div class="fin-budget-remaining" id="fin-remaining">$0</div>
+        <div class="fin-budget-sub" id="fin-budget-sub">尚未設定預算</div>
+        <div class="fin-budget-bar-wrap"><div class="fin-budget-bar" id="fin-budget-bar" style="width:0%"></div></div>
+        <div class="fin-budget-edit-row">
+          <input class="fin-budget-input" id="fin-budget-input" type="number" placeholder="設定月預算（例如 30000）…" inputmode="numeric">
+          <button class="fin-budget-set-btn" id="fin-budget-set-btn">設定</button>
+        </div>
+      </div>
+      <div class="fin-section-title">分類花費</div>
+      <div class="fin-cat-grid" id="fin-cat-grid"></div>
+      <div class="fin-card-add-row" style="margin-bottom:16px;">
+        <input class="fin-card-input" id="fin-cat-icon-input" placeholder="😀" style="width:42px;flex:none;text-align:center;font-size:16px;">
+        <input class="fin-card-input" id="fin-cat-name-input" placeholder="自訂分類名稱">
+        <button class="fin-card-add-btn" id="fin-cat-add-btn">＋ 新增分類</button>
+      </div>
+      <div class="fin-section-title">信用卡帳單</div>
+      <div class="fin-card-add-row"><input class="fin-card-input" id="fin-card-name-input" placeholder="卡片名稱（如：花旗26 / 國泰8）"><button class="fin-card-add-btn" id="fin-card-add-btn">＋ 新增卡片</button></div>
+      <div class="fin-cat-grid" id="fin-cards-list"></div>
+      <div class="fin-section-title">手動記錄花費 <span style="font-weight:400;opacity:.6;text-transform:none;font-size:8px;">（固定支出、帳單、不綁方塊的花費）</span></div>
+      <div class="fin-add-row">
+        <select id="fin-exp-cat" style="width:105px;padding:6px 8px;font-size:11px;font-family:inherit;border:0.5px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text);outline:none;">
+          <option value="meal">🍽️ 餐費</option>
+          <option value="transport">🚌 交通費</option>
+          <option value="entertainment">🎮 娛樂費</option>
+          <option value="misc">📦 雜項</option>
+          <option value="medical">💊 醫療費</option>
+          <option value="course">📚 課程</option>
+          <option value="fixed">🔧 固定支出</option>
+          <option value="saving">💰 儲蓄目標</option>
+        </select>
+        <input id="fin-exp-name" placeholder="品項名稱" style="flex:1;min-width:80px;padding:6px 8px;font-size:11px;font-family:inherit;border:0.5px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text);outline:none;">
+        <input id="fin-exp-amt" type="number" placeholder="金額" style="width:72px;padding:6px 8px;font-size:11px;font-family:DM Mono,monospace;border:0.5px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text);outline:none;" inputmode="numeric">
+        <select id="fin-exp-card" style="width:90px;padding:6px 8px;font-size:11px;font-family:inherit;border:0.5px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text);outline:none;"><option value="">現金/其他</option></select>
+        <button id="fin-exp-add-btn" style="padding:6px 12px;font-size:11px;font-weight:700;font-family:inherit;border:none;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;">＋ 記錄</button>
+      </div>
+      <div class="fin-manual-list" id="fin-manual-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// ── 財務總覽系統 FINANCE MODULE ───────────
+// ══════════════════════════════════════════
+
+const FIN_CAT_DEF_BUILTIN = [
+  { key:'meal',          icon:'🍽️', label:'餐費',     defaultLimit:5000  },
+  { key:'transport',     icon:'🚌', label:'交通費',   defaultLimit:500   },
+  { key:'entertainment', icon:'🎮', label:'娛樂費',   defaultLimit:4500  },
+  { key:'misc',          icon:'📦', label:'雜項',     defaultLimit:2000  },
+  { key:'medical',       icon:'💊', label:'醫療費',   defaultLimit:1000  },
+  { key:'course',        icon:'📚', label:'課程',     defaultLimit:3960  },
+  { key:'fixed',         icon:'🔧', label:'固定支出', defaultLimit:0     },
+  { key:'saving',        icon:'💰', label:'儲蓄目標', defaultLimit:0     },
+];
+// 動態陣列，包含內建 + 自訂
+let FIN_CAT_DEF = [...FIN_CAT_DEF_BUILTIN];
+
+// Map planner chip categories → finance categories
+const CAT_TO_FIN = {
+  eat:'meal', class:'course', fun:'entertainment',
+  chore:'misc', work:'misc', movie:'entertainment',
+  read:'course', sport:'transport', growth:'course',
+  rest:'misc', flex:'misc',
+};
+
+let finData = {
+  monthBudget: 0,
+  catLimits: {},
+  cards: [],
+  manualExpenses: [],
+};
+
+function finLoad() {
+  try {
+    const raw = localStorage.getItem('fin-data-v1');
+    if (raw) Object.assign(finData, JSON.parse(raw));
+  } catch(e) {}
+  // 還原自訂分類到 FIN_CAT_DEF
+  if (finData.customCatsDef) {
+    FIN_CAT_DEF = [...FIN_CAT_DEF_BUILTIN, ...finData.customCatsDef];
+  }
+  FIN_CAT_DEF.forEach(c => {
+    if (finData.catLimits[c.key] === undefined)
+      finData.catLimits[c.key] = c.defaultLimit || 0;
+  });
+}
+
+function finSave() {
+  try { localStorage.setItem('fin-data-v1', JSON.stringify(finData)); } catch(e) {}
+}
+
+function finGetChipExpenses() {
+  const byCat = {};
+  FIN_CAT_DEF.forEach(c => byCat[c.key] = 0);
+  const m = currentMonth;
+  Object.values(chips).forEach(chip => {
+    if (!chip.expenses || !chip.expenses.length) return;
+    if (chip.placed && chip.month !== m) return;
+    if (!chip.placed && !chip.done) return;
+    chip.expenses.forEach(e => {
+      const finCat = e.finCat || CAT_TO_FIN[chip.cat] || 'misc';
+      byCat[finCat] = (byCat[finCat]||0) + e.amt;
+    });
+  });
+  return byCat;
+}
+
+function finGetManualByCat() {
+  const byCat = {};
+  FIN_CAT_DEF.forEach(c => byCat[c.key] = 0);
+  finData.manualExpenses.forEach(e => {
+    byCat[e.cat] = (byCat[e.cat]||0) + e.amt;
+  });
+  return byCat;
+}
+
+function finGetCardTotals() {
+  const byCard = {};
+  finData.cards.forEach(c => byCard[c.id] = 0);
+  finData.manualExpenses.forEach(e => {
+    if (e.cardId) byCard[e.cardId] = (byCard[e.cardId]||0) + e.amt;
+  });
+  // also count chip expenses with cardId
+  const m = currentMonth;
+  Object.values(chips).forEach(chip => {
+    if (!chip.expenses || !chip.expenses.length) return;
+    if (chip.placed && chip.month !== m) return;
+    chip.expenses.forEach(e => {
+      if (e.cardId && byCard[e.cardId] !== undefined)
+        byCard[e.cardId] = (byCard[e.cardId]||0) + e.amt;
+    });
+  });
+  return byCard;
+}
+
+function finTotalSpent(chipByCat, manualByCat) {
+  let total = 0;
+  FIN_CAT_DEF.forEach(c => {
+    if (c.key === 'saving') return;
+    total += (chipByCat[c.key]||0) + (manualByCat[c.key]||0);
+  });
+  return total;
+}
+
+function finUpdateFabBadge() {
+  const chipByCat = finGetChipExpenses();
+  const manualByCat = finGetManualByCat();
+  const totalSpent = finTotalSpent(chipByCat, manualByCat);
+  const budget = finData.monthBudget || 0;
+  const badge = document.getElementById('finance-fab-badge');
+  const hasOver = (budget > 0 && totalSpent > budget) ||
+    FIN_CAT_DEF.some(def => {
+      const limit = finData.catLimits[def.key];
+      return limit > 0 && ((chipByCat[def.key]||0) + (manualByCat[def.key]||0)) > limit;
+    });
+  if (badge) badge.classList.toggle('show', hasOver);
+}
+
+function finRender() {
+  const chipByCat = finGetChipExpenses();
+  const manualByCat = finGetManualByCat();
+  const cardTotals = finGetCardTotals();
+  const totalSpent = finTotalSpent(chipByCat, manualByCat);
+  const budget = finData.monthBudget || 0;
+  const remaining = budget - totalSpent;
+  const pct = budget > 0 ? Math.min(100, Math.round(totalSpent / budget * 100)) : 0;
+
+  const MNAMES = ['','一','二','三','四','五','六','七','八','九','十','十一','十二'];
+  const ml = document.getElementById('fin-month-label');
+  if (ml) ml.textContent = '2026年' + MNAMES[currentMonth] + '月';
+
+  // Budget card
+  const remEl = document.getElementById('fin-remaining');
+  if (remEl) {
+    remEl.textContent = '$' + remaining.toLocaleString();
+    remEl.style.color = remaining < 0 ? '#FF8A8A' : '#fff';
+  }
+  const subEl = document.getElementById('fin-budget-sub');
+  if (subEl) {
+    subEl.textContent = budget > 0
+      ? '已花費 $' + totalSpent.toLocaleString() + ' / 預算 $' + budget.toLocaleString() + '（' + pct + '%）'
+      : '尚未設定預算，請在下方輸入後點「設定」';
+  }
+  const bar = document.getElementById('fin-budget-bar');
+  if (bar) {
+    bar.style.width = pct + '%';
+    bar.className = 'fin-budget-bar' + (pct >= 100 ? ' danger' : pct >= 80 ? ' warn' : '');
+  }
+  const bi = document.getElementById('fin-budget-input');
+  if (bi && budget > 0) bi.placeholder = '目前預算 $' + budget.toLocaleString();
+
+  // Category grid
+  const grid = document.getElementById('fin-cat-grid');
+  if (grid) {
+    grid.innerHTML = '';
+    FIN_CAT_DEF.forEach(def => {
+      const chipAmt = chipByCat[def.key] || 0;
+      const manualAmt = manualByCat[def.key] || 0;
+      const total = chipAmt + manualAmt;
+      const limit = finData.catLimits[def.key] || 0;
+      const catPct = limit > 0 ? Math.min(100, Math.round(total / limit * 100)) : 0;
+      const over = limit > 0 && total > limit;
+
+      const isCustom = finData.customCatsDef && finData.customCatsDef.some(c => c.key === def.key);
+
+      const card = document.createElement('div');
+      card.className = 'fin-cat-card' + (over ? ' over-budget' : '');
+      card.title = '點擊設定此類別上限';
+      card.innerHTML =
+        '<div style="display:flex;align-items:flex-start;gap:6px;">' +
+          '<div>' +
+            '<div class="fin-cat-icon">' + def.icon + '</div>' +
+          '</div>' +
+          '<div style="flex:1;min-width:0;">' +
+            '<div class="fin-cat-name">' + def.label + '</div>' +
+            '<div class="fin-cat-spent">$' + total.toLocaleString() + '</div>' +
+            '<div class="fin-cat-limit" style="cursor:pointer;" data-limit-edit="1">' + (limit > 0 ? '上限 $' + limit.toLocaleString() : '＋ 設上限') + (over ? ' ⚠️' : '') + '</div>' +
+          '</div>' +
+          (total > 0 ? '<div style="font-size:9px;color:var(--text2);padding-top:2px;cursor:pointer;" data-detail-toggle="1">明細 ▾</div>' : '') +
+          (isCustom ? '<button class="fin-cat-del" title="刪除此分類" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:12px;padding:2px 4px;align-self:flex-start;line-height:1;">✕</button>' : '') +
+        '</div>' +
+        (limit > 0 ? '<div class="fin-cat-bar-wrap" style="margin-top:6px;"><div class="fin-cat-bar ' + (catPct>=100?'danger':catPct>=80?'warn':'') + '" style="width:' + catPct + '%"></div></div>' : '') +
+        '<div class="fin-cat-detail" style="display:none;margin-top:6px;border-top:0.5px solid var(--border2);padding-top:5px;"></div>';
+
+      // 刪除自訂分類
+      if (isCustom) {
+        card.querySelector('.fin-cat-del')?.addEventListener('click', e => {
+          e.stopPropagation();
+          // inline confirm
+          const btn = e.currentTarget;
+          if (btn.dataset.confirming) {
+            finData.customCatsDef = finData.customCatsDef.filter(c => c.key !== def.key);
+            delete finData.catLimits[def.key];
+            FIN_CAT_DEF = [...FIN_CAT_DEF_BUILTIN, ...(finData.customCatsDef||[])];
+            finSave(); finRender(); finUpdateManualCatSelect();
+          } else {
+            btn.dataset.confirming = '1';
+            btn.textContent = '確定刪除？';
+            btn.style.cssText = 'background:#E57373;color:#fff;border:none;border-radius:4px;font-size:9px;padding:2px 5px;cursor:pointer;white-space:nowrap;';
+            setTimeout(() => { btn.dataset.confirming = ''; btn.textContent = '✕'; btn.style.cssText = 'background:none;border:none;cursor:pointer;color:var(--text3);font-size:12px;padding:2px 4px;align-self:flex-start;line-height:1;'; }, 3000);
+          }
+        });
+      }
+
+      // limit edit: click on the limit text → inline input
+      card.querySelector('[data-limit-edit]')?.addEventListener('click', e => {
+        e.stopPropagation();
+        const cur = finData.catLimits[def.key] || 0;
+        const limitEl = e.currentTarget;
+        // 已有輸入框就不重複
+        if (limitEl.querySelector('input')) return;
+        limitEl.innerHTML = '';
+        const inp = document.createElement('input');
+        inp.type = 'number';
+        inp.inputMode = 'numeric';
+        inp.value = cur > 0 ? cur : '';
+        inp.placeholder = '輸入上限（0=不限）';
+        inp.style.cssText = 'width:90px;font-size:10px;padding:2px 6px;border:1px solid var(--accent);border-radius:4px;outline:none;font-family:DM Mono,monospace;';
+        const okBtn = document.createElement('button');
+        okBtn.textContent = '✓';
+        okBtn.style.cssText = 'margin-left:4px;padding:2px 6px;font-size:10px;background:var(--accent);color:#fff;border:none;border-radius:4px;cursor:pointer;';
+        limitEl.appendChild(inp);
+        limitEl.appendChild(okBtn);
+        inp.focus();
+        const applyLimit = () => {
+          const val = parseFloat(inp.value);
+          if (!isNaN(val) && val >= 0) {
+            finData.catLimits[def.key] = val;
+            finSave(); finRender(); finUpdateFabBadge();
+          }
+        };
+        okBtn.addEventListener('click', e2 => { e2.stopPropagation(); applyLimit(); });
+        inp.addEventListener('keydown', e2 => { if (e2.key === 'Enter') applyLimit(); if (e2.key === 'Escape') finRender(); });
+      });
+      // detail toggle: show per-item list
+      const detailToggle = card.querySelector('[data-detail-toggle]');
+      const detailBox = card.querySelector('.fin-cat-detail');
+      if (detailToggle && detailBox) {
+        detailToggle.addEventListener('click', e => {
+          e.stopPropagation();
+          const open = detailBox.style.display !== 'none';
+          detailBox.style.display = open ? 'none' : 'block';
+          detailToggle.textContent = open ? '明細 ▾' : '明細 ▴';
+          if (!open) {
+            // Build detail list
+            detailBox.innerHTML = '';
+            const rows = [];
+            // from chips
+            const m = currentMonth;
+            Object.values(chips).forEach(chip => {
+              if (!chip.expenses || !chip.expenses.length) return;
+              if (chip.placed && chip.month !== m) return;
+              chip.expenses.forEach(ex => {
+                const fc = ex.finCat || CAT_TO_FIN[chip.cat] || 'misc';
+                if (fc !== def.key) return;
+                const cardLabel = ex.cardId ? (finData.cards.find(c => c.id === ex.cardId)?.name || '') : '現金';
+                rows.push({ name: ex.name, amt: ex.amt, source: chip.name, card: cardLabel, day: chip.day });
+              });
+            });
+            // from manual
+            finData.manualExpenses.forEach(ex => {
+              if (ex.cat !== def.key) return;
+              const cardLabel = ex.cardId ? (finData.cards.find(c => c.id === ex.cardId)?.name || '') : '現金';
+              rows.push({ name: ex.name, amt: ex.amt, source: '手動', card: cardLabel, day: null });
+            });
+            rows.sort((a,b) => (b.day||0) - (a.day||0));
+            if (rows.length === 0) {
+              detailBox.innerHTML = '<div style="font-size:9px;color:var(--text3);">尚無記錄</div>';
+            } else {
+              rows.forEach(r => {
+                const row = document.createElement('div');
+                row.style.cssText = 'display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:0.5px dashed var(--border);font-size:9px;';
+                row.innerHTML =
+                  '<span style="flex:1;color:var(--text);">' + r.name + '</span>' +
+                  '<span style="color:var(--text3);font-size:8px;white-space:nowrap;">' + r.card + '</span>' +
+                  '<span style="font-family:DM Mono,monospace;color:var(--accent);white-space:nowrap;margin-left:4px;">$' + r.amt.toLocaleString() + '</span>';
+                detailBox.appendChild(row);
+              });
+            }
+          }
+        });
+      }
+      grid.appendChild(card);
+    });
+  }
+
+  // Cards — grid style like categories
+  const cardsList = document.getElementById('fin-cards-list');
+  if (cardsList) {
+    cardsList.innerHTML = '';
+    if (!finData.cards.length) {
+      cardsList.innerHTML = '<div style="font-size:10px;color:var(--text3);padding:6px 0;">新增信用卡後可追蹤各卡消費，並在記錄花費時選擇卡別。</div>';
+    } else {
+      finData.cards.forEach((card) => {
+        const amt = cardTotals[card.id] || 0;
+        const cardCard = document.createElement('div');
+        cardCard.className = 'fin-cat-card';
+        cardCard.style.position = 'relative';
+        cardCard.innerHTML =
+          '<div style="display:flex;align-items:flex-start;gap:6px;">' +
+            '<div><div class="fin-cat-icon">💳</div></div>' +
+            '<div style="flex:1;min-width:0;">' +
+              '<div class="fin-cat-name">' + card.name + '</div>' +
+              '<div class="fin-cat-spent">$' + amt.toLocaleString() + '</div>' +
+              '<div class="fin-cat-limit" style="color:var(--text3);">本月刷卡</div>' +
+            '</div>' +
+            '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">' +
+              (amt > 0 ? '<div style="font-size:9px;color:var(--text2);cursor:pointer;" data-card-detail="1">明細 ▾</div>' : '') +
+              '<button class="fin-card-del-btn" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:12px;padding:2px 4px;line-height:1;">✕</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="fin-cat-detail" style="display:none;margin-top:6px;border-top:0.5px solid var(--border2);padding-top:5px;"></div>' +
+          '<div class="fin-card-del-confirm" style="display:none;position:absolute;inset:0;background:var(--surface);border:1px solid #E57373;border-radius:10px;padding:0 10px;align-items:center;justify-content:center;gap:8px;">' +
+            '<span style="font-size:10px;color:#C04040;">確定刪除？</span>' +
+            '<button class="fin-del-yes" style="padding:3px 10px;font-size:10px;background:#E57373;color:#fff;border:none;border-radius:5px;cursor:pointer;">刪除</button>' +
+            '<button class="fin-del-no" style="padding:3px 10px;font-size:10px;background:var(--surface2);border:0.5px solid var(--border2);border-radius:5px;cursor:pointer;">取消</button>' +
+          '</div>';
+
+        // 明細展開
+        const detailToggle = cardCard.querySelector('[data-card-detail]');
+        const detailBox = cardCard.querySelector('.fin-cat-detail');
+        if (detailToggle && detailBox) {
+          detailToggle.addEventListener('click', e => {
+            e.stopPropagation();
+            const open = detailBox.style.display !== 'none';
+            detailBox.style.display = open ? 'none' : 'block';
+            detailToggle.textContent = open ? '明細 ▾' : '明細 ▴';
+            if (!open) {
+              detailBox.innerHTML = '';
+              const rows = [];
+              // 從時間方塊抓
+              const m = currentMonth;
+              Object.values(chips).forEach(chip => {
+                if (!chip.expenses) return;
+                if (chip.placed && chip.month !== m) return;
+                chip.expenses.forEach(ex => {
+                  if (ex.cardId !== card.id) return;
+                  const finCatDef = FIN_CAT_DEF.find(d => d.key === (ex.finCat || 'misc'));
+                  rows.push({ name: ex.name, amt: ex.amt, cat: finCatDef?.icon || '📦', source: chip.name, day: chip.day });
+                });
+              });
+              // 從手動記錄抓
+              finData.manualExpenses.forEach(ex => {
+                if (ex.cardId !== card.id) return;
+                const finCatDef = FIN_CAT_DEF.find(d => d.key === ex.cat);
+                rows.push({ name: ex.name, amt: ex.amt, cat: finCatDef?.icon || '📦', source: '手動', day: null });
+              });
+              rows.sort((a,b) => (b.day||0)-(a.day||0));
+              if (!rows.length) {
+                detailBox.innerHTML = '<div style="font-size:9px;color:var(--text3);">尚無記錄</div>';
+              } else {
+                rows.forEach(r => {
+                  const row = document.createElement('div');
+                  row.style.cssText = 'display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:0.5px dashed var(--border);font-size:9px;';
+                  row.innerHTML =
+                    '<span style="flex-shrink:0;">' + r.cat + '</span>' +
+                    '<span style="flex:1;color:var(--text);">' + r.name + '</span>' +
+                    '<span style="color:var(--text3);font-size:8px;">' + r.source + '</span>' +
+                    '<span style="font-family:DM Mono,monospace;color:var(--accent);margin-left:4px;">$' + r.amt.toLocaleString() + '</span>';
+                  detailBox.appendChild(row);
+                });
+              }
+            }
+          });
+        }
+
+        // 刪除
+        const delBtn = cardCard.querySelector('.fin-card-del-btn');
+        const confirmBox = cardCard.querySelector('.fin-card-del-confirm');
+        delBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          confirmBox.style.display = 'flex';
+        });
+        cardCard.querySelector('.fin-del-no').addEventListener('click', e => {
+          e.stopPropagation();
+          confirmBox.style.display = 'none';
+        });
+        cardCard.querySelector('.fin-del-yes').addEventListener('click', e => {
+          e.stopPropagation();
+          finData.cards = finData.cards.filter(c => c.id !== card.id);
+          finSave(); finRender(); finUpdateCardSelect();
+        });
+
+        cardsList.appendChild(cardCard);
+      });
+    }
+  }
+
+  // Manual expenses
+  const manualList = document.getElementById('fin-manual-list');
+  if (manualList) {
+    manualList.innerHTML = '';
+    if (!finData.manualExpenses.length) {
+      manualList.innerHTML = '<div style="font-size:10px;color:var(--text3);padding:6px 0;">尚無手動記錄。電信費、iCloud、固定支出等可在此記錄。</div>';
+    } else {
+      [...finData.manualExpenses].reverse().forEach((exp, ri) => {
+        const i = finData.manualExpenses.length - 1 - ri;
+        const def = FIN_CAT_DEF.find(d => d.key === exp.cat) || FIN_CAT_DEF[0];
+        const cardName = exp.cardId ? (finData.cards.find(c => c.id === exp.cardId)?.name || '') : '';
+        const row = document.createElement('div');
+        row.className = 'fin-manual-row';
+        row.innerHTML =
+          '<span class="fin-manual-cat">' + def.icon + '</span>' +
+          '<span class="fin-manual-name">' + exp.name + '</span>' +
+          (cardName ? '<span class="fin-manual-card">' + cardName + '</span>' : '') +
+          '<span class="fin-manual-amt">$' + exp.amt.toLocaleString() + '</span>' +
+          '<span class="fin-manual-del" data-i="' + i + '">✕</span>';
+        row.querySelector('.fin-manual-del').addEventListener('click', () => {
+          finData.manualExpenses.splice(i, 1);
+          finSave(); finRender();
+        });
+        manualList.appendChild(row);
+      });
+    }
+  }
+
+  finUpdateFabBadge();
+}
+
+function finUpdateCardSelect() {
+  const sel = document.getElementById('fin-exp-card');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">現金/其他</option>';
+  finData.cards.forEach(card => {
+    const opt = document.createElement('option');
+    opt.value = card.id;
+    opt.textContent = card.name;
+    sel.appendChild(opt);
+  });
+}
+
+function finUpdateManualCatSelect() {
+  // 更新手動記錄花費的分類下拉選單
+  const sel = document.getElementById('fin-exp-cat');
+  if (sel) {
+    const curVal = sel.value;
+    sel.innerHTML = '';
+    FIN_CAT_DEF.forEach(def => {
+      const opt = document.createElement('option');
+      opt.value = def.key;
+      opt.textContent = def.icon + ' ' + def.label;
+      sel.appendChild(opt);
+    });
+    if (curVal) sel.value = curVal;
+  }
+  // 更新編輯卡片的財務分類下拉
+  const expSel = document.getElementById('expense-fin-cat');
+  if (expSel) {
+    const expVal = expSel.value;
+    expSel.innerHTML = '';
+    FIN_CAT_DEF.forEach(def => {
+      const opt = document.createElement('option');
+      opt.value = def.key;
+      opt.textContent = def.icon + ' ' + def.label;
+      expSel.appendChild(opt);
+    });
+    if (expVal) expSel.value = expVal;
+  }
+}
+
+// ── Event wiring ──
+document.getElementById('finance-fab').addEventListener('click', () => {
+  finRender();
+  document.getElementById('finance-overlay').classList.add('show');
+});
+document.getElementById('finance-close').addEventListener('click', () => {
+  document.getElementById('finance-overlay').classList.remove('show');
+});
+document.getElementById('finance-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('finance-overlay'))
+    document.getElementById('finance-overlay').classList.remove('show');
+});
+document.getElementById('fin-budget-set-btn').addEventListener('click', () => {
+  const val = parseFloat(document.getElementById('fin-budget-input').value);
+  if (!isNaN(val) && val > 0) {
+    finData.monthBudget = val;
+    finSave(); finRender();
+    document.getElementById('fin-budget-input').value = '';
+  }
+});
+document.getElementById('fin-budget-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('fin-budget-set-btn').click();
+});
+
+// 新增自訂分類
+document.getElementById('fin-cat-add-btn').addEventListener('click', () => {
+  const iconEl = document.getElementById('fin-cat-icon-input');
+  const nameEl = document.getElementById('fin-cat-name-input');
+  const name = nameEl.value.trim();
+  const icon = iconEl.value.trim() || '📌';
+  if (!name) { nameEl.focus(); return; }
+  const key = 'custom_' + Date.now();
+  if (!finData.customCatsDef) finData.customCatsDef = [];
+  finData.customCatsDef.push({ key, icon, label: name, defaultLimit: 0 });
+  FIN_CAT_DEF = [...FIN_CAT_DEF_BUILTIN, ...finData.customCatsDef];
+  finData.catLimits[key] = 0;
+  finSave(); finRender(); finUpdateManualCatSelect();
+  nameEl.value = ''; iconEl.value = '';
+});
+document.getElementById('fin-cat-name-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('fin-cat-add-btn').click();
+});
+
+document.getElementById('fin-card-add-btn').addEventListener('click', () => {
+  const nameEl = document.getElementById('fin-card-name-input');
+  const name = nameEl.value.trim();
+  if (!name) { nameEl.focus(); return; }
+  finData.cards.push({ id: 'card_' + Date.now(), name });
+  finSave(); finRender(); finUpdateCardSelect();
+  nameEl.value = '';
+});
+document.getElementById('fin-card-name-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('fin-card-add-btn').click();
+});
+document.getElementById('fin-exp-add-btn').addEventListener('click', () => {
+  const cat = document.getElementById('fin-exp-cat').value;
+  const name = document.getElementById('fin-exp-name').value.trim();
+  const amt = parseFloat(document.getElementById('fin-exp-amt').value);
+  const cardId = document.getElementById('fin-exp-card').value;
+  if (!name || isNaN(amt) || amt <= 0) { document.getElementById('fin-exp-name').focus(); return; }
+  finData.manualExpenses.push({ id: Date.now(), cat, name, amt, cardId, date: new Date().toISOString() });
+  finSave(); finRender();
+  document.getElementById('fin-exp-name').value = '';
+  document.getElementById('fin-exp-amt').value = '';
+});
+document.getElementById('fin-exp-amt').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('fin-exp-add-btn').click();
+});
+
+// Init
+finLoad();
+finUpdateCardSelect();
+finUpdateManualCatSelect();
+setTimeout(finUpdateFabBadge, 600);
+</script>
 
 </body></html>

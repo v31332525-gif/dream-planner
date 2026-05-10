@@ -527,7 +527,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 </div>
 
 <h1>✦ 夢想行程規劃器</h1>
-<p class="sub" id="page-sub">2026年五月 · 8:30–22:30 · 把時間變成看得見的東西</p>
+<p class="sub" id="page-sub">2026年五月 · 8:30–23:00 · 把時間變成看得見的東西</p>
 
 <div class="data-bar">
   <span class="data-label">資料</span>
@@ -535,6 +535,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
     <span id="gist-sync-icon">☁</span> 雲端同步
   </button>
   <button class="data-btn" id="btn-ai-coach" title="一鍵產生上週複盤＋下週規劃，複製給 AI 或存成紀錄" style="border-color:var(--accent);color:var(--accent);">🤖 AI 教練</button>
+  <button class="data-btn" id="btn-voice-import" title="貼上 AI 解析的口語行程 JSON" style="border-color:#4A7FD4;color:#4A7FD4;">🗣 口語登記</button>
   <button class="data-btn" id="btn-export" title="匯出 JSON 備份">⬇ 匯出備份</button>
   <label class="data-btn" title="匯入 JSON 還原" style="cursor:pointer">
     ⬆ 匯入資料
@@ -550,10 +551,10 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 </div>
 
 <div class="stats-bar">
-  <div class="stat-card"><div class="stat-val" id="s-pool">0</div><div class="stat-lbl">待排方塊</div></div>
-  <div class="stat-card"><div class="stat-val" id="s-placed">10</div><div class="stat-lbl">已排入行程</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-free">—</div><div class="stat-lbl">本週總空白時數</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-pool">—</div><div class="stat-lbl">本週待安排時數</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-placed">0</div><div class="stat-lbl">已排入行程</div></div>
   <div class="stat-card"><div class="stat-val green" id="s-done">0</div><div class="stat-lbl">已完成</div></div>
-  <div class="stat-card"><div class="stat-val" id="s-free">424.0hr</div><div class="stat-lbl">剩餘空白小時</div></div>
   <div class="stat-card"><div class="stat-val" id="s-pct">0%</div><div class="stat-lbl">完成率</div></div>
 </div>
 <div class="praise" id="praise">🎉 <span id="praise-msg"></span></div>
@@ -826,6 +827,71 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
   </div>
 </div>
 
+<!-- ── 信用卡編輯 Modal ── -->
+<div class="modal-overlay" id="card-edit-modal" style="z-index:2200;">
+  <div class="modal-box" style="max-width:340px;width:92vw;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="modal-title">💳 編輯卡片</div>
+      <button id="card-edit-close" style="background:none;border:none;cursor:pointer;font-size:15px;color:var(--text3);">✕</button>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--text2);margin-bottom:4px;">卡片名稱</div>
+        <input id="card-edit-name" type="text" style="width:100%;padding:7px 10px;font-size:12px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;box-sizing:border-box;">
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;">
+          <div style="font-size:10px;font-weight:700;color:var(--text2);margin-bottom:4px;">結帳日（每月幾號）</div>
+          <input id="card-edit-billing" type="number" min="1" max="31" style="width:100%;padding:7px 10px;font-size:12px;font-family:'DM Mono',monospace;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;box-sizing:border-box;">
+          <div id="card-edit-billing-adj" style="font-size:9px;color:var(--accent);margin-top:3px;min-height:14px;"></div>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:10px;font-weight:700;color:var(--text2);margin-bottom:4px;">繳費日（下月幾號）</div>
+          <input id="card-edit-due" type="number" min="1" max="31" style="width:100%;padding:7px 10px;font-size:12px;font-family:'DM Mono',monospace;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;box-sizing:border-box;">
+          <div id="card-edit-due-adj" style="font-size:9px;color:var(--accent);margin-top:3px;min-height:14px;"></div>
+        </div>
+      </div>
+      <div style="font-size:9px;color:var(--text3);line-height:1.6;">遇到假日或週末會自動往後延到下一個工作日。</div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;">
+      <button class="modal-cancel" id="card-edit-cancel">取消</button>
+      <button class="modal-ok" id="card-edit-save">儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 口語登記 Modal ── -->
+<div class="modal-overlay" id="voice-import-modal" style="z-index:2100;">
+  <div class="modal-box" style="max-width:520px;width:95vw;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+      <div>
+        <div class="modal-title">🗣 口語行程登記</div>
+        <div style="font-size:10px;color:var(--text2);margin-top:3px;line-height:1.6;">把 AI 解析後產生的 JSON 貼到下方，自動建立行程方塊。</div>
+      </div>
+      <button id="voice-import-close" style="background:none;border:none;cursor:pointer;font-size:15px;color:var(--text3);flex-shrink:0;margin-left:10px;">✕</button>
+    </div>
+
+    <textarea id="voice-import-input" placeholder='貼上 AI 輸出的 JSON，例如：
+{
+  "date": "2026-05-10",
+  "chips": [
+    { "name": "睡覺", "cat": "rest", "startTime": "08:30", "endTime": "10:00", "dur": 1.5 },
+    { "name": "回家吃午餐", "cat": "eat", "startTime": "10:00", "endTime": "12:00", "dur": 2 }
+  ]
+}' style="width:100%;height:200px;padding:10px 12px;font-size:10px;font-family:'DM Mono',monospace;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;box-sizing:border-box;margin-bottom:8px;"></textarea>
+
+    <div id="voice-import-preview" style="display:none;margin-bottom:8px;padding:8px 10px;background:var(--surface2);border-radius:var(--radius-sm);border:0.5px solid var(--border2);font-size:10px;line-height:1.8;color:var(--text2);max-height:150px;overflow-y:auto;"></div>
+    <div id="voice-import-error" style="display:none;font-size:10px;color:#E57373;margin-bottom:8px;"></div>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;">
+      <button class="modal-cancel" id="voice-import-parse">👁 預覽</button>
+      <button class="modal-ok" id="voice-import-confirm" disabled style="opacity:.5;">✓ 建立方塊</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── AI 教練 Modal ── -->
 <div class="modal-overlay" id="ai-coach-modal" style="z-index:2100;">
   <div class="modal-box" style="max-width:560px;width:95vw;max-height:92vh;display:flex;flex-direction:column;">
@@ -1010,8 +1076,8 @@ document.getElementById('custom-cat-modal').addEventListener('click', e => {
 });
 
 const SLOT_START = 17; // 8:30 = 8*2+1
-const SLOT_END   = 45; // 22:30 = 22*2+1
-const SLOT_BUFFER = 6; // 緩衝格：22:30 之後額外 3hr（不顯示時間、不能填入）
+const SLOT_END   = 47; // 23:00 = 23*2+1 // 22:30 = 22*2+1
+const SLOT_BUFFER = 6; // 緩衝格：23:00 之後額外 3hr（不顯示時間、不能填入）
 const SLOT_COUNT = SLOT_END - SLOT_START + 1; // 29 slots per day
 const CELL_H = 22; // px per slot
 
@@ -1150,7 +1216,7 @@ function switchMonth(m) {
   currentMonth = m;
   document.querySelectorAll('.mnav-btn').forEach(b => b.classList.remove('on'));
   document.getElementById('btn-'+m).classList.add('on');
-  document.getElementById('page-sub').textContent = `2026年${MONTH_NAMES[m]}月 · 8:30–22:30 · 把時間變成看得見的東西`;
+  document.getElementById('page-sub').textContent = `2026年${MONTH_NAMES[m]}月 · 8:30–23:00 · 把時間變成看得見的東西`;
   buildCalendar();
   updateStats();
 }
@@ -1983,15 +2049,35 @@ function updateStats() {
   const inPool=all.filter(c=>!c.placed&&!c.done);
   const pct=all.length>0?Math.round(done.length/all.length*100):0;
 
-  // placed slots for current month
-  const freeSlots=Math.max(0, SLOT_COUNT*monthDays(currentMonth)-placed.reduce((s,c)=>s+durSlots(c.dur),0));
-  const freeHrs=(freeSlots/2).toFixed(1);
+  // 本週一到週日
+  const today0 = new Date();
+  const dow0 = today0.getDay();
+  const diffMon = dow0 === 0 ? -6 : 1 - dow0;
+  const weekMon = new Date(today0); weekMon.setDate(today0.getDate() + diffMon);
+  const weekSun = new Date(weekMon); weekSun.setDate(weekMon.getDate() + 6);
 
-  document.getElementById('s-pool').textContent=inPool.length;
-  document.getElementById('s-placed').textContent=placed.length-done.length;
-  document.getElementById('s-done').textContent=done.length;
-  document.getElementById('s-free').textContent=freeHrs+'hr';
-  document.getElementById('s-pct').textContent=pct+'%';
+  const isThisWeek = c => {
+    if (!c.month || !c.day) return false;
+    const d = new Date(2026, c.month - 1, c.day);
+    return d >= weekMon && d <= weekSun;
+  };
+
+  const weekChips = placed.filter(isThisWeek);
+  const weekPlacedSlots = weekChips.reduce((s, c) => s + durSlots(c.dur), 0);
+
+  // 本週總可運用時數 = 7天 × 每天可用格數（固定）
+  const weekTotalSlots = SLOT_COUNT * 7;
+  const weekTotalHrs = (weekTotalSlots / 2).toFixed(1);
+
+  // 本週待安排時數 = 總可運用 − 已排入（還有多少空間可以規劃）
+  const freeHrs   = Math.max(0, (weekTotalSlots - weekPlacedSlots) / 2).toFixed(1);
+  const pendingHrs = freeHrs;
+
+  document.getElementById('s-free').textContent = weekTotalHrs + 'hr';
+  document.getElementById('s-pool').textContent = pendingHrs + 'hr';
+  document.getElementById('s-placed').textContent = placed.length - done.length;
+  document.getElementById('s-done').textContent = done.length;
+  document.getElementById('s-pct').textContent = pct + '%';
 
   // 本週時間佔比（週一到週日）
   const bdEl=document.getElementById('bd-content');
@@ -2202,7 +2288,7 @@ function restoreData(data) {
   const activeBtn = document.getElementById('btn-'+currentMonth);
   if (activeBtn) activeBtn.classList.add('on');
   document.getElementById('page-sub').textContent =
-    `2026年${MONTH_NAMES[currentMonth]}月 · 8:30–22:30 · 把時間變成看得見的東西`;
+    `2026年${MONTH_NAMES[currentMonth]}月 · 8:30–23:00 · 把時間變成看得見的東西`;
 
   // rebuild pool
   const pool = document.getElementById('chip-pool');
@@ -3057,6 +3143,74 @@ function aiGenerateWeekly() {
     lines.push(`💭 想請教你的事：${question}`);
   }
 
+  // ── 財務概況 ──
+  lines.push('');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push('💰 本月財務概況');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  if (typeof finData !== 'undefined') {
+    const budget = finData.monthBudget || 0;
+
+    // 分類花費（從方塊 + 手動）
+    const chipByCat = typeof finGetChipExpenses === 'function' ? finGetChipExpenses() : {};
+    const manualByCat = typeof finGetManualByCat === 'function' ? finGetManualByCat() : {};
+    let totalSpent = 0;
+    if (typeof FIN_CAT_DEF !== 'undefined') {
+      FIN_CAT_DEF.forEach(c => {
+        if (c.key === 'saving') return;
+        totalSpent += (chipByCat[c.key]||0) + (manualByCat[c.key]||0);
+      });
+    }
+    const remaining = budget - totalSpent;
+    const pct = budget > 0 ? Math.round(totalSpent / budget * 100) : 0;
+
+    if (budget > 0) {
+      lines.push(`月預算：$${budget.toLocaleString()}`);
+      lines.push(`已花費：$${totalSpent.toLocaleString()}（${pct}%）`);
+      lines.push(`剩餘：$${remaining.toLocaleString()}${remaining < 0 ? ' ⚠️ 超支' : ''}`);
+    } else {
+      lines.push(`本月總花費：$${totalSpent.toLocaleString()}（未設定預算）`);
+    }
+
+    // 各分類明細
+    if (typeof FIN_CAT_DEF !== 'undefined') {
+      const catLines = [];
+      FIN_CAT_DEF.forEach(def => {
+        if (def.key === 'saving') return;
+        const amt = (chipByCat[def.key]||0) + (manualByCat[def.key]||0);
+        if (amt <= 0) return;
+        const limit = finData.catLimits?.[def.key] || 0;
+        const over = limit > 0 && amt > limit;
+        catLines.push(`  ${def.icon} ${def.label}：$${amt.toLocaleString()}${limit > 0 ? ' / 上限 $' + limit.toLocaleString() : ''}${over ? ' ⚠️' : ''}`);
+      });
+      if (catLines.length) {
+        lines.push('');
+        lines.push('各類別花費：');
+        catLines.forEach(l => lines.push(l));
+      }
+    }
+
+    // 各卡本期帳單
+    if (finData.cards && finData.cards.length > 0 && typeof finGetBillPeriod === 'function') {
+      const cardLines = [];
+      finData.cards.forEach(card => {
+        const period = finGetBillPeriod(card);
+        if (!period) return;
+        const billAmt = finGetBillTotal(card);
+        if (billAmt <= 0) return;
+        const fmt = str => { const d = new Date(str); return `${d.getMonth()+1}/${d.getDate()}`; };
+        const nextMo = new Date().getMonth() + 2;
+        const dueTxt = card.dueDay ? `，繳款日 ${nextMo > 12 ? 1 : nextMo}/${card.dueDay}` : '';
+        cardLines.push(`  💳 ${card.name}：本期 $${billAmt.toLocaleString()}（${fmt(period.start)}–${fmt(period.end)}${dueTxt}）`);
+      });
+      if (cardLines.length) {
+        lines.push('');
+        lines.push('信用卡本期帳單：');
+        cardLines.forEach(l => lines.push(l));
+      }
+    }
+  }
+
   // ── AI 請求 ──
   lines.push('');
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
@@ -3065,7 +3219,8 @@ function aiGenerateWeekly() {
   lines.push('2. 找出未完成的項目，推測可能原因並給具體改善建議。');
   lines.push('3. 結合我的感受與下週行程，給我 3 個下週可以執行的調整建議。');
   lines.push('4. 評估下週目標的可行性，必要時幫我微調優先順序。');
-  if (question) lines.push('5. 針對我的疑問給一些實用建議。');
+  lines.push('5. 根據財務數據，給我本月花費的觀察與建議。');
+  if (question) lines.push('6. 針對我的疑問給一些實用建議。');
   lines.push('請用溫暖親切的語氣，像朋友一樣跟我說話 😊');
 
   return lines.join('\n');
@@ -3146,7 +3301,13 @@ document.getElementById('ai-coach-download').addEventListener('click', ()=>{
         <button class="fin-card-add-btn" id="fin-cat-add-btn">＋ 新增分類</button>
       </div>
       <div class="fin-section-title">信用卡帳單</div>
-      <div class="fin-card-add-row"><input class="fin-card-input" id="fin-card-name-input" placeholder="卡片名稱（如：花旗26 / 國泰8）"><button class="fin-card-add-btn" id="fin-card-add-btn">＋ 新增卡片</button></div>
+      <div class="fin-card-add-row" style="flex-wrap:wrap;gap:6px;">
+        <input class="fin-card-input" id="fin-card-name-input" placeholder="卡片名稱" style="flex:2;min-width:80px;">
+        <input class="fin-card-input" id="fin-card-billing-input" placeholder="結帳日" type="number" min="1" max="31" style="width:60px;flex:none;">
+        <input class="fin-card-input" id="fin-card-due-input" placeholder="繳費日" type="number" min="1" max="31" style="width:60px;flex:none;">
+        <button class="fin-card-add-btn" id="fin-card-add-btn">＋ 新增</button>
+      </div>
+      <div style="font-size:9px;color:var(--text3);margin:-4px 0 10px;">結帳日 = 帳單截止日，繳費日 = 下個月幾號繳清</div>
       <div class="fin-cat-grid" id="fin-cards-list"></div>
       <div class="fin-section-title">手動記錄花費 <span style="font-weight:400;opacity:.6;text-transform:none;font-size:8px;">（固定支出、帳單、不綁方塊的花費）</span></div>
       <div class="fin-add-row">
@@ -3197,7 +3358,7 @@ const CAT_TO_FIN = {
 };
 
 let finData = {
-  monthBudget: 0,
+  monthBudget: 30000,
   catLimits: {},
   cards: [],
   manualExpenses: [],
@@ -3208,7 +3369,17 @@ function finLoad() {
     const raw = localStorage.getItem('fin-data-v1');
     if (raw) Object.assign(finData, JSON.parse(raw));
   } catch(e) {}
-  // 還原自訂分類到 FIN_CAT_DEF
+
+  // 若尚無信用卡，帶入預設五張
+  if (!finData.cards || finData.cards.length === 0) {
+    finData.cards = [
+      { id: 'card_citi',    name: '花旗', billingDay: 26, dueDay: 10 },
+      { id: 'card_cathay',  name: '國泰', billingDay: 8,  dueDay: 24 },
+      { id: 'card_taishin', name: '台新', billingDay: 20, dueDay: 30 },
+      { id: 'card_ctbc',    name: '中信', billingDay: 17, dueDay: 5  },
+      { id: 'card_hsbc',    name: '匯豐', billingDay: 15, dueDay: 2  },
+    ];
+  }  // 還原自訂分類到 FIN_CAT_DEF
   if (finData.customCatsDef) {
     FIN_CAT_DEF = [...FIN_CAT_DEF_BUILTIN, ...finData.customCatsDef];
   }
@@ -3264,6 +3435,100 @@ function finGetCardTotals() {
     });
   });
   return byCard;
+}
+
+// 計算帳單區間（預設：上月結帳日+1 → 本月結帳日）
+// ── 台灣 2026 國定假日（含補假）──────────────────────
+const TW_HOLIDAYS_2026 = new Set([
+  '2026-01-01','2026-01-02','2026-01-27','2026-01-28',
+  '2026-01-29','2026-01-30','2026-01-31','2026-02-01',
+  '2026-02-02','2026-02-27','2026-02-28','2026-03-01',
+  '2026-04-03','2026-04-04','2026-04-05','2026-04-06',
+  '2026-05-01','2026-06-19','2026-06-20','2026-09-03',
+  '2026-09-04','2026-10-09','2026-10-10',
+]);
+
+// 判斷某日是否為假日（週六、週日或國定假日）
+function isHoliday(date) {
+  const dow = date.getDay();
+  if (dow === 0 || dow === 6) return true;
+  const key = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  return TW_HOLIDAYS_2026.has(key);
+}
+
+// 往後找到下一個工作日（若本身是工作日則不動）
+function nextWorkday(date) {
+  const d = new Date(date);
+  while (isHoliday(d)) d.setDate(d.getDate() + 1);
+  return d;
+}
+
+// 將 Date 格式化為 YYYY-MM-DD
+function fmtYMD(date) {
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+}
+
+function finGetBillPeriod(card) {
+  const today = new Date();
+  const yr = today.getFullYear();
+  const mo = today.getMonth() + 1;
+  const bd = card.billingDay || 0;
+  if (!bd) return null;
+
+  // 如果有手動覆寫就用覆寫的（不再套假日展延，使用者自己決定）
+  if (card.billStart && card.billEnd) {
+    return { start: card.billStart, end: card.billEnd };
+  }
+
+  // 預設：上個月 billingDay+1 → 這個月 billingDay（套假日展延）
+  const prevMo = mo === 1 ? 12 : mo - 1;
+  const prevYr = mo === 1 ? yr - 1 : yr;
+  const prevMonthDays = new Date(prevYr, prevMo, 0).getDate();
+  const startRaw = Math.min(bd + 1, prevMonthDays);
+
+  // 結帳日展延
+  const endDate = nextWorkday(new Date(yr, mo - 1, bd));
+  // 帳單起始 = 上期結帳日展延後 +1 天
+  const prevBillingRaw = new Date(prevYr, prevMo - 1, bd);
+  const prevBillingAdj = nextWorkday(prevBillingRaw);
+  const startDate = new Date(prevBillingAdj);
+  startDate.setDate(startDate.getDate() + 1);
+
+  return {
+    start: fmtYMD(startDate),
+    end:   fmtYMD(endDate),
+    endAdjusted: endDate.getDate() !== bd, // 是否有展延
+  };
+}
+
+// 計算某卡在某區間的消費總額
+function finGetBillTotal(card) {
+  const period = finGetBillPeriod(card);
+  if (!period) return 0;
+  const startDate = new Date(period.start);
+  const endDate   = new Date(period.end);
+
+  let total = 0;
+
+  // 從時間方塊抓（用 month/day 判斷）
+  Object.values(chips).forEach(chip => {
+    if (!chip.placed || !chip.expenses || !chip.expenses.length) return;
+    const chipDate = new Date(2026, (chip.month||1)-1, chip.day||1);
+    if (chipDate < startDate || chipDate > endDate) return;
+    chip.expenses.forEach(e => {
+      if (e.cardId === card.id) total += e.amt;
+    });
+  });
+
+  // 從手動記錄抓（用 date 欄位判斷）
+  finData.manualExpenses.forEach(e => {
+    if (e.cardId !== card.id) return;
+    if (!e.date) return; // 沒有日期的略過
+    const d = new Date(e.date);
+    if (d >= startDate && d <= endDate) total += e.amt;
+  });
+
+  return total;
 }
 
 function finTotalSpent(chipByCat, manualByCat) {
@@ -3466,6 +3731,50 @@ function finRender() {
     } else {
       finData.cards.forEach((card) => {
         const amt = cardTotals[card.id] || 0;
+        const period = finGetBillPeriod(card);
+        const billAmt = period ? finGetBillTotal(card) : null;
+
+        // 格式化日期為 M/D
+        const fmtDate = (str) => {
+          if (!str) return '—';
+          const d = new Date(str);
+          return `${d.getMonth()+1}/${d.getDate()}`;
+        };
+
+        // 繳款日顯示（下個月 dueDay，套假日展延）
+        const today2 = new Date();
+        const nextMo = today2.getMonth() + 2;
+        const nextMoYr = nextMo > 12 ? today2.getFullYear() + 1 : today2.getFullYear();
+        const nextMoActual = nextMo > 12 ? 1 : nextMo;
+        let dueLabel = '';
+        if (card.dueDay) {
+          const dueRaw = new Date(nextMoYr, nextMoActual - 1, card.dueDay);
+          const dueAdj = nextWorkday(dueRaw);
+          const dueAdjusted = dueAdj.getDate() !== card.dueDay;
+          dueLabel = `繳款日：${nextMoActual}/${dueAdj.getDate()}${dueAdjusted ? '（延）' : ''}`;
+        }
+
+        // 展延提示
+        const endAdjTxt = period?.endAdjusted ? '（遇假日已展延）' : '';
+
+        const billHtml = period
+          ? `<div class="fin-bill-bar" style="margin-top:7px;padding-top:6px;border-top:0.5px dashed var(--border2);">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                <div style="font-size:9px;color:var(--text3);">本期帳單${endAdjTxt ? '<span style="color:var(--accent);margin-left:3px;">'+endAdjTxt+'</span>' : ''}</div>
+                <div style="display:flex;align-items:center;gap:3px;">
+                  <input class="bill-date-input" data-field="start" value="${period.start}" title="帳單起始日" style="width:72px;font-size:9px;padding:1px 4px;border:0.5px solid var(--border2);border-radius:4px;background:var(--surface);color:var(--text);font-family:DM Mono,monospace;outline:none;">
+                  <span style="font-size:9px;color:var(--text3);">→</span>
+                  <input class="bill-date-input" data-field="end" value="${period.end}" title="帳單結束日" style="width:72px;font-size:9px;padding:1px 4px;border:0.5px solid var(--border2);border-radius:4px;background:var(--surface);color:var(--text);font-family:DM Mono,monospace;outline:none;">
+                  <button class="bill-reset-btn" title="重設為預設區間" style="background:none;border:none;cursor:pointer;font-size:9px;color:var(--text3);padding:0 2px;line-height:1;">↺</button>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:3px;">
+                <div style="font-size:9px;color:var(--text3);">${dueLabel}</div>
+                <div class="bill-total-amt" style="font-size:13px;font-weight:700;font-family:DM Mono,monospace;color:var(--accent);">$${billAmt.toLocaleString()}</div>
+              </div>
+            </div>`
+          : `<div style="font-size:9px;color:var(--text3);margin-top:6px;cursor:pointer;" data-open-card-edit="1">未設定結帳日，點此編輯</div>`;
+
         const cardCard = document.createElement('div');
         cardCard.className = 'fin-cat-card';
         cardCard.style.position = 'relative';
@@ -3473,21 +3782,62 @@ function finRender() {
           '<div style="display:flex;align-items:flex-start;gap:6px;">' +
             '<div><div class="fin-cat-icon">💳</div></div>' +
             '<div style="flex:1;min-width:0;">' +
-              '<div class="fin-cat-name">' + card.name + '</div>' +
-              '<div class="fin-cat-spent">$' + amt.toLocaleString() + '</div>' +
-              '<div class="fin-cat-limit" style="color:var(--text3);">本月刷卡</div>' +
+              '<div class="fin-cat-name" data-open-card-edit="1" style="cursor:pointer;display:flex;align-items:center;gap:4px;">' +
+                card.name +
+                '<span style="font-size:9px;color:var(--text3);font-weight:400;">✏️</span>' +
+                (card.billingDay ? `<span style="font-size:8px;color:var(--text3);font-weight:400;">結帳${card.billingDay}號</span>` : '') +
+              '</div>' +
+              '<div class="fin-cat-spent" style="color:var(--text2);">本月刷卡 $' + amt.toLocaleString() + '</div>' +
             '</div>' +
             '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">' +
               (amt > 0 ? '<div style="font-size:9px;color:var(--text2);cursor:pointer;" data-card-detail="1">明細 ▾</div>' : '') +
               '<button class="fin-card-del-btn" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:12px;padding:2px 4px;line-height:1;">✕</button>' +
             '</div>' +
           '</div>' +
+          billHtml +
           '<div class="fin-cat-detail" style="display:none;margin-top:6px;border-top:0.5px solid var(--border2);padding-top:5px;"></div>' +
           '<div class="fin-card-del-confirm" style="display:none;position:absolute;inset:0;background:var(--surface);border:1px solid #E57373;border-radius:10px;padding:0 10px;align-items:center;justify-content:center;gap:8px;">' +
             '<span style="font-size:10px;color:#C04040;">確定刪除？</span>' +
             '<button class="fin-del-yes" style="padding:3px 10px;font-size:10px;background:#E57373;color:#fff;border:none;border-radius:5px;cursor:pointer;">刪除</button>' +
             '<button class="fin-del-no" style="padding:3px 10px;font-size:10px;background:var(--surface2);border:0.5px solid var(--border2);border-radius:5px;cursor:pointer;">取消</button>' +
           '</div>';
+
+        // 開啟編輯 Modal
+        cardCard.querySelectorAll('[data-open-card-edit]').forEach(el => {
+          el.addEventListener('click', e => {
+            e.stopPropagation();
+            openCardEditModal(card);
+          });
+        });
+
+        // 帳單日期微調
+        cardCard.querySelectorAll('.bill-date-input').forEach(inp => {
+          inp.addEventListener('change', () => {
+            const startVal = cardCard.querySelector('[data-field="start"]').value;
+            const endVal   = cardCard.querySelector('[data-field="end"]').value;
+            if (startVal && endVal) {
+              card.billStart = startVal;
+              card.billEnd   = endVal;
+              finSave();
+              // 更新金額顯示
+              const newAmt = finGetBillTotal(card);
+              const amtEl = cardCard.querySelector('.bill-total-amt');
+              if (amtEl) amtEl.textContent = '$' + newAmt.toLocaleString();
+            }
+          });
+        });
+
+        // 重設按鈕
+        const resetBtn = cardCard.querySelector('.bill-reset-btn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            delete card.billStart;
+            delete card.billEnd;
+            finSave();
+            finRender();
+          });
+        }
 
         // 明細展開
         const detailToggle = cardCard.querySelector('[data-card-detail]');
@@ -3501,7 +3851,6 @@ function finRender() {
             if (!open) {
               detailBox.innerHTML = '';
               const rows = [];
-              // 從時間方塊抓
               const m = currentMonth;
               Object.values(chips).forEach(chip => {
                 if (!chip.expenses) return;
@@ -3512,7 +3861,6 @@ function finRender() {
                   rows.push({ name: ex.name, amt: ex.amt, cat: finCatDef?.icon || '📦', source: chip.name, day: chip.day });
                 });
               });
-              // 從手動記錄抓
               finData.manualExpenses.forEach(ex => {
                 if (ex.cardId !== card.id) return;
                 const finCatDef = FIN_CAT_DEF.find(d => d.key === ex.cat);
@@ -3631,6 +3979,191 @@ function finUpdateManualCatSelect() {
   }
 }
 
+// ── 口語登記 ────────────────────────────────────────
+let _voiceParsed = null;
+
+function openVoiceImport() {
+  document.getElementById('voice-import-input').value = '';
+  document.getElementById('voice-import-preview').style.display = 'none';
+  document.getElementById('voice-import-error').style.display = 'none';
+  document.getElementById('voice-import-confirm').disabled = true;
+  document.getElementById('voice-import-confirm').style.opacity = '.5';
+  _voiceParsed = null;
+  document.getElementById('voice-import-modal').classList.add('show');
+}
+
+function closeVoiceImport() {
+  document.getElementById('voice-import-modal').classList.remove('show');
+}
+
+document.getElementById('btn-voice-import').addEventListener('click', openVoiceImport);
+document.getElementById('voice-import-close').addEventListener('click', closeVoiceImport);
+document.getElementById('voice-import-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('voice-import-modal')) closeVoiceImport();
+});
+
+document.getElementById('voice-import-parse').addEventListener('click', () => {
+  const raw = document.getElementById('voice-import-input').value.trim();
+  const errEl = document.getElementById('voice-import-error');
+  const preEl = document.getElementById('voice-import-preview');
+  errEl.style.display = 'none';
+  preEl.style.display = 'none';
+  _voiceParsed = null;
+  document.getElementById('voice-import-confirm').disabled = true;
+  document.getElementById('voice-import-confirm').style.opacity = '.5';
+
+  // 嘗試解析 JSON（允許被 markdown 包圍）
+  let jsonStr = raw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+  let data;
+  try {
+    data = JSON.parse(jsonStr);
+  } catch(e) {
+    errEl.textContent = '❌ JSON 格式錯誤，請確認 AI 輸出是否完整。';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  if (!data.chips || !Array.isArray(data.chips) || data.chips.length === 0) {
+    errEl.textContent = '❌ 找不到 chips 陣列，請確認格式正確。';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // 解析日期
+  let month = currentMonth, day = new Date().getDate();
+  if (data.date) {
+    const parts = data.date.split('-');
+    if (parts.length === 3) { month = parseInt(parts[1]); day = parseInt(parts[2]); }
+  }
+
+  // 預覽
+  const lines = [`📅 日期：${month}/${day}（${MONTH_NAMES[month]}月）`, ''];
+  data.chips.forEach((c, i) => {
+    const info = getCatInfo(c.cat);
+    const timeStr = c.startTime && c.endTime ? `${c.startTime}–${c.endTime}` : `${c.dur}hr`;
+    let line = `${i+1}. ${info.icon} ${c.name}　${timeStr}　(${info.label})`;
+    if (c.expense) line += `　💳 $${c.expense.amt}`;
+    if (c.note) line += `　⚠️ ${c.note}`;
+    lines.push(line);
+  });
+
+  preEl.innerHTML = lines.map(l => `<div>${l || '&nbsp;'}</div>`).join('');
+  preEl.style.display = 'block';
+  _voiceParsed = { data, month, day };
+  document.getElementById('voice-import-confirm').disabled = false;
+  document.getElementById('voice-import-confirm').style.opacity = '1';
+});
+
+document.getElementById('voice-import-confirm').addEventListener('click', () => {
+  if (!_voiceParsed) return;
+  const { data, month, day } = _voiceParsed;
+
+  data.chips.forEach(c => {
+    // 計算 startSlot
+    let startSlot = SLOT_START;
+    if (c.startTime) {
+      const [h, m] = c.startTime.split(':').map(Number);
+      startSlot = h * 2 + (m >= 30 ? 1 : 0);
+    }
+    const dur = c.dur || 1;
+
+    // 建立方塊
+    const id = 'chip_' + (++chipId);
+    chips[id] = {
+      id, name: c.name, cat: c.cat || 'flex',
+      dur, startSlot, month, day,
+      placed: true, done: false,
+      expenses: c.expense ? [{
+        name: c.expense.name || c.name,
+        amt: c.expense.amt || 0,
+        cardId: c.expense.cardId || null,
+        finCat: 'misc',
+      }] : [],
+    };
+  });
+
+  saveData();
+  buildCalendar();
+  updateStats();
+  if (currentMonth !== month) switchMonth(month);
+  closeVoiceImport();
+  // 簡單提示
+  const badge = document.createElement('div');
+  badge.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:8px 18px;border-radius:20px;font-size:11px;font-family:"Noto Sans TC",sans-serif;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,.2);';
+  badge.textContent = `✓ 已建立 ${data.chips.length} 個方塊`;
+  document.body.appendChild(badge);
+  setTimeout(() => badge.remove(), 2500);
+});
+
+// ── 卡片編輯 Modal ────────────────────────────────────
+let _editingCard = null;
+
+function cardEditPreviewAdj(inputId, adjId, isNextMonth) {
+  const val = parseInt(document.getElementById(inputId).value);
+  const adjEl = document.getElementById(adjId);
+  if (!val || val < 1 || val > 31) { adjEl.textContent = ''; return; }
+  const today = new Date();
+  const mo = isNextMonth ? today.getMonth() + 1 : today.getMonth(); // 0-based month
+  const yr = isNextMonth && mo > 11 ? today.getFullYear() + 1 : today.getFullYear();
+  const moAdj = isNextMonth && mo > 11 ? 0 : mo;
+  try {
+    const raw = new Date(yr, moAdj, val);
+    const adj = nextWorkday(raw);
+    if (adj.getDate() !== val) {
+      adjEl.textContent = `→ 展延至 ${adj.getMonth()+1}/${adj.getDate()}`;
+    } else {
+      adjEl.textContent = '✓ 工作日';
+    }
+  } catch(e) { adjEl.textContent = ''; }
+}
+
+function openCardEditModal(card) {
+  _editingCard = card;
+  document.getElementById('card-edit-name').value    = card.name || '';
+  document.getElementById('card-edit-billing').value = card.billingDay || '';
+  document.getElementById('card-edit-due').value     = card.dueDay || '';
+  document.getElementById('card-edit-billing-adj').textContent = '';
+  document.getElementById('card-edit-due-adj').textContent = '';
+  // 預覽展延
+  setTimeout(() => {
+    cardEditPreviewAdj('card-edit-billing', 'card-edit-billing-adj', false);
+    cardEditPreviewAdj('card-edit-due', 'card-edit-due-adj', true);
+  }, 0);
+  document.getElementById('card-edit-modal').classList.add('show');
+}
+
+document.getElementById('card-edit-billing').addEventListener('input', () =>
+  cardEditPreviewAdj('card-edit-billing', 'card-edit-billing-adj', false));
+document.getElementById('card-edit-due').addEventListener('input', () =>
+  cardEditPreviewAdj('card-edit-due', 'card-edit-due-adj', true));
+
+function closeCardEditModal() {
+  document.getElementById('card-edit-modal').classList.remove('show');
+  _editingCard = null;
+}
+document.getElementById('card-edit-close').addEventListener('click', closeCardEditModal);
+document.getElementById('card-edit-cancel').addEventListener('click', closeCardEditModal);
+document.getElementById('card-edit-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('card-edit-modal')) closeCardEditModal();
+});
+
+document.getElementById('card-edit-save').addEventListener('click', () => {
+  if (!_editingCard) return;
+  const name    = document.getElementById('card-edit-name').value.trim();
+  const billing = parseInt(document.getElementById('card-edit-billing').value) || 0;
+  const due     = parseInt(document.getElementById('card-edit-due').value) || 0;
+  if (!name) { document.getElementById('card-edit-name').focus(); return; }
+  _editingCard.name       = name;
+  _editingCard.billingDay = billing;
+  _editingCard.dueDay     = due;
+  // 清掉手動覆寫，讓系統重新算
+  delete _editingCard.billStart;
+  delete _editingCard.billEnd;
+  finSave();
+  finRender();
+  closeCardEditModal();
+});
+
 // ── Event wiring ──
 document.getElementById('finance-fab').addEventListener('click', () => {
   finRender();
@@ -3675,12 +4208,16 @@ document.getElementById('fin-cat-name-input').addEventListener('keydown', e => {
 });
 
 document.getElementById('fin-card-add-btn').addEventListener('click', () => {
-  const nameEl = document.getElementById('fin-card-name-input');
+  const nameEl    = document.getElementById('fin-card-name-input');
+  const billingEl = document.getElementById('fin-card-billing-input');
+  const dueEl     = document.getElementById('fin-card-due-input');
   const name = nameEl.value.trim();
   if (!name) { nameEl.focus(); return; }
-  finData.cards.push({ id: 'card_' + Date.now(), name });
+  const billingDay = parseInt(billingEl.value) || 0;
+  const dueDay     = parseInt(dueEl.value) || 0;
+  finData.cards.push({ id: 'card_' + Date.now(), name, billingDay, dueDay });
   finSave(); finRender(); finUpdateCardSelect();
-  nameEl.value = '';
+  nameEl.value = ''; billingEl.value = ''; dueEl.value = '';
 });
 document.getElementById('fin-card-name-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') document.getElementById('fin-card-add-btn').click();

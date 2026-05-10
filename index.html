@@ -4059,35 +4059,38 @@ document.getElementById('voice-import-confirm').addEventListener('click', () => 
   const { data, month, day } = _voiceParsed;
 
   data.chips.forEach(c => {
-    // 計算 startSlot
+    // 計算 startSlot：h*2 + (m>=30?1:0)，並限制在合法範圍內
     let startSlot = SLOT_START;
     if (c.startTime) {
       const [h, m] = c.startTime.split(':').map(Number);
       startSlot = h * 2 + (m >= 30 ? 1 : 0);
+      startSlot = Math.max(SLOT_START, Math.min(SLOT_END, startSlot));
     }
     const dur = c.dur || 1;
 
-    // 建立方塊
+    // 建立方塊到 chips，先 placed:false
     const id = 'chip_' + (++chipId);
     chips[id] = {
       id, name: c.name, cat: c.cat || 'flex',
-      dur, startSlot, month, day,
-      placed: true, done: false,
+      dur, placed: false, done: false,
       expenses: c.expense ? [{
         name: c.expense.name || c.name,
         amt: c.expense.amt || 0,
         cardId: c.expense.cardId || null,
-        finCat: 'misc',
+        finCat: CAT_TO_FIN[c.cat] || 'misc',
       }] : [],
     };
+
+    // 用 placeChip 正式放入日曆（會呼叫 renderPlaced）
+    // 需要先切換到對應月份才能找到 cell
+    if (currentMonth !== month) switchMonth(month);
+    placeChip(id, month, day, startSlot);
   });
 
-  saveData();
-  buildCalendar();
+  saveToLocal();
   updateStats();
-  if (currentMonth !== month) switchMonth(month);
   closeVoiceImport();
-  // 簡單提示
+
   const badge = document.createElement('div');
   badge.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:8px 18px;border-radius:20px;font-size:11px;font-family:"Noto Sans TC",sans-serif;z-index:9999;box-shadow:0 2px 12px rgba(0,0,0,.2);';
   badge.textContent = `✓ 已建立 ${data.chips.length} 個方塊`;

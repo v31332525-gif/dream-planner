@@ -535,8 +535,8 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
   <button class="data-btn" id="btn-gist-sync" title="GitHub Gist 雲端同步" style="display:flex;align-items:center;gap:4px;">
     <span id="gist-sync-icon">☁</span> 雲端同步
   </button>
-  <button class="data-btn" id="btn-ai-coach" title="一鍵產生上週複盤＋下週規劃，複製給 AI 或存成紀錄" style="border-color:var(--accent);color:var(--accent);">🤖 AI 教練</button>
   <button class="data-btn" id="btn-voice-import" title="貼上 AI 解析的口語行程 JSON" style="border-color:#4A7FD4;color:#4A7FD4;">🗣 口語登記</button>
+  <button class="data-btn" id="btn-ai-coach" title="一鍵產生上週複盤＋下週規劃，複製給 AI 或存成紀錄" style="border-color:var(--accent);color:var(--accent);">🤖 AI 教練</button>
   <button class="data-btn" id="btn-export" title="匯出 JSON 備份">⬇ 匯出備份</button>
   <label class="data-btn" title="匯入 JSON 還原" style="cursor:pointer">
     ⬆ 匯入資料
@@ -869,11 +869,25 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
       <div>
         <div class="modal-title">🗣 口語行程登記</div>
-        <div style="font-size:10px;color:var(--text2);margin-top:3px;line-height:1.6;">把 AI 解析後產生的 JSON 貼到下方，自動建立行程方塊。</div>
+        <div style="font-size:10px;color:var(--text2);margin-top:3px;line-height:1.6;">先複製提示詞給 AI，說出你的行程，再把 AI 輸出的 JSON 貼到下方。</div>
       </div>
       <button id="voice-import-close" style="background:none;border:none;cursor:pointer;font-size:15px;color:var(--text3);flex-shrink:0;margin-left:10px;">✕</button>
     </div>
 
+    <!-- 步驟一：複製提示詞 -->
+    <div style="background:var(--surface2);border:0.5px solid var(--border2);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <div style="font-size:10px;font-weight:700;color:var(--text2);">步驟一：複製提示詞，開新對話貼給 AI</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span id="prompt-copy-badge" style="font-size:9px;color:#2DA44E;opacity:0;transition:opacity .3s;">✓ 已複製</span>
+          <button id="btn-copy-prompt" style="padding:4px 12px;font-size:10px;font-weight:700;font-family:'Noto Sans TC',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;">📋 一鍵複製提示詞</button>
+        </div>
+      </div>
+      <div style="font-size:9px;color:var(--text3);line-height:1.5;">複製後開啟 Claude 或 ChatGPT → 貼上 → 開始口語描述你的行程 → AI 輸出 JSON</div>
+    </div>
+
+    <!-- 步驟二：貼上 JSON -->
+    <div style="font-size:10px;font-weight:700;color:var(--text2);margin-bottom:4px;">步驟二：貼上 AI 輸出的 JSON</div>
     <textarea id="voice-import-input" placeholder='貼上 AI 輸出的 JSON，例如：
 {
   "date": "2026-05-10",
@@ -881,7 +895,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
     { "name": "睡覺", "cat": "rest", "startTime": "08:30", "endTime": "10:00", "dur": 1.5 },
     { "name": "回家吃午餐", "cat": "eat", "startTime": "10:00", "endTime": "12:00", "dur": 2 }
   ]
-}' style="width:100%;height:200px;padding:10px 12px;font-size:10px;font-family:'DM Mono',monospace;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;box-sizing:border-box;margin-bottom:8px;"></textarea>
+}' style="width:100%;height:180px;padding:10px 12px;font-size:10px;font-family:'DM Mono',monospace;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;box-sizing:border-box;margin-bottom:8px;"></textarea>
 
     <div id="voice-import-preview" style="display:none;margin-bottom:8px;padding:8px 10px;background:var(--surface2);border-radius:var(--radius-sm);border:0.5px solid var(--border2);font-size:10px;line-height:1.8;color:var(--text2);max-height:150px;overflow-y:auto;"></div>
     <div id="voice-import-error" style="display:none;font-size:10px;color:#E57373;margin-bottom:8px;"></div>
@@ -3980,7 +3994,112 @@ function finUpdateManualCatSelect() {
   }
 }
 
-// ── 口語登記 ────────────────────────────────────────
+// ── 口語登記提示詞 ──────────────────────────────────
+const VOICE_PROMPT = `你是我的行程登記助理。我會用口語描述我的行程，你要解析後輸出 JSON，讓我貼回我的行程規劃工具。
+
+## 分類對照表
+
+| 口語關鍵字 | 分類 key |
+|-----------|---------|
+| 睡覺、睡到、睡午覺、休息、躺著 | rest |
+| 吃飯、吃早餐、吃午餐、吃晚餐、吃東西、用餐 | eat |
+| 工作、上班、載貨、送貨、接案、開會 | work |
+| 運動、健身、跑步、游泳、打球 | sport |
+| 讀書、念書、學習、複習、自習 | growth |
+| 課程、上課、補習 | class |
+| 看書、閱讀 | read |
+| 電影、看劇、追劇 | movie |
+| 娛樂、玩遊戲、出去玩 | fun |
+| 雜事、家事、跑腿、整理 | chore |
+| 其他、不確定 | flex |
+
+## 信用卡對照表
+
+| 口語 | cardId |
+|------|--------|
+| 花旗、citi | card_citi |
+| 國泰、cathay | card_cathay |
+| 台新、taishin | card_taishin |
+| 中信、ctbc | card_ctbc |
+| 匯豐、hsbc | card_hsbc |
+| 現金、沒刷卡、不用卡 | null |
+
+## 日期解析規則
+
+- 「今天」= 當天日期
+- 「明天」= 隔天、「後天」= 兩天後
+- 「週一」到「週日」= 本週或下週對應日期
+- 沒有說日期 = 預設今天
+- 「早上」= AM、「下午」= PM、「晚上」= PM
+- 「10點」=10:00、「下午3點半」=15:30
+
+## 時間區間規則
+
+- 「睡到X點」= 從 8:30 到 X 點，分類 rest
+- 「X點到Y點做某事」= startTime: X, endTime: Y
+- 時數計算：endTime - startTime，四捨五入到 0.5hr
+
+## 輸出前的確認規則（重要）
+
+在輸出 JSON 之前，先檢查每一個有花費金額的方塊：
+
+**必須先用中文問我，再輸出 JSON，如果：**
+1. 有金額但沒說刷哪張卡 → 問：「[行程名稱] 花了 $XXX，請問刷哪張卡？（花旗／國泰／台新／中信／匯豐／現金）」
+2. 有金額但花費分類不明確 → 問：「[行程名稱] 的花費屬於哪類？（餐費／交通費／娛樂費／課程／醫療費／固定支出／雜項）」
+
+**不需要問的情況：**
+- 沒有花費 → 直接輸出 JSON
+- 分類可明確推斷（吃飯=餐費、上課=課程）→ 不用問分類，但刷卡還是要確認
+- 已說現金／不刷卡 → cardId 填 null
+
+**一次問完所有問題**，我回答後再輸出完整 JSON。
+
+只輸出 JSON，不要任何說明文字，格式如下：
+
+\`\`\`json
+{
+  "date": "2026-05-10",
+  "chips": [
+    {
+      "name": "方塊名稱",
+      "cat": "分類key",
+      "startTime": "10:00",
+      "endTime": "12:00",
+      "dur": 2,
+      "expense": {
+        "name": "花費名稱",
+        "amt": 100,
+        "cardId": "card_cathay"
+      }
+    }
+  ]
+}
+\`\`\`
+
+- dur 單位是小時，最小 0.5，只能是 0.5 的倍數
+- 沒有花費就不要輸出 expense 欄位
+- 一段口語可能包含多個方塊，全部放進 chips 陣列
+- 名稱要簡短有意義`;
+
+document.getElementById('btn-copy-prompt').addEventListener('click', () => {
+  const badge = document.getElementById('prompt-copy-badge');
+  navigator.clipboard?.writeText(VOICE_PROMPT).then(() => {
+    badge.style.opacity = '1';
+    setTimeout(() => badge.style.opacity = '0', 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = VOICE_PROMPT;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    badge.style.opacity = '1';
+    setTimeout(() => badge.style.opacity = '0', 2000);
+  });
+});
+
+// ── 口語登記 ──────────────────────────────────────────
 let _voiceParsed = null;
 
 function openVoiceImport() {

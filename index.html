@@ -552,8 +552,8 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 </div>
 
 <div class="stats-bar">
-  <div class="stat-card"><div class="stat-val" id="s-free">—</div><div class="stat-lbl">本週總空白時數</div></div>
-  <div class="stat-card"><div class="stat-val" id="s-pool">—</div><div class="stat-lbl">本週待安排時數</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-free">—</div><div class="stat-lbl">本週總時數</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-pool">—</div><div class="stat-lbl">本週空白時數</div></div>
   <div class="stat-card"><div class="stat-val" id="s-placed">0</div><div class="stat-lbl">已排入行程</div></div>
   <div class="stat-card"><div class="stat-val green" id="s-done">0</div><div class="stat-lbl">已完成</div></div>
   <div class="stat-card"><div class="stat-val" id="s-pct">0%</div><div class="stat-lbl">完成率</div></div>
@@ -2084,13 +2084,30 @@ function updateStats() {
   const weekTotalSlots = SLOT_COUNT * 7;
   const weekTotalHrs = (weekTotalSlots / 2).toFixed(1);
 
-  // 本週待安排時數 = 總可運用 − 已排入（還有多少空間可以規劃）
-  const freeHrs   = Math.max(0, (weekTotalSlots - weekPlacedSlots) / 2).toFixed(1);
-  const pendingHrs = freeHrs;
+  // 本週空白時數：逐格掃描，只計算完全沒有方塊覆蓋的格子
+  let emptySlots = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(weekMon); d.setDate(weekMon.getDate() + i);
+    const m = d.getMonth() + 1, day = d.getDate();
+    // 只算今天及之後的天（已過去的天不算可用空白）
+    const isPast = d < new Date(today0.getFullYear(), today0.getMonth(), today0.getDate());
+    if (isPast) continue;
+    // 建立這天的已佔用 slot 集合
+    const occupied = new Set();
+    weekChips.filter(c => c.month === m && c.day === day).forEach(c => {
+      const end = c.startSlot + durSlots(c.dur);
+      for (let s = c.startSlot; s < end; s++) occupied.add(s);
+    });
+    for (let s = SLOT_START; s <= SLOT_END; s++) {
+      if (!occupied.has(s)) emptySlots++;
+    }
+  }
+  const freeHrs = (emptySlots / 2).toFixed(1);
 
   document.getElementById('s-free').textContent = weekTotalHrs + 'hr';
-  document.getElementById('s-pool').textContent = pendingHrs + 'hr';
-  document.getElementById('s-placed').textContent = placed.length - done.length;
+  document.getElementById('s-pool').textContent = freeHrs + 'hr';
+  // 已排入 = placed + done（都算進去）
+  document.getElementById('s-placed').textContent = placed.length;
   document.getElementById('s-done').textContent = done.length;
   document.getElementById('s-pct').textContent = pct + '%';
 

@@ -2084,15 +2084,11 @@ function updateStats() {
   const weekTotalSlots = SLOT_COUNT * 7;
   const weekTotalHrs = (weekTotalSlots / 2).toFixed(1);
 
-  // 本週空白時數：逐格掃描，只計算完全沒有方塊覆蓋的格子
+  // 本週空白時數：逐格掃描本週每一天所有空白格子
   let emptySlots = 0;
   for (let i = 0; i < 7; i++) {
     const d = new Date(weekMon); d.setDate(weekMon.getDate() + i);
     const m = d.getMonth() + 1, day = d.getDate();
-    // 只算今天及之後的天（已過去的天不算可用空白）
-    const isPast = d < new Date(today0.getFullYear(), today0.getMonth(), today0.getDate());
-    if (isPast) continue;
-    // 建立這天的已佔用 slot 集合
     const occupied = new Set();
     weekChips.filter(c => c.month === m && c.day === day).forEach(c => {
       const end = c.startSlot + durSlots(c.dur);

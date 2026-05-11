@@ -459,6 +459,94 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .finance-fab-badge{background:#E57373;color:#fff;border-radius:50%;width:18px;height:18px;font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;flex-shrink:0;}
 .finance-fab-badge.show{display:flex;}
 @media(max-width:768px){.finance-panel{max-height:88vh;border-radius:16px 16px 0 0;}.fin-cat-grid{grid-template-columns:repeat(2,1fr);}.fin-add-row{flex-wrap:wrap;}.finance-fab{bottom:calc(16px + env(safe-area-inset-bottom));}}
+
+/* ── 榮耀獎牌廳 Medal Hall ── */
+.medal-hall-section{margin-top:14px;padding-top:12px;border-top:0.5px solid var(--border2);}
+.medal-hall-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;padding:6px 0;}
+.medal-hall-toggle-icon{font-size:18px;}
+.medal-hall-toggle-label{font-size:11px;font-weight:700;color:var(--text2);flex:1;letter-spacing:.03em;}
+.medal-hall-toggle-count{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:linear-gradient(135deg,#F9C74F,#F3722C);color:#fff;}
+.medal-hall-toggle-arrow{font-size:10px;color:var(--text3);transition:transform .25s;}
+.medal-hall-toggle-arrow.open{transform:rotate(180deg);}
+.medal-hall-body{display:none;padding-top:8px;}
+.medal-hall-body.open{display:block;}
+.medal-hall-hint{font-size:10px;color:var(--text3);text-align:center;padding:16px 0;font-style:italic;}
+.medal-grid{display:flex;flex-wrap:wrap;gap:14px;}
+.medal-item{display:flex;flex-direction:column;align-items:center;width:72px;}
+.medal-trophy-wrap{width:60px;height:66px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.2));transition:transform .2s;}
+.medal-trophy-wrap:hover{transform:translateY(-3px) rotate(3deg);}
+.medal-trophy-wrap.new-pop{animation:medal-pop .5s cubic-bezier(.34,1.56,.64,1) both;}
+.medal-name{font-size:9px;font-weight:700;color:var(--text);text-align:center;margin-top:5px;line-height:1.3;word-break:break-all;max-width:72px;}
+.medal-date{font-size:8px;color:var(--text3);text-align:center;margin-top:1px;}
+@keyframes medal-pop{0%{transform:scale(0) rotate(-20deg);opacity:0}60%{transform:scale(1.15) rotate(4deg);opacity:1}100%{transform:scale(1) rotate(0deg);opacity:1}}
+
+/* ── 目標計劃 FAB & Panel ── */
+.goal-fab{position:fixed;bottom:78px;right:16px;z-index:1400;padding:10px 18px;font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:50px;background:#5C7A6E;color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.22);display:flex;align-items:center;gap:6px;transition:all .2s;}
+.goal-fab:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.28);}
+.goal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:1500;display:none;align-items:flex-end;justify-content:center;}
+.goal-overlay.show{display:flex;}
+.goal-panel{background:var(--surface);border-radius:20px 20px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.18);width:min(680px,100vw);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
+.goal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 12px;border-bottom:0.5px solid var(--border2);flex-shrink:0;}
+.goal-title{font-size:16px;font-weight:700;color:var(--text);font-family:'Noto Serif TC',serif;}
+.goal-close{background:none;border:none;cursor:pointer;font-size:16px;color:var(--text3);padding:4px;}
+.goal-close:hover{color:var(--text);}
+.goal-body{flex:1;overflow-y:auto;padding:16px 20px;}
+/* goal cards */
+.goal-card{background:var(--surface2);border:0.5px solid var(--border2);border-radius:14px;padding:16px 18px;margin-bottom:12px;position:relative;}
+.goal-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.goal-card-name{font-size:15px;font-weight:700;color:var(--text);}
+.goal-card-streak{font-size:10px;color:var(--text3);margin-top:3px;}
+/* completed goals strip */
+.goal-done-strip{margin-bottom:14px;}
+.goal-done-label{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.goal-done-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.goal-done-chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:var(--surface);border:0.5px solid var(--border2);font-size:10px;color:var(--text2);cursor:default;}
+.goal-done-chip-medal{font-size:13px;}
+.goal-done-chip-name{font-weight:600;color:var(--text);max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.goal-done-chip-pct{font-size:9px;color:#2DA44E;font-weight:700;}
+.goal-badge{padding:3px 10px;font-size:10px;font-weight:700;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.goal-badge.long{background:#EEF5FF;color:#2A5FA8;border:0.5px solid #A0C0E8;}
+.goal-badge.mid{background:#FFF8EE;color:#8B6000;border:0.5px solid #E8C060;}
+.goal-badge.short{background:#EEFAF2;color:#1A6B42;border:0.5px solid #80C8A0;}
+.goal-progress-label{font-size:10px;color:var(--text2);margin-bottom:5px;}
+.goal-progress-bar-wrap{background:var(--border2);border-radius:6px;height:8px;overflow:hidden;margin-bottom:4px;}
+.goal-progress-bar{height:100%;border-radius:6px;transition:width .4s;}
+.goal-pct{font-size:10px;color:var(--text3);}
+.goal-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;}
+.goal-last-info{font-size:10px;color:var(--text3);}
+.goal-invest-btn{padding:7px 18px;font-size:12px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:10px;background:#3D6B5C;color:#fff;cursor:pointer;transition:all .15s;}
+.goal-invest-btn:hover{opacity:.85;transform:translateY(-1px);}
+/* add goal */
+.goal-add-section{margin-top:6px;padding:16px 18px;border:1.5px dashed var(--border2);border-radius:14px;background:var(--surface);}
+.goal-add-title{font-size:11px;font-weight:700;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px;}
+.goal-form-row{margin-bottom:10px;}
+.goal-form-row label{display:block;font-size:10px;color:var(--text2);margin-bottom:3px;}
+.goal-form-row input{width:100%;padding:7px 10px;font-size:12px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text);outline:none;transition:border-color .15s;}
+.goal-form-row input:focus{border-color:#3D6B5C;}
+.goal-type-row{display:flex;gap:6px;margin-bottom:10px;}
+.goal-type-btn{flex:1;padding:7px 6px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border-radius:8px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;text-align:center;transition:all .15s;}
+.goal-type-btn.on.long{background:#EEF5FF;color:#2A5FA8;border-color:#A0C0E8;}
+.goal-type-btn.on.mid{background:#FFF8EE;color:#8B6000;border-color:#E8C060;}
+.goal-type-btn.on.short{background:#EEFAF2;color:#1A6B42;border-color:#80C8A0;}
+.goal-add-btn{width:100%;padding:9px;font-size:12px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:10px;background:#3D6B5C;color:#fff;cursor:pointer;margin-top:4px;transition:opacity .15s;}
+.goal-add-btn:hover{opacity:.85;}
+/* invest overlay */
+.goal-invest-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;display:none;align-items:center;justify-content:center;}
+.goal-invest-overlay.show{display:flex;}
+.goal-invest-panel{background:#2A2A2A;border-radius:18px;padding:24px 22px;width:min(340px,90vw);color:#fff;box-shadow:0 12px 48px rgba(0,0,0,.4);}
+.gi-title{font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Noto Serif TC',serif;}
+.gi-sub{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:18px;}
+.gi-display{font-size:36px;font-weight:700;font-family:'DM Mono',monospace;text-align:right;padding:6px 10px;background:rgba(255,255,255,.08);border-radius:10px;margin-bottom:14px;letter-spacing:.02em;position:relative;}
+.gi-display-unit{font-size:14px;font-weight:400;position:absolute;right:10px;top:8px;opacity:.6;}
+.gi-quick{display:flex;gap:8px;margin-bottom:16px;}
+.gi-qbtn{flex:1;padding:9px 4px;font-size:13px;font-weight:700;font-family:'DM Mono',monospace;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;text-align:center;transition:all .15s;}
+.gi-qbtn:hover,.gi-qbtn.on{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5);}
+.gi-actions{display:flex;gap:10px;margin-top:4px;}
+.gi-cancel{flex:1;padding:11px;font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;transition:all .15s;}
+.gi-cancel:hover{background:rgba(255,255,255,.15);}
+.gi-confirm{flex:2;padding:11px;font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:10px;background:#3D9B7A;color:#fff;cursor:pointer;transition:all .15s;}
+.gi-confirm:hover{opacity:.85;}
+@media(max-width:768px){.goal-panel{max-height:88vh;border-radius:16px 16px 0 0;}.goal-fab{bottom:calc(72px + env(safe-area-inset-bottom));}}
 </style>
 </head>
 <body>
@@ -570,7 +658,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 
       <div class="form-row"><label>分類</label>
         <div class="cat-grid">
-          <button class="cbt on" data-c="growth">🌱<span>成長</span></button>
+          <button class="cbt on" data-c="medical">🏥<span>醫療</span></button>
           <button class="cbt" data-c="work">💼<span>工作</span></button>
           <button class="cbt" data-c="fun">🎮<span>娛樂</span></button>
           <button class="cbt" data-c="chore">🗂️<span>雜務</span></button>
@@ -588,19 +676,15 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
       <div class="form-row">
         <label>名稱 <span style="opacity:.55;font-weight:400">（選填）</span></label>
         <div style="display:flex;align-items:center;gap:5px">
-          <span id="icon-prev" style="font-size:14px">🌱</span>
+        <span id="icon-prev" style="font-size:14px">🏥</span>
           <input id="f-name" placeholder="不填則用分類名稱" style="flex:1">
         </div>
       </div>
 
-      <input type="hidden" id="f-cat" value="growth">
+      <input type="hidden" id="f-cat" value="medical">
 
-      <div class="form-row half">
+      <div class="form-row">
         <div><label>時數（hr）</label><input id="f-dur" type="number" min="0.5" max="10" step="0.5" value="1" inputmode="decimal"></div>
-        <div id="rev-n-wrap" style=""><label>複習次數</label><input id="f-rev" type="number" min="0" max="10" value="1" inputmode="numeric"></div>
-      </div>
-      <div class="form-row" id="rev-d-wrap" style="">
-        <label>每次複習時數（hr）</label><input id="f-revdur" type="number" min="0.5" max="4" step="0.5" value="0.5" inputmode="decimal">
       </div>
 
       <div id="class-wrap" style="display:none">
@@ -623,6 +707,10 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 
     <div class="panel" id="pool-panel">
       <div class="ptitle">待排方塊</div>
+
+      <!-- 目標快速投入列 -->
+      <div id="goal-quick-bar" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;"></div>
+
       <div class="chip-pool" id="chip-pool"><div class="pool-hint">所有方塊已排入行程！</div></div>
       <div class="breakdown" id="breakdown" style="">
         <div class="bdtitle">本週時間佔比</div>
@@ -943,6 +1031,21 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
       <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:3px;">💭 想請 AI 教練聊聊的事</div>
       <textarea id="ai-plan-question" placeholder="例如：我最近很容易拖延，不知道怎麼改善…" style="width:100%;height:46px;padding:8px 10px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;margin-bottom:10px;box-sizing:border-box;"></textarea>
 
+      <!-- 🏅 榮耀獎牌廳 -->
+      <div class="medal-hall-section" id="medal-hall-section">
+        <div class="medal-hall-toggle" id="medal-hall-toggle">
+          <span class="medal-hall-toggle-icon">🏅</span>
+          <span class="medal-hall-toggle-label">榮耀獎牌廳</span>
+          <span class="medal-hall-toggle-count" id="medal-count" style="display:none"></span>
+          <span class="medal-hall-toggle-arrow" id="medal-arrow">▼</span>
+        </div>
+        <div class="medal-hall-body" id="medal-hall-body">
+          <div class="medal-grid" id="medal-grid">
+            <div class="medal-hall-hint">還沒有完成的目標，加油！</div>
+          </div>
+        </div>
+      </div>
+
       <!-- 輸出區 -->
       <textarea id="ai-coach-output" readonly placeholder="按下「產生」後，文字會出現在這裡…"
         style="width:100%;height:180px;padding:10px 12px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.8;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;box-sizing:border-box;"></textarea>
@@ -963,7 +1066,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 
 <script>
 const CAT = {
-  growth:{label:'成長', icon:'🌱', cc:'cc-growth', pc:'pc-growth', rev:true,  rep:false, color:'#3C3489'},
+  medical:{label:'醫療', icon:'🏥', cc:'cc-growth', pc:'pc-growth', rev:false, rep:false, color:'#3C3489'},
   work:  {label:'工作', icon:'💼', cc:'cc-work',   pc:'pc-work',   rev:false, rep:false, color:'#92600A'},
   fun:   {label:'娛樂', icon:'🎮', cc:'cc-fun',    pc:'pc-fun',    rev:false, rep:false, color:'#72243E'},
   chore: {label:'雜務', icon:'🗂️', cc:'cc-chore',  pc:'pc-chore',  rev:false, rep:false, color:'#1A5FA8'},
@@ -1098,7 +1201,7 @@ const SLOT_COUNT = SLOT_END - SLOT_START + 1; // 29 slots per day
 const CELL_H = 22; // px per slot
 
 let currentMonth = 5; // 5=May, 6=June
-let currentCat = 'growth';
+let currentCat = 'medical';
 let chipId = 0;
 let chips = {};
 let dragging = null;
@@ -1334,7 +1437,7 @@ function makePoolChip(id) {
   const div=document.createElement('div');
   div.className='chip '+cat.cc;
   div.dataset.id=id; div.draggable=true;
-  div.innerHTML=`<div class="chip-n">${ch.name}</div><div class="chip-m">${cat.icon} ${ch.isRev?'複習':cat.label} · ${ch.dur}hr</div>`;
+  div.innerHTML=`<div class="chip-n">${ch.name}</div><div class="chip-m">${cat.icon} ${cat.label} · ${ch.dur}hr</div>`;
   div.addEventListener('dragstart',()=>{dragging={id,from:'pool'};setTimeout(()=>div.classList.add('drag'),0);});
   div.addEventListener('dragend',()=>{div.classList.remove('drag');clearPreview();});
   addTouchDrag(div, id, 'pool');
@@ -2164,8 +2267,7 @@ function updateStats() {
 function updateForm() {
   const cat=CAT[currentCat];
   document.getElementById('icon-prev').textContent=cat.icon;
-  document.getElementById('rev-n-wrap').style.display=cat.rev?'':'none';
-  document.getElementById('rev-d-wrap').style.display=cat.rev?'':'none';
+  
   document.getElementById('class-wrap').style.display=cat.rep?'':'none';
   document.getElementById('f-dur').value=1;
 }
@@ -2181,7 +2283,7 @@ document.querySelectorAll('.cbt').forEach(btn=>{
 });
 
 document.getElementById('add-btn').addEventListener('click',()=>{
-  const cat=document.getElementById('f-cat').value||'growth';
+  const cat=document.getElementById('f-cat').value||'medical';
   const catInfo=getCatInfo(cat);
   const rawName=document.getElementById('f-name').value.trim();
   const name=rawName||(catInfo.label);
@@ -2211,15 +2313,6 @@ document.getElementById('add-btn').addEventListener('click',()=>{
     const id=++chipId;
     chips[id]={id,name,cat,dur,isRev:false,placed:false,done:false};
     appendToPool(id);
-    if (catInfo.rev) {
-      const rev=parseInt(document.getElementById('f-rev').value)||0;
-      const revdur=parseFloat(document.getElementById('f-revdur').value)||0.5;
-      for (let i=1;i<=rev;i++) {
-        const rid=++chipId;
-        chips[rid]={id:rid,name:name+' 複習'+i,cat,dur:revdur,isRev:true,placed:false,done:false};
-        appendToPool(rid);
-      }
-    }
   }
 
   document.getElementById('f-name').value='';
@@ -3351,7 +3444,7 @@ document.getElementById('ai-coach-save-last').addEventListener('click', () => {
   } catch(e) { alert('儲存失敗，請稍後再試。'); }
 });
 
-document.getElementById('btn-ai-coach').addEventListener('click', openAiCoach);
+document.getElementById('btn-ai-coach').addEventListener('click', () => { openAiCoach(); medalRender(); });
 document.getElementById('ai-coach-close').addEventListener('click', ()=>document.getElementById('ai-coach-modal').classList.remove('show'));
 document.getElementById('ai-coach-modal').addEventListener('click', e=>{
   if(e.target===document.getElementById('ai-coach-modal')) document.getElementById('ai-coach-modal').classList.remove('show');
@@ -3393,6 +3486,46 @@ document.getElementById('ai-coach-download').addEventListener('click', ()=>{
 </script>
 
 
+
+<!-- ── 目標計劃 FAB & Panel ── -->
+<button class="goal-fab" id="goal-fab">🎯 目標計劃</button>
+<div class="goal-overlay" id="goal-overlay">
+  <div class="goal-panel">
+    <div class="goal-header">
+      <div>
+        <div class="goal-title">🎯 目標計劃</div>
+      </div>
+      <button class="goal-close" id="goal-close">✕</button>
+    </div>
+    <div class="goal-body" id="goal-body">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</div>
+<!-- 今天投入 sub-overlay -->
+<div class="goal-invest-overlay" id="goal-invest-overlay">
+  <div class="goal-invest-panel">
+    <div class="gi-title" id="gi-title">目標名稱</div>
+    <div class="gi-sub">今天要投入多少時間？</div>
+    <!-- 里程碑下拉（有里程碑才顯示） -->
+    <div id="gi-milestone-wrap" style="display:none;margin-bottom:14px;">
+      <div style="font-size:10px;color:rgba(255,255,255,.6);margin-bottom:5px;">選擇里程碑</div>
+      <select id="gi-milestone-select" style="width:100%;padding:8px 10px;font-size:12px;font-family:'Noto Sans TC',sans-serif;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.1);color:#fff;outline:none;cursor:pointer;">
+      </select>
+    </div>
+    <div class="gi-display"><span id="gi-val">0</span><span class="gi-display-unit">小時</span></div>
+    <div class="gi-quick">
+      <button class="gi-qbtn" data-v="0.5">0.5hr</button>
+      <button class="gi-qbtn" data-v="1">1hr</button>
+      <button class="gi-qbtn" data-v="1.5">1.5hr</button>
+      <button class="gi-qbtn" data-v="2">2hr</button>
+    </div>
+    <div class="gi-actions">
+      <button class="gi-cancel" id="gi-cancel">取消</button>
+      <button class="gi-confirm" id="gi-confirm">產生方塊</button>
+    </div>
+  </div>
+</div>
 
 <!-- ── 財務總覽面板 ── -->
 <button class="finance-fab" id="finance-fab">💳 財務<span class="finance-fab-badge" id="finance-fab-badge">!</span></button>
@@ -4478,6 +4611,509 @@ finLoad();
 finUpdateCardSelect();
 finUpdateManualCatSelect();
 setTimeout(finUpdateFabBadge, 600);
+
+// ══════════════════════════════════════════════
+// 目標計劃 Goal Planner
+// ══════════════════════════════════════════════
+let goalData = { goals: [] };
+let giTargetId = null;
+let giCurrentVal = 0;
+
+function goalLoad() {
+  try {
+    const raw = localStorage.getItem('goal-data-v1');
+    if (raw) goalData = JSON.parse(raw);
+    if (!goalData.goals) goalData.goals = [];
+  } catch(e) { goalData = { goals: [] }; }
+}
+
+function goalSave() {
+  try { localStorage.setItem('goal-data-v1', JSON.stringify(goalData)); } catch(e) {}
+}
+
+function goalStreakText(g) {
+  const logs = g.logs || [];
+  if (!logs.length) return '尚未開始';
+  const today = new Date().toDateString();
+  const lastLog = new Date(logs[logs.length - 1].date).toDateString();
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  const lastDateStr = lastLog === today ? '今天' : lastLog === yesterday ? '昨天' : '上週';
+  // count streak
+  let streak = 0;
+  const seenWeeks = new Set();
+  for (let i = logs.length - 1; i >= 0; i--) {
+    const d = new Date(logs[i].date);
+    const wk = d.getFullYear() + '-' + getWeekNumber(d);
+    if (seenWeeks.has(wk)) continue;
+    seenWeeks.add(wk);
+    streak++;
+  }
+  if (streak > 1) return '連續 ' + streak + ' 週投入';
+  return '最近投入：' + lastDateStr;
+}
+
+function getWeekNumber(d) {
+  const onejan = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+}
+
+function goalTypeLabel(type) {
+  if (type === 'long') return '長期・1年';
+  if (type === 'mid') return '中期・3個月';
+  return '短期・2週';
+}
+
+function goalBarColor(type) {
+  if (type === 'long') return '#4A7FD4';
+  if (type === 'mid') return '#D4A843';
+  return '#5CAA85';
+}
+
+function goalRender() {
+  const body = document.getElementById('goal-body');
+  let html = '';
+
+  const active = goalData.goals.filter(g => {
+    const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+    return invested < g.target;
+  });
+  const done = goalData.goals.filter(g => {
+    const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+    return invested >= g.target;
+  });
+
+  // Completed goals — compact chip strip
+  if (done.length > 0) {
+    const medalEmoji = { long: '🔵', mid: '🟡', short: '🟢' };
+    html += `<div class="goal-done-strip">
+      <div class="goal-done-label">🏅 已完成 <span style="color:var(--text2);font-weight:400;text-transform:none;letter-spacing:0;font-size:9px;">（開啟 AI 教練查看獎牌廳）</span></div>
+      <div class="goal-done-chips">`;
+    done.forEach(g => {
+      html += `<div class="goal-done-chip">
+        <span class="goal-done-chip-medal">${medalEmoji[g.type] || '🏅'}</span>
+        <span class="goal-done-chip-name">${g.name}</span>
+        <span class="goal-done-chip-pct">✓ 100%</span>
+      </div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Active goals — full cards
+  active.forEach(g => {
+    const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+    const target = g.target || 1;
+    const pct = Math.min(100, Math.round(invested / target * 100));
+    const color = goalBarColor(g.type);
+    const streakTxt = goalStreakText(g);
+
+    // 里程碑列表
+    const milestones = g.milestones || [];
+    let msHtml = '';
+    if (milestones.length > 0) {
+      msHtml = `<div style="margin:10px 0 8px;border-top:0.5px solid rgba(0,0,0,.06);padding-top:8px;">
+        <div style="font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">里程碑</div>`;
+      milestones.forEach((ms, idx) => {
+        const msDone = (ms.doneHrs || 0) >= (ms.hrs || 1);
+        const msPct = Math.min(100, Math.round((ms.doneHrs || 0) / (ms.hrs || 1) * 100));
+        msHtml += `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+          <span style="font-size:11px;flex-shrink:0;">${msDone ? '✅' : '⬜'}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:4px;">
+              <span style="font-size:10px;font-weight:600;color:${msDone ? 'var(--text3)' : 'var(--text)'};${msDone ? 'text-decoration:line-through;' : ''}">${ms.name}</span>
+              <span style="font-size:9px;color:var(--text3);white-space:nowrap;flex-shrink:0;">${ms.doneHrs || 0}/${ms.hrs}hr</span>
+            </div>
+            <div style="height:3px;background:var(--border2);border-radius:2px;margin-top:2px;overflow:hidden;">
+              <div style="height:100%;width:${msPct}%;background:${color};border-radius:2px;transition:width .4s;"></div>
+            </div>
+          </div>
+          <button onclick="goalDelMilestone('${g.id}',${idx})" style="background:none;border:none;font-size:9px;color:var(--text3);cursor:pointer;padding:0 2px;flex-shrink:0;opacity:.5;">✕</button>
+        </div>`;
+      });
+      msHtml += `</div>`;
+    }
+
+    // 新增里程碑表單（inline）
+    msHtml += `<div style="display:flex;gap:5px;margin-top:6px;">
+      <input id="ms-name-${g.id}" placeholder="里程碑名稱" style="flex:2;padding:5px 8px;font-size:10px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);outline:none;">
+      <input id="ms-hrs-${g.id}" type="number" min="1" placeholder="時數" style="width:52px;padding:5px 6px;font-size:10px;font-family:'DM Mono',monospace;border:0.5px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);outline:none;" inputmode="numeric">
+      <button onclick="goalAddMilestone('${g.id}')" style="padding:5px 8px;font-size:10px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:6px;background:#3D6B5C;color:#fff;cursor:pointer;white-space:nowrap;">＋</button>
+    </div>`;
+
+    html += `
+    <div class="goal-card" data-id="${g.id}">
+      <div class="goal-card-header">
+        <div>
+          <div class="goal-card-name">${g.name}</div>
+          <div class="goal-card-streak">${streakTxt}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <span class="goal-badge ${g.type}">${goalTypeLabel(g.type)}</span>
+          <button onclick="goalDelete('${g.id}')" style="background:none;border:none;font-size:10px;color:var(--text3);cursor:pointer;padding:0;">✕ 刪除</button>
+        </div>
+      </div>
+      <div class="goal-progress-label">已投入 ${invested}hr / 目標 ${target}hr</div>
+      <div class="goal-progress-bar-wrap">
+        <div class="goal-progress-bar" style="width:${pct}%;background:${color};"></div>
+      </div>
+      <div class="goal-pct">${pct}%</div>
+      ${msHtml}
+      <div class="goal-card-footer">
+        <div class="goal-last-info">${streakTxt}</div>
+        <button class="goal-invest-btn" onclick="goalOpenInvest('${g.id}')">＋ 今天投入</button>
+      </div>
+    </div>`;
+  });
+
+  // Add goal form
+  html += `
+  <div class="goal-add-section">
+    <div class="goal-add-title">＋ 新增目標</div>
+    <div class="goal-form-row">
+      <label>目標名稱</label>
+      <input id="g-name" placeholder="例如：學會影片剪輯" />
+    </div>
+    <div class="goal-form-row">
+      <label>目標總時數 (hr)</label>
+      <input id="g-target" type="number" min="1" placeholder="例如：120" inputmode="numeric" />
+    </div>
+    <div style="font-size:10px;color:var(--text2);margin-bottom:6px;">期限類型</div>
+    <div class="goal-type-row">
+      <button class="goal-type-btn long on" data-type="long" id="gtype-long" onclick="goalSelectType('long')">🔵 長期<br><span style="font-size:9px;opacity:.7;">1年</span></button>
+      <button class="goal-type-btn mid" data-type="mid" id="gtype-mid" onclick="goalSelectType('mid')">🟡 中期<br><span style="font-size:9px;opacity:.7;">3個月</span></button>
+      <button class="goal-type-btn short" data-type="short" id="gtype-short" onclick="goalSelectType('short')">🟢 短期<br><span style="font-size:9px;opacity:.7;">2週</span></button>
+    </div>
+    <button class="goal-add-btn" onclick="goalAdd()">新增目標</button>
+  </div>`;
+
+  body.innerHTML = html;
+  goalQuickBarRender();
+}
+
+let selectedGoalType = 'long';
+
+function goalSelectType(type) {
+  selectedGoalType = type;
+  ['long','mid','short'].forEach(t => {
+    const btn = document.getElementById('gtype-' + t);
+    if (btn) btn.className = 'goal-type-btn ' + t + (t === type ? ' on' : '');
+  });
+}
+
+function goalQuickBarRender() {
+  const bar = document.getElementById('goal-quick-bar');
+  if (!bar) return;
+  const active = (goalData.goals || []).filter(g => {
+    const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+    return invested < g.target;
+  });
+  if (!active.length) { bar.style.display = 'none'; return; }
+  bar.style.display = 'flex';
+
+  const colors = {
+    long:  { bg:'#EEF5FF', border:'#A0C0E8', text:'#2A5FA8' },
+    mid:   { bg:'#FFF8EE', border:'#E8C060', text:'#8B6000' },
+    short: { bg:'#EEFAF2', border:'#80C8A0', text:'#1A6B42' },
+  };
+
+  bar.innerHTML = active.map(g => {
+    const c = colors[g.type] || colors.mid;
+    const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+    const pct = Math.min(100, Math.round(invested / (g.target || 1) * 100));
+    // 找目前進行中的里程碑
+    const activems = (g.milestones || []).find(ms => (ms.doneHrs||0) < (ms.hrs||1));
+    const hint = activems ? `・${activems.name}` : '';
+    return `<button onclick="goalOpenInvest('${g.id}')"
+      style="display:flex;align-items:center;gap:5px;padding:4px 8px 4px 6px;
+        border-radius:20px;border:0.5px solid ${c.border};background:${c.bg};
+        color:${c.text};font-size:9px;font-weight:700;font-family:'Noto Sans TC',sans-serif;
+        cursor:pointer;transition:all .15s;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+        line-height:1.3;">
+      <span style="font-size:11px;">🏆</span>
+      <span style="overflow:hidden;text-overflow:ellipsis;">${g.name}${hint}</span>
+      <span style="font-size:8px;opacity:.7;flex-shrink:0;">${pct}%</span>
+    </button>`;
+  }).join('');
+}
+
+function goalAdd() {
+  const name = document.getElementById('g-name').value.trim();
+  const target = parseFloat(document.getElementById('g-target').value);
+  if (!name) { document.getElementById('g-name').focus(); return; }
+  if (!target || target <= 0) { document.getElementById('g-target').focus(); return; }
+  goalData.goals.push({
+    id: 'goal_' + Date.now(),
+    name, target,
+    type: selectedGoalType,
+    logs: [],
+    createdAt: new Date().toISOString()
+  });
+  goalSave();
+  goalRender();
+}
+
+function goalDelete(id) {
+  goalData.goals = goalData.goals.filter(g => g.id !== id);
+  goalSave();
+  goalRender();
+}
+
+function goalOpenInvest(id) {
+  giTargetId = id;
+  giCurrentVal = 0;
+  const g = goalData.goals.find(g => g.id === id);
+  document.getElementById('gi-title').textContent = g ? g.name : '';
+  document.getElementById('gi-val').textContent = '0';
+  document.querySelectorAll('.gi-qbtn').forEach(b => b.classList.remove('on'));
+
+  // 里程碑下拉
+  const msWrap = document.getElementById('gi-milestone-wrap');
+  const msSel  = document.getElementById('gi-milestone-select');
+  const milestones = (g && g.milestones) ? g.milestones.filter(ms => (ms.doneHrs||0) < (ms.hrs||1)) : [];
+  if (milestones.length > 0) {
+    msSel.innerHTML = milestones.map((ms, i) =>
+      `<option value="${i}">${ms.name}（剩 ${Math.max(0, (ms.hrs||0) - (ms.doneHrs||0))}hr）</option>`
+    ).join('');
+    msWrap.style.display = '';
+  } else {
+    msWrap.style.display = 'none';
+  }
+
+  document.getElementById('goal-invest-overlay').classList.add('show');
+}
+
+// Quick buttons
+document.addEventListener('DOMContentLoaded', () => {});
+// wire after DOM ready (we're at end of script so DOM is ready)
+(function wireGoalInvest() {
+  document.querySelectorAll('.gi-qbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      giCurrentVal = parseFloat(btn.dataset.v);
+      document.getElementById('gi-val').textContent = giCurrentVal;
+      document.querySelectorAll('.gi-qbtn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+    });
+  });
+})();
+
+document.getElementById('gi-cancel').addEventListener('click', () => {
+  document.getElementById('goal-invest-overlay').classList.remove('show');
+  giTargetId = null;
+});
+
+document.getElementById('gi-confirm').addEventListener('click', () => {
+  if (!giTargetId || giCurrentVal <= 0) {
+    alert('請先選擇投入時數');
+    return;
+  }
+  const g = goalData.goals.find(g => g.id === giTargetId);
+  if (g) {
+    if (!g.logs) g.logs = [];
+    g.logs.push({ date: new Date().toISOString(), hrs: giCurrentVal });
+
+    // 里程碑進度累積
+    const msSel = document.getElementById('gi-milestone-select');
+    const msWrap = document.getElementById('gi-milestone-wrap');
+    let chipName = g.name;
+    let msIdx = -1;
+    if (msWrap.style.display !== 'none' && msSel.options.length > 0) {
+      // 找到未完成里程碑的實際 index
+      const activeMilestones = (g.milestones || []).map((ms, i) => ({ms, i}))
+        .filter(({ms}) => (ms.doneHrs||0) < (ms.hrs||1));
+      const selectedActive = activeMilestones[parseInt(msSel.value)];
+      if (selectedActive) {
+        msIdx = selectedActive.i;
+        const ms = g.milestones[msIdx];
+        ms.doneHrs = Math.round(((ms.doneHrs || 0) + giCurrentVal) * 10) / 10;
+        chipName = ms.name; // 方塊名稱 = 里程碑名稱
+      }
+    }
+    goalSave();
+
+    // 獎杯色調對應 cat
+    const catMap = { long: 'class', mid: 'class', short: 'chore' };
+    const cat = catMap[g.type] || 'class';
+    const id = ++chipId;
+    // goalId 和 milestoneIdx 存在方塊上供識別
+    chips[id] = {
+      id, name: chipName, cat, dur: giCurrentVal,
+      isRev: false, placed: false, done: false,
+      goalId: g.id, milestoneIdx: msIdx,
+    };
+    appendToPool(id);
+    updatePoolHint();
+    updateStats();
+    saveToLocal();
+
+    const savedId = giTargetId;
+    document.getElementById('goal-invest-overlay').classList.remove('show');
+    document.getElementById('goal-overlay').classList.remove('show');
+    giTargetId = null;
+    goalRender();
+
+    const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+    if (invested >= g.target) {
+      setTimeout(() => {
+        document.getElementById('ai-coach-modal').classList.add('show');
+        medalCheckAndFlash(savedId);
+      }, 200);
+    }
+  } else {
+    document.getElementById('goal-invest-overlay').classList.remove('show');
+    document.getElementById('goal-overlay').classList.remove('show');
+    giTargetId = null;
+    goalRender();
+  }
+});
+
+document.getElementById('goal-fab').addEventListener('click', () => {
+  goalRender();
+  document.getElementById('goal-overlay').classList.add('show');
+});
+document.getElementById('goal-close').addEventListener('click', () => {
+  document.getElementById('goal-overlay').classList.remove('show');
+});
+document.getElementById('goal-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('goal-overlay'))
+    document.getElementById('goal-overlay').classList.remove('show');
+});
+
+goalLoad();
+goalQuickBarRender();
+
+// 掛到 window 讓 inline onclick 可以呼叫
+function goalAddMilestone(goalId) {
+  const nameEl = document.getElementById('ms-name-' + goalId);
+  const hrsEl  = document.getElementById('ms-hrs-' + goalId);
+  if (!nameEl || !hrsEl) return;
+  const name = nameEl.value.trim();
+  const hrs  = parseFloat(hrsEl.value);
+  if (!name) { nameEl.focus(); return; }
+  if (!hrs || hrs <= 0) { hrsEl.focus(); return; }
+  const g = goalData.goals.find(g => g.id === goalId);
+  if (!g) return;
+  if (!g.milestones) g.milestones = [];
+  g.milestones.push({ name, hrs, doneHrs: 0 });
+  goalSave();
+  goalRender();
+}
+
+function goalDelMilestone(goalId, idx) {
+  const g = goalData.goals.find(g => g.id === goalId);
+  if (!g || !g.milestones) return;
+  g.milestones.splice(idx, 1);
+  goalSave();
+  goalRender();
+}
+
+window.goalAdd = goalAdd;
+window.goalDelete = goalDelete;
+window.goalSelectType = goalSelectType;
+window.goalOpenInvest = goalOpenInvest;
+window.goalAddMilestone = goalAddMilestone;
+window.goalDelMilestone = goalDelMilestone;
+window.goalQuickBarRender = goalQuickBarRender;
+window.medalRender = medalRender;
+
+// ── 榮耀獎牌廳 Medal Hall ──────────────────────────
+document.getElementById('medal-hall-toggle').addEventListener('click', () => {
+  const body = document.getElementById('medal-hall-body');
+  const arrow = document.getElementById('medal-arrow');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+  if (!isOpen) medalRender();
+});
+
+function trophySVG(type) {
+  const themes = {
+    long:  { body:'#6EB5FF', shine:'#A8D8FF', shadow:'#3A80CC', base:'#5A9EE8', star:'#FFE066', label:'💙', bg:'#EEF5FF' },
+    mid:   { body:'#FFD166', shine:'#FFE9A0', shadow:'#C89020', base:'#E8B840', star:'#FF9F40', label:'💛', bg:'#FFF8EE' },
+    short: { body:'#6ECF8A', shine:'#A8E8B8', shadow:'#2A7A55', base:'#4EBB70', star:'#B8F0C8', label:'💚', bg:'#EEFAF2' },
+  };
+  const t = themes[type] || themes.mid;
+  return `<svg viewBox="0 0 60 66" xmlns="http://www.w3.org/2000/svg">
+    <!-- base plate -->
+    <rect x="16" y="57" width="28" height="5" rx="2.5" fill="${t.base}"/>
+    <rect x="20" y="53" width="20" height="5" rx="2" fill="${t.shadow}"/>
+    <!-- handles -->
+    <path d="M14 20 Q6 20 6 28 Q6 36 14 36" stroke="${t.shadow}" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M46 20 Q54 20 54 28 Q54 36 46 36" stroke="${t.shadow}" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <!-- cup body shadow -->
+    <path d="M14 12 Q14 46 30 52 Q46 46 46 12 Z" fill="${t.shadow}" opacity=".3"/>
+    <!-- cup body -->
+    <path d="M15 11 Q15 45 30 51 Q45 45 45 11 Z" fill="${t.body}"/>
+    <!-- shine -->
+    <path d="M20 14 Q19 28 23 38" stroke="${t.shine}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
+    <!-- star on cup -->
+    <text x="30" y="34" text-anchor="middle" font-size="14" fill="${t.star}">★</text>
+    <!-- sparkles -->
+    <text x="8"  y="10" font-size="8" fill="${t.star}" opacity=".9">✦</text>
+    <text x="46" y="8"  font-size="6" fill="${t.star}" opacity=".8">✦</text>
+    <text x="50" y="18" font-size="5" fill="${t.star}" opacity=".7">✦</text>
+  </svg>`;
+}
+
+function medalRender(flashId) {
+  const completed = goalData.goals.filter(g => {
+    const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+    return invested >= g.target;
+  });
+
+  const countEl = document.getElementById('medal-count');
+  if (completed.length > 0) {
+    countEl.textContent = completed.length;
+    countEl.style.display = '';
+  } else {
+    countEl.style.display = 'none';
+  }
+
+  const grid = document.getElementById('medal-grid');
+  if (!completed.length) {
+    grid.innerHTML = '<div class="medal-hall-hint">完成第一個目標就會出現獎杯 🏆</div>';
+    return;
+  }
+
+  grid.innerHTML = completed.map(g => {
+    const completedDate = g.logs && g.logs.length ? new Date(g.logs[g.logs.length - 1].date) : new Date();
+    const dateStr = `${completedDate.getMonth()+1}/${completedDate.getDate()} 達成`;
+    const isNew = flashId === g.id;
+    return `
+    <div class="medal-item">
+      <div class="medal-trophy-wrap${isNew ? ' new-pop' : ''}">${trophySVG(g.type)}</div>
+      <div class="medal-name">${g.name}</div>
+      <div class="medal-date">${dateStr}</div>
+    </div>`;
+  }).join('');
+}
+
+function medalCheckAndFlash(goalId) {
+  const g = goalData.goals.find(g => g.id === goalId);
+  if (!g) return;
+  const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+  if (invested >= g.target) {
+    // Update count badge even when hall is closed
+    const completed = goalData.goals.filter(g2 => {
+      const inv = (g2.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
+      return inv >= g2.target;
+    });
+    const countEl = document.getElementById('medal-count');
+    countEl.textContent = completed.length;
+    countEl.style.display = '';
+
+    // Auto-open the hall and flash new medal
+    const body = document.getElementById('medal-hall-body');
+    const arrow = document.getElementById('medal-arrow');
+    body.classList.add('open');
+    arrow.classList.add('open');
+    medalRender(goalId);
+
+    // Scroll into view after modal opens
+    setTimeout(() => {
+      const section = document.getElementById('medal-hall-section');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+  }
+}
 </script>
 
 </body></html>

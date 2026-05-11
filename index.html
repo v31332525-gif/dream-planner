@@ -552,8 +552,8 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 </div>
 
 <div class="stats-bar">
-  <div class="stat-card"><div class="stat-val" id="s-free">—</div><div class="stat-lbl">本週總時數</div></div>
-  <div class="stat-card"><div class="stat-val" id="s-pool">—</div><div class="stat-lbl">本週空白時數</div></div>
+  <div class="stat-card"><div class="stat-val" id="s-free">—</div><div class="stat-lbl">本週總時數</div><div class="stat-lbl" id="s-free-range" style="margin-top:2px;font-size:8px;opacity:.7;"></div></div>
+  <div class="stat-card"><div class="stat-val" id="s-pool">—</div><div class="stat-lbl">本週空白時數</div><div class="stat-lbl" id="s-pool-range" style="margin-top:2px;font-size:8px;opacity:.7;"></div></div>
   <div class="stat-card"><div class="stat-val" id="s-placed">0</div><div class="stat-lbl">已排入行程</div></div>
   <div class="stat-card"><div class="stat-val green" id="s-done">0</div><div class="stat-lbl">已完成</div></div>
   <div class="stat-card"><div class="stat-val" id="s-pct">0%</div><div class="stat-lbl">完成率</div></div>
@@ -954,6 +954,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
       <span id="ai-copy-badge" style="font-size:10px;color:var(--accent);opacity:0;transition:opacity .4s;">✓ 已複製</span>
       <button class="modal-cancel" id="ai-coach-regen">⚡ 產生</button>
       <button class="modal-cancel" id="ai-coach-copy" style="border-color:#4A7FD4;color:#4A7FD4;">📋 複製給 AI</button>
+      <button class="modal-cancel" id="ai-coach-save-last" style="border-color:#7C6A4E;color:#7C6A4E;" title="把這份週報存成「上週紀錄」，下次產生時會一起帶入">📌 儲存上週</button>
       <button class="modal-ok" id="ai-coach-download" style="background:#2DA44E;">💾 下載紀錄</button>
     </div>
 
@@ -2100,8 +2101,18 @@ function updateStats() {
   }
   const freeHrs = (emptySlots / 2).toFixed(1);
 
+  // 本週起訖日期
+  const weekMon2 = new Date(weekMon);
+  const weekSun2 = new Date(weekMon); weekSun2.setDate(weekMon.getDate() + 6);
+  const fmtD = d => `${d.getMonth()+1}/${d.getDate()}`;
+  const weekRangeStr = `${fmtD(weekMon2)}–${fmtD(weekSun2)}`;
+
   document.getElementById('s-free').textContent = weekTotalHrs + 'hr';
   document.getElementById('s-pool').textContent = freeHrs + 'hr';
+  const frEl = document.getElementById('s-free-range');
+  const prEl = document.getElementById('s-pool-range');
+  if (frEl) frEl.textContent = weekRangeStr;
+  if (prEl) prEl.textContent = weekRangeStr;
   // 已排入 = placed + done（都算進去）
   document.getElementById('s-placed').textContent = placed.length;
   document.getElementById('s-done').textContent = done.length;
@@ -3239,25 +3250,106 @@ function aiGenerateWeekly() {
     }
   }
 
+  // ── 上週複盤紀錄（若有儲存）──
+  const savedLast = (() => { try { return JSON.parse(localStorage.getItem('ai-last-week-report') || 'null'); } catch(e){ return null; } })();
+  if (savedLast && savedLast.text) {
+    lines.push('');
+    lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+    lines.push(`📂 前一週紀錄（${savedLast.label || '已儲存'}）`);
+    lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+    lines.push(savedLast.text);
+  }
+
+  // ── 時間比例分析 ──
+  lines.push('');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push('⏱ 時間比例分析（供 AI 參考）');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  if (lastWeek.length > 0) {
+    const catTotals = {};
+    lastWeek.filter(c=>c.done).forEach(c => {
+      catTotals[c.cat] = (catTotals[c.cat]||0) + c.dur;
+    });
+    const totalDoneHrs = Object.values(catTotals).reduce((a,b)=>a+b,0);
+    lines.push(`上週實際完成總時數：${totalDoneHrs}hr`);
+    lines.push('');
+    lines.push('各類別佔比（請依下列數據評估是否健康，並給出建議）：');
+    const catBenchmarks = {
+      work:   { label:'工作／課業', ref:'一般建議每週 40–50hr，超過 55hr 屬高強度' },
+      rest:   { label:'休息／睡眠', ref:'建議每週至少 49hr（7hr/天），不足可能影響表現' },
+      eat:    { label:'飲食', ref:'建議每天 1–1.5hr，過少可能代表進食品質不佳' },
+      sport:  { label:'運動', ref:'建議每週 2.5–5hr 有氧運動' },
+      fun:    { label:'休閒娛樂', ref:'建議每週 5–10hr，有助心理健康' },
+      growth: { label:'學習成長', ref:'建議每週 3–7hr，有助長期發展' },
+      chore:  { label:'家務雜事', ref:'一般每週 3–7hr' },
+      class:  { label:'課程學習', ref:'視目標而定，建議每週 5–15hr' },
+      movie:  { label:'影視娛樂', ref:'建議控制在每週 5hr 以內' },
+      flex:   { label:'彈性時間', ref:'建議保留每週 3–5hr 作為緩衝' },
+    };
+    Object.entries(catTotals).sort((a,b)=>b[1]-a[1]).forEach(([cat, hrs]) => {
+      const info = getCatInfo(cat);
+      const pct = totalDoneHrs > 0 ? Math.round(hrs/totalDoneHrs*100) : 0;
+      const bench = catBenchmarks[cat];
+      lines.push(`  ${info.icon} ${info.label}：${hrs}hr（${pct}%）${bench ? ' ← ' + bench.ref : ''}`);
+    });
+  }
+
   // ── AI 請求 ──
   lines.push('');
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push('【重要提示】以下所有「上週」數據已是過去完成的行程，請以過去式回應（例如「你上週做了…」「這一週你完成了…」），不要建議我去做已結束的事。');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push('');
   lines.push('請以生活教練的角色：');
-  lines.push('1. 分析上週完成率與時間分配，肯定做得好的地方。');
-  lines.push('2. 找出未完成的項目，推測可能原因並給具體改善建議。');
-  lines.push('3. 結合我的感受與下週行程，給我 3 個下週可以執行的調整建議。');
-  lines.push('4. 評估下週目標的可行性，必要時幫我微調優先順序。');
-  lines.push('5. 根據財務數據，給我本月花費的觀察與建議。');
-  if (question) lines.push('6. 針對我的疑問給一些實用建議。');
+  lines.push('1. 分析上週完成率與時間分配（以過去式），肯定做得好的地方，並指出可以改善的地方。');
+  lines.push('2. 根據上方時間比例分析，評估各類別時數是否健康，特別指出異常（例如工作超時、休息不足），並給具體建議。');
+  lines.push('3. 找出未完成的項目，推測可能原因並給具體改善建議。');
+  lines.push('4. 結合我的感受與下週行程，給我 3 個下週可以執行的調整建議。');
+  lines.push('5. 評估下週目標的可行性，必要時幫我微調優先順序。');
+  lines.push('6. 根據財務數據，給我本月花費的觀察與建議。');
+  if (question) lines.push('7. 針對我的疑問給一些實用建議。');
+  if (savedLast && savedLast.text) lines.push('8. 對比前一週與這一週的紀錄，找出進步或需要注意的趨勢。');
+  lines.push('');
   lines.push('請用溫暖親切的語氣，像朋友一樣跟我說話 😊');
+  lines.push('');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
+  lines.push('最後，請用一句話總結：「上週你______，下週讓我們______，朝______出發！」');
+  lines.push('（格式：上週總結 → 下週方向 → 目標）');
+  lines.push('━━━━━━━━━━━━━━━━━━━━━━');
 
   return lines.join('\n');
 }
 
 function openAiCoach(){
+  // 顯示上週是否已儲存
+  const savedLast = (() => { try { return JSON.parse(localStorage.getItem('ai-last-week-report') || 'null'); } catch(e){ return null; } })();
+  const saveBtn = document.getElementById('ai-coach-save-last');
+  if (saveBtn) {
+    saveBtn.textContent = savedLast ? `📌 上週已儲存（${savedLast.label}）` : '📌 儲存上週';
+    saveBtn.style.opacity = savedLast ? '0.65' : '1';
+  }
   document.getElementById('ai-coach-output').value = '';
   document.getElementById('ai-coach-modal').classList.add('show');
 }
+
+// 儲存上週複盤
+document.getElementById('ai-coach-save-last').addEventListener('click', () => {
+  let text = document.getElementById('ai-coach-output').value.trim();
+  if (!text) {
+    text = aiGenerateWeekly();
+    document.getElementById('ai-coach-output').value = text;
+  }
+  const { mon: lastMon, sun: lastSun } = aiGetWeekRange(-1);
+  const label = `${lastMon.getMonth()+1}/${lastMon.getDate()}–${lastSun.getMonth()+1}/${lastSun.getDate()}`;
+  try {
+    localStorage.setItem('ai-last-week-report', JSON.stringify({ label, text, savedAt: new Date().toISOString() }));
+    const saveBtn = document.getElementById('ai-coach-save-last');
+    saveBtn.textContent = `📌 已儲存（${label}）`;
+    saveBtn.style.opacity = '0.65';
+    alert(`✅ 上週複盤（${label}）已儲存！
+下次產生週報時會自動帶入兩週數據。`);
+  } catch(e) { alert('儲存失敗，請稍後再試。'); }
+});
 
 document.getElementById('btn-ai-coach').addEventListener('click', openAiCoach);
 document.getElementById('ai-coach-close').addEventListener('click', ()=>document.getElementById('ai-coach-modal').classList.remove('show'));

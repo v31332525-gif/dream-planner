@@ -132,9 +132,9 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .praise.show{display:flex;}
 
 .planner{display:flex;gap:11px;align-items:flex-start;}
-.sidebar{width:208px;flex-shrink:0;display:flex;flex-direction:column;gap:9px;}
-.panel{background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--radius);padding:11px;}
-.ptitle{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:9px;font-family:'Noto Sans TC',sans-serif;}
+.sidebar{width:188px;flex-shrink:0;display:flex;flex-direction:column;gap:7px;}
+.panel{background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--radius);padding:9px;}
+.ptitle{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:6px;font-family:'Noto Sans TC',sans-serif;}
 
 .form-row{margin-bottom:6px;}
 .form-row label{display:block;font-size:10px;color:var(--text2);margin-bottom:2px;}
@@ -142,9 +142,11 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .form-row input:focus,.form-row select:focus{border-color:var(--accent);}
 .half{display:flex;gap:5px;}.half>div{flex:1;}
 
-.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:6px;}
-.cbt{padding:5px 2px;font-size:10px;border-radius:var(--radius-sm);border:1.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;text-align:center;line-height:1.5;transition:all .15s;width:100%;}
-.cbt span{font-size:8px;display:block;}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:6px;}
+.cbt{padding:4px 2px;font-size:13px;border-radius:var(--radius-sm);border:1.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;text-align:center;line-height:1.3;transition:all .15s;width:100%;position:relative;}
+.cbt span{display:none;}
+.cbt::after{content:attr(data-label);position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#333;color:#fff;font-size:9px;padding:2px 5px;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:100;}
+.cbt:hover::after{opacity:1;}
 .cbt:hover{border-color:var(--accent);}
 .cbt.on{font-weight:700;}
 .cbt.on[data-c="growth"]{background:var(--c2f);border-color:var(--c2b);color:var(--c2t);}
@@ -160,7 +162,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .cbt.on[data-c="eat"]   {background:var(--c11f);border-color:var(--c11b);color:var(--c11t);}
 .cbt[data-custom].on{background:var(--cc-bg,#eee);border-color:var(--cc-border,#aaa);color:var(--cc-text,#333);}
 
-.add-btn{width:100%;padding:7px;font-size:11px;font-weight:500;font-family:'Noto Sans TC',sans-serif;border-radius:var(--radius-sm);border:0.5px solid var(--accent);background:var(--accent);color:#FDFAF5;cursor:pointer;transition:opacity .15s,transform .1s;margin-top:3px;letter-spacing:.04em;}
+.add-btn{width:100%;padding:7px;font-size:11px;font-weight:500;font-family:'Noto Sans TC',sans-serif;border-radius:var(--radius-sm);border:0.5px solid var(--accent);background:var(--accent);color:#FDFAF5;cursor:pointer;transition:opacity .15s,transform .1s;margin-top:2px;letter-spacing:.04em;}
 .add-btn:hover{opacity:.88;}.add-btn:active{transform:scale(.97);}
 
 .chip-pool{display:flex;flex-direction:column;gap:4px;max-height:280px;overflow-y:auto;min-height:40px;}
@@ -179,6 +181,8 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .cc-read  {background:var(--c7f);color:var(--c7t);border-color:var(--c7b);}
 .cc-sport {background:var(--c8f);color:var(--c8t);border-color:var(--c8b);}
 .cc-flex  {background:var(--c9f);color:var(--c9t);border-color:var(--c9b);}
+.cc-goal  {background:#EDE8F8;color:#5A3A8A;border-color:#9A80D4;}
+.cc-medical{background:#FDEAEA;color:#C0392B;border-color:#E87070;}
 .cc-rest  {background:var(--c10f);color:var(--c10t);border-color:var(--c10b);}
 .cc-eat   {background:var(--c11f);color:var(--c11t);border-color:var(--c11b);}
 .cc-done  {background:var(--done-f);color:var(--done-t);border-color:#ddd;cursor:default;}
@@ -233,6 +237,8 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .pc-read  {background:var(--c7f);color:var(--c7t);border-color:var(--c7b);}
 .pc-sport {background:var(--c8f);color:var(--c8t);border-color:var(--c8b);}
 .pc-flex  {background:var(--c9f);color:var(--c9t);border-color:var(--c9b);}
+.pc-goal  {background:#EDE8F8;color:#5A3A8A;border-color:#9A80D4;}
+.pc-medical{background:#FDEAEA;color:#C0392B;border-color:#E87070;}
 .pc-rest  {background:var(--c10f);color:var(--c10t);border-color:var(--c10b);}
 .pc-eat   {background:var(--c11f);color:var(--c11t);border-color:var(--c11b);}
 .pc-done  {background:var(--done-f);color:var(--done-t);border-color:#ddd;}
@@ -492,10 +498,10 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .goal-close:hover{color:var(--text);}
 .goal-body{flex:1;overflow-y:auto;padding:16px 20px;}
 /* goal cards */
-.goal-card{background:var(--surface2);border:0.5px solid var(--border2);border-radius:14px;padding:16px 18px;margin-bottom:12px;position:relative;}
-.goal-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
-.goal-card-name{font-size:15px;font-weight:700;color:var(--text);}
-.goal-card-streak{font-size:10px;color:var(--text3);margin-top:3px;}
+.goal-card{background:var(--surface2);border:0.5px solid var(--border2);border-radius:10px;padding:10px 12px;margin-bottom:8px;position:relative;}
+.goal-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;}
+.goal-card-name{font-size:13px;font-weight:700;color:var(--text);}
+.goal-card-streak{font-size:9px;color:var(--text3);margin-top:1px;}
 /* completed goals strip */
 .goal-done-strip{margin-bottom:14px;}
 .goal-done-label{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;display:flex;align-items:center;gap:5px;}
@@ -504,31 +510,31 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .goal-done-chip-medal{font-size:13px;}
 .goal-done-chip-name{font-weight:600;color:var(--text);max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .goal-done-chip-pct{font-size:9px;color:#2DA44E;font-weight:700;}
-.goal-badge{padding:3px 10px;font-size:10px;font-weight:700;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.goal-badge{padding:2px 7px;font-size:9px;font-weight:700;border-radius:20px;white-space:nowrap;flex-shrink:0;}
 .goal-badge.long{background:#EEF5FF;color:#2A5FA8;border:0.5px solid #A0C0E8;}
 .goal-badge.mid{background:#FFF8EE;color:#8B6000;border:0.5px solid #E8C060;}
 .goal-badge.short{background:#EEFAF2;color:#1A6B42;border:0.5px solid #80C8A0;}
-.goal-progress-label{font-size:10px;color:var(--text2);margin-bottom:5px;}
-.goal-progress-bar-wrap{background:var(--border2);border-radius:6px;height:8px;overflow:hidden;margin-bottom:4px;}
+.goal-progress-label{font-size:9px;color:var(--text2);margin-bottom:3px;}
+.goal-progress-bar-wrap{background:var(--border2);border-radius:4px;height:5px;overflow:hidden;margin-bottom:3px;}
 .goal-progress-bar{height:100%;border-radius:6px;transition:width .4s;}
 .goal-pct{font-size:10px;color:var(--text3);}
-.goal-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;}
+.goal-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
 .goal-last-info{font-size:10px;color:var(--text3);}
-.goal-invest-btn{padding:7px 18px;font-size:12px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:10px;background:#3D6B5C;color:#fff;cursor:pointer;transition:all .15s;}
+.goal-invest-btn{padding:4px 12px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:7px;background:#3D6B5C;color:#fff;cursor:pointer;transition:all .15s;}
 .goal-invest-btn:hover{opacity:.85;transform:translateY(-1px);}
 /* add goal */
-.goal-add-section{margin-top:6px;padding:16px 18px;border:1.5px dashed var(--border2);border-radius:14px;background:var(--surface);}
-.goal-add-title{font-size:11px;font-weight:700;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px;}
-.goal-form-row{margin-bottom:10px;}
+.goal-add-section{margin-top:6px;padding:10px 12px;border:1px dashed var(--border2);border-radius:10px;background:var(--surface);}
+.goal-add-title{font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
+.goal-form-row{margin-bottom:6px;}
 .goal-form-row label{display:block;font-size:10px;color:var(--text2);margin-bottom:3px;}
-.goal-form-row input{width:100%;padding:7px 10px;font-size:12px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text);outline:none;transition:border-color .15s;}
+.goal-form-row input{width:100%;padding:5px 8px;font-size:11px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:6px;background:var(--surface2);color:var(--text);outline:none;transition:border-color .15s;}
 .goal-form-row input:focus{border-color:#3D6B5C;}
-.goal-type-row{display:flex;gap:6px;margin-bottom:10px;}
-.goal-type-btn{flex:1;padding:7px 6px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border-radius:8px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;text-align:center;transition:all .15s;}
+.goal-type-row{display:flex;gap:4px;margin-bottom:6px;}
+.goal-type-btn{flex:1;padding:5px 4px;font-size:10px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border-radius:6px;border:0.5px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;text-align:center;transition:all .15s;}
 .goal-type-btn.on.long{background:#EEF5FF;color:#2A5FA8;border-color:#A0C0E8;}
 .goal-type-btn.on.mid{background:#FFF8EE;color:#8B6000;border-color:#E8C060;}
 .goal-type-btn.on.short{background:#EEFAF2;color:#1A6B42;border-color:#80C8A0;}
-.goal-add-btn{width:100%;padding:9px;font-size:12px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:10px;background:#3D6B5C;color:#fff;cursor:pointer;margin-top:4px;transition:opacity .15s;}
+.goal-add-btn{width:100%;padding:6px;font-size:11px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:7px;background:#3D6B5C;color:#fff;cursor:pointer;margin-top:2px;transition:opacity .15s;}
 .goal-add-btn:hover{opacity:.85;}
 /* invest overlay */
 .goal-invest-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;display:none;align-items:center;justify-content:center;}
@@ -536,11 +542,14 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .goal-invest-panel{background:#2A2A2A;border-radius:18px;padding:24px 22px;width:min(340px,90vw);color:#fff;box-shadow:0 12px 48px rgba(0,0,0,.4);}
 .gi-title{font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Noto Serif TC',serif;}
 .gi-sub{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:18px;}
-.gi-display{font-size:36px;font-weight:700;font-family:'DM Mono',monospace;text-align:right;padding:6px 10px;background:rgba(255,255,255,.08);border-radius:10px;margin-bottom:14px;letter-spacing:.02em;position:relative;}
-.gi-display-unit{font-size:14px;font-weight:400;position:absolute;right:10px;top:8px;opacity:.6;}
+.gi-display{font-size:36px;font-weight:700;font-family:'DM Mono',monospace;text-align:center;padding:10px 10px 6px;background:rgba(255,255,255,.08);border-radius:10px;margin-bottom:14px;letter-spacing:.02em;display:flex;flex-direction:column;align-items:center;gap:0;}
+.gi-display-unit{font-size:11px;font-weight:400;opacity:.6;letter-spacing:.06em;text-transform:uppercase;margin-top:-2px;}
 .gi-quick{display:flex;gap:8px;margin-bottom:16px;}
 .gi-qbtn{flex:1;padding:9px 4px;font-size:13px;font-weight:700;font-family:'DM Mono',monospace;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;text-align:center;transition:all .15s;}
 .gi-qbtn:hover,.gi-qbtn.on{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5);}
+.gi-custom-wrap{flex:1;display:flex;}
+.gi-custom-wrap input::-webkit-outer-spin-button,.gi-custom-wrap input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.gi-custom-wrap input::placeholder{opacity:.4;font-weight:400;font-size:11px;}
 .gi-actions{display:flex;gap:10px;margin-top:4px;}
 .gi-cancel{flex:1;padding:11px;font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;transition:all .15s;}
 .gi-cancel:hover{background:rgba(255,255,255,.15);}
@@ -624,7 +633,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
     <span id="gist-sync-icon">☁</span> 雲端同步
   </button>
   <button class="data-btn" id="btn-voice-import" title="貼上 AI 解析的口語行程 JSON" style="border-color:#4A7FD4;color:#4A7FD4;">🗣 口語登記</button>
-  <button class="data-btn" id="btn-ai-coach" title="一鍵產生上週複盤＋下週規劃，複製給 AI 或存成紀錄" style="border-color:var(--accent);color:var(--accent);">🤖 AI 教練</button>
+  <button class="data-btn" id="btn-ai-coach" title="一鍵產生本週複盤＋下週規劃，複製給 AI 或存成紀錄" style="border-color:var(--accent);color:var(--accent);">🤖 AI 教練</button>
   <button class="data-btn" id="btn-export" title="匯出 JSON 備份">⬇ 匯出備份</button>
   <label class="data-btn" title="匯入 JSON 還原" style="cursor:pointer">
     ⬆ 匯入資料
@@ -656,35 +665,32 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
     <div class="panel" id="add-goal-panel">
       <div class="ptitle">新增目標</div>
 
-      <div class="form-row"><label>分類</label>
+      <div class="form-row" style="margin-bottom:4px;">
         <div class="cat-grid">
-          <button class="cbt on" data-c="medical">🏥<span>醫療</span></button>
-          <button class="cbt" data-c="work">💼<span>工作</span></button>
-          <button class="cbt" data-c="fun">🎮<span>娛樂</span></button>
-          <button class="cbt" data-c="chore">🗂️<span>雜務</span></button>
-          <button class="cbt" data-c="class">📚<span>課程</span></button>
-          <button class="cbt" data-c="movie">🎬<span>電影</span></button>
-          <button class="cbt" data-c="read">📖<span>閱讀</span></button>
-          <button class="cbt" data-c="sport">🏃<span>運動</span></button>
-          <button class="cbt" data-c="flex">✨<span>彈性</span></button>
-          <button class="cbt" data-c="rest">😴<span>休息</span></button>
-          <button class="cbt" data-c="eat">🍽️<span>吃飯</span></button>
-          <button class="cbt" data-c="custom" id="custom-cat-btn">＋<span>自訂</span></button>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label>名稱 <span style="opacity:.55;font-weight:400">（選填）</span></label>
-        <div style="display:flex;align-items:center;gap:5px">
-        <span id="icon-prev" style="font-size:14px">🏥</span>
-          <input id="f-name" placeholder="不填則用分類名稱" style="flex:1">
+          <button class="cbt on" data-c="medical" data-label="醫療">🏥</button>
+          <button class="cbt" data-c="work" data-label="工作">💼</button>
+          <button class="cbt" data-c="fun" data-label="娛樂">🎮</button>
+          <button class="cbt" data-c="chore" data-label="雜務">🗂️</button>
+          <button class="cbt" data-c="class" data-label="課程">📚</button>
+          <button class="cbt" data-c="movie" data-label="電影">🎬</button>
+          <button class="cbt" data-c="read" data-label="閱讀">📖</button>
+          <button class="cbt" data-c="sport" data-label="運動">🏃</button>
+          <button class="cbt" data-c="flex" data-label="彈性">✨</button>
+          <button class="cbt" data-c="rest" data-label="休息">😴</button>
+          <button class="cbt" data-c="eat" data-label="吃飯">🍽️</button>
+          <button class="cbt" data-c="custom" id="custom-cat-btn" data-label="自訂">＋</button>
         </div>
       </div>
 
       <input type="hidden" id="f-cat" value="medical">
 
-      <div class="form-row">
-        <div><label>時數（hr）</label><input id="f-dur" type="number" min="0.5" max="10" step="0.5" value="1" inputmode="decimal"></div>
+      <div class="form-row" style="margin-bottom:4px;">
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span id="icon-prev" style="font-size:13px;flex-shrink:0;">🏥</span>
+          <input id="f-name" placeholder="名稱（選填）" style="flex:1;min-width:0;">
+          <input id="f-dur" type="number" min="0.5" max="24" step="0.5" value="1" inputmode="decimal" style="width:52px;flex-shrink:0;" title="時數（hr）">
+          <span style="font-size:9px;color:var(--text3);flex-shrink:0;">hr</span>
+        </div>
       </div>
 
       <div id="class-wrap" style="display:none">
@@ -1002,7 +1008,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;flex-shrink:0;">
       <div>
         <div class="modal-title" style="font-family:'Noto Serif TC',serif;letter-spacing:.05em;">🤖 AI 教練週報</div>
-        <div style="font-size:10px;color:var(--text2);margin-top:3px;line-height:1.6;">填寫後按「產生」，一份文字同時包含上週複盤＋下週規劃，<br>貼給 AI 或存成紀錄，每週只需 5 分鐘。</div>
+        <div style="font-size:10px;color:var(--text2);margin-top:3px;line-height:1.6;">填寫後按「產生」，一份文字同時包含本週複盤＋下週規劃，<br>貼給 AI 或存成紀錄，每週只需 5 分鐘。</div>
       </div>
       <button id="ai-coach-close" style="background:none;border:none;cursor:pointer;font-size:15px;color:var(--text3);flex-shrink:0;margin-left:10px;">✕</button>
     </div>
@@ -1010,8 +1016,8 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
     <!-- 捲動內容區 -->
     <div style="flex:1;overflow-y:auto;padding-right:2px;">
 
-      <!-- 上週複盤 -->
-      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--text3);text-transform:uppercase;margin:10px 0 8px;padding-bottom:4px;border-bottom:0.5px solid var(--border2);">🔍 上週複盤</div>
+      <!-- 本週複盤 -->
+      <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--text3);text-transform:uppercase;margin:10px 0 8px;padding-bottom:4px;border-bottom:0.5px solid var(--border2);">🔍 本週複盤</div>
 
       <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:3px;">🌟 最有成就感的事</div>
       <textarea id="ai-review-win" placeholder="例如：連續三天準時完成工作、第一次去看電影放鬆了…" style="width:100%;height:54px;padding:8px 10px;font-size:11px;font-family:'Noto Sans TC',sans-serif;line-height:1.7;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);outline:none;resize:none;margin-bottom:8px;box-sizing:border-box;"></textarea>
@@ -1057,7 +1063,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
       <span id="ai-copy-badge" style="font-size:10px;color:var(--accent);opacity:0;transition:opacity .4s;">✓ 已複製</span>
       <button class="modal-cancel" id="ai-coach-regen">⚡ 產生</button>
       <button class="modal-cancel" id="ai-coach-copy" style="border-color:#4A7FD4;color:#4A7FD4;">📋 複製給 AI</button>
-      <button class="modal-cancel" id="ai-coach-save-last" style="border-color:#7C6A4E;color:#7C6A4E;" title="把這份週報存成「上週紀錄」，下次產生時會一起帶入">📌 儲存上週</button>
+      <button class="modal-cancel" id="ai-coach-save-last" style="border-color:#7C6A4E;color:#7C6A4E;" title="把這份週報存成「本週紀錄」，下次產生時會一起帶入">📌 儲存本週</button>
       <button class="modal-ok" id="ai-coach-download" style="background:#2DA44E;">💾 下載紀錄</button>
     </div>
 
@@ -1066,17 +1072,18 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 
 <script>
 const CAT = {
-  medical:{label:'醫療', icon:'🏥', cc:'cc-growth', pc:'pc-growth', rev:false, rep:false, color:'#3C3489'},
-  work:  {label:'工作', icon:'💼', cc:'cc-work',   pc:'pc-work',   rev:false, rep:false, color:'#92600A'},
-  fun:   {label:'娛樂', icon:'🎮', cc:'cc-fun',    pc:'pc-fun',    rev:false, rep:false, color:'#72243E'},
-  chore: {label:'雜務', icon:'🗂️', cc:'cc-chore',  pc:'pc-chore',  rev:false, rep:false, color:'#1A5FA8'},
-  class: {label:'課程', icon:'📚', cc:'cc-class',  pc:'pc-class',  rev:false, rep:true,  color:'#085041'},
-  movie: {label:'電影', icon:'🎬', cc:'cc-movie',  pc:'pc-movie',  rev:false, rep:false, color:'#7A3500'},
-  read:  {label:'閱讀', icon:'📖', cc:'cc-read',   pc:'pc-read',   rev:false, rep:false, color:'#1A3A8F'},
-  sport: {label:'運動', icon:'🏃', cc:'cc-sport',  pc:'pc-sport',  rev:false, rep:false, color:'#1A6B42'},
-  flex:  {label:'彈性', icon:'✨', cc:'cc-flex',   pc:'pc-flex',   rev:false, rep:false, color:'#555'},
-  rest:  {label:'休息', icon:'😴', cc:'cc-rest',   pc:'pc-rest',   rev:false, rep:false, color:'#8B3A6B'},
-  eat:   {label:'吃飯', icon:'🍽️', cc:'cc-eat',    pc:'pc-eat',    rev:false, rep:false, color:'#7A4A00'},
+  goal:   {label:'目標', icon:'🎯', cc:'cc-goal',   pc:'pc-goal',   rev:false, rep:false, color:'#5A3A8A'},
+  medical:{label:'醫療', icon:'🏥', cc:'cc-medical',pc:'pc-medical',rev:false, rep:false, color:'#C0392B'},
+  work:   {label:'工作', icon:'💼', cc:'cc-work',   pc:'pc-work',   rev:false, rep:false, color:'#92600A'},
+  fun:    {label:'娛樂', icon:'🎮', cc:'cc-fun',    pc:'pc-fun',    rev:false, rep:false, color:'#72243E'},
+  chore:  {label:'雜務', icon:'🗂️', cc:'cc-chore',  pc:'pc-chore',  rev:false, rep:false, color:'#1A5FA8'},
+  class:  {label:'課程', icon:'📚', cc:'cc-class',  pc:'pc-class',  rev:false, rep:true,  color:'#085041'},
+  movie:  {label:'電影', icon:'🎬', cc:'cc-movie',  pc:'pc-movie',  rev:false, rep:false, color:'#7A3500'},
+  read:   {label:'閱讀', icon:'📖', cc:'cc-read',   pc:'pc-read',   rev:false, rep:false, color:'#1A3A8F'},
+  sport:  {label:'運動', icon:'🏃', cc:'cc-sport',  pc:'pc-sport',  rev:false, rep:false, color:'#1A6B42'},
+  flex:   {label:'彈性', icon:'✨', cc:'cc-flex',   pc:'pc-flex',   rev:false, rep:false, color:'#555'},
+  rest:   {label:'休息', icon:'😴', cc:'cc-rest',   pc:'pc-rest',   rev:false, rep:false, color:'#8B3A6B'},
+  eat:    {label:'吃飯', icon:'🍽️', cc:'cc-eat',    pc:'pc-eat',    rev:false, rep:false, color:'#7A4A00'},
 };
 
 // ─── custom categories ──────────────────────────────────
@@ -1089,6 +1096,15 @@ function getCatInfo(catKey) {
   return CAT[catKey] || customCats[catKey] || {label: catKey, icon:'❓', cc:'cc-flex', pc:'pc-flex', color:'#999'};
 }
 
+// 目標方塊優先用自己的 customIcon
+function getCatInfoForChip(chip) {
+  const info = getCatInfo(chip.cat);
+  if (chip.cat === 'goal' && chip.customIcon) {
+    return { ...info, icon: chip.customIcon };
+  }
+  return info;
+}
+
 function rebuildCustomCatGrid() {
   // remove old custom buttons
   document.querySelectorAll('.cbt[data-custom]').forEach(b=>b.remove());
@@ -1099,7 +1115,8 @@ function rebuildCustomCatGrid() {
     btn.className = 'cbt';
     btn.dataset.c = key;
     btn.dataset.custom = '1';
-    btn.innerHTML = `${info.icon}<span>${info.label}</span>`;
+    btn.dataset.label = info.label;
+    btn.textContent = info.icon;
     btn.style.cssText = `--cc-bg:${info.color}22;--cc-border:${info.color}88;--cc-text:${info.color};`;
     btn.addEventListener('click', () => {
       document.querySelectorAll('.cbt').forEach(b=>b.classList.remove('on'));
@@ -1338,6 +1355,7 @@ function switchMonth(m) {
   document.getElementById('page-sub').textContent = `2026年${MONTH_NAMES[m]}月 · 8:30–23:00 · 把時間變成看得見的東西`;
   buildCalendar();
   updateStats();
+  setTimeout(scrollToToday, 100);
 }
 
 function buildCalendar() {
@@ -1433,7 +1451,7 @@ function showPreview(anchor, slots) {
 
 // ─── chip pool ─────────────────────────────────────────
 function makePoolChip(id) {
-  const ch=chips[id], cat=getCatInfo(ch.cat);
+  const ch=chips[id], cat=getCatInfoForChip(ch);
   const div=document.createElement('div');
   div.className='chip '+cat.cc;
   div.dataset.id=id; div.draggable=true;
@@ -1475,8 +1493,41 @@ function placeChip(id, month, day, startSlot) {
   removeFromCal(id);
   document.querySelector(`#chip-pool .chip[data-id="${id}"]`)?.remove();
   const ch=chips[id];
-  ch.placed=true; ch.month=month; ch.day=day; ch.startSlot=startSlot;
-  dragging=null;
+
+  // 計算放得下幾格
+  const totalSlots = durSlots(ch.dur);
+  const availSlots = SLOT_END - startSlot + 1;
+
+  if (totalSlots > availSlots && availSlots > 0) {
+    // 切割：當前方塊縮到放得下的時數
+    const fittedDur = availSlots / 2;
+    const remainDur = Math.round((ch.dur - fittedDur) * 10) / 10;
+
+    ch.dur = fittedDur;
+    ch.placed = true; ch.month = month; ch.day = day; ch.startSlot = startSlot;
+    dragging = null;
+
+    // 剩餘時數產生新方塊，放回待排池
+    const newId = ++chipId;
+    chips[newId] = {
+      id: newId,
+      name: ch.name,
+      cat: ch.cat,
+      dur: remainDur,
+      isRev: ch.isRev || false,
+      placed: false,
+      done: false,
+      expenses: [],
+      goalId: ch.goalId || undefined,
+      customIcon: ch.customIcon || undefined,
+    };
+    appendToPool(newId);
+    showSaveStatus('\u2702\ufe0f \u5207\u5272\uff1a' + fittedDur + 'hr \u653e\u5165\uff0c\u5269\u9918 ' + remainDur + 'hr \u56de\u5f85\u6392\u6c60', false);
+  } else {
+    ch.placed=true; ch.month=month; ch.day=day; ch.startSlot=startSlot;
+    dragging=null;
+  }
+
   renderPlaced(id);
   updatePoolHint();
   updateStats();
@@ -1492,7 +1543,7 @@ function renderPlaced(id) {
   if (!ch.placed) return;
   if (ch.month !== currentMonth) return;
 
-  const cat=getCatInfo(ch.cat);
+  const cat=getCatInfoForChip(ch);
   const rawSlots=durSlots(ch.dur);
   // 限制不超過 22:30（SLOT_END）
   const maxSlots = SLOT_END - ch.startSlot + 1;
@@ -1679,7 +1730,17 @@ function renderPlaced(id) {
 function removeFromCal(id) {
   document.querySelectorAll(`.placed[data-id="${id}"]`).forEach(e=>e.remove());
   const ch=chips[id];
-  if (ch){ch.placed=false;delete ch.month;delete ch.day;delete ch.startSlot;}
+  if (!ch) return;
+  // 若方塊已完成且有目標紀錄，刪除對應 log 以還原投入時數
+  if (ch.done && ch.goalId && typeof goalData !== 'undefined') {
+    const g = goalData.goals.find(g => g.id === ch.goalId);
+    if (g && g.logs) {
+      g.logs = g.logs.filter(l => l.chipId !== id);
+      goalSave();
+    }
+  }
+  ch.placed=false; ch.done=false;
+  delete ch.month; delete ch.day; delete ch.startSlot;
 }
 
 function returnToPool(id) {
@@ -1986,6 +2047,18 @@ document.getElementById('edit-save').addEventListener('click', e => {
   const ch = chips[editingId];
   const newName = document.getElementById('edit-name').value.trim();
   const newDur = parseFloat(document.getElementById('edit-dur').value);
+
+  // 若方塊已排入，檢查新時數是否會超過 23:00
+  if (ch.placed && !isNaN(newDur) && newDur > 0) {
+    const endSlot = ch.startSlot + durSlots(newDur);
+    if (endSlot > SLOT_END + 1) {
+      const maxDur = (SLOT_END + 1 - ch.startSlot) / 2;
+      showSaveStatus(`⛔ 超過 23:00，最多可設 ${maxDur}hr`, false);
+      document.getElementById('edit-dur').focus();
+      return;
+    }
+  }
+
   if (newName) ch.name = newName;
   if (!isNaN(newDur) && newDur > 0) ch.dur = newDur;
 
@@ -2029,6 +2102,14 @@ document.getElementById('edit-del').addEventListener('click', e => {
   e.stopPropagation();
   if (editingId === null) return;
   const ch = chips[editingId];
+  // 若已完成方塊有目標 log，刪除時一併清除
+  if (ch.done && ch.goalId && typeof goalData !== 'undefined') {
+    const g = goalData.goals.find(g => g.id === ch.goalId);
+    if (g && g.logs) {
+      g.logs = g.logs.filter(l => l.chipId !== editingId);
+      goalSave();
+    }
+  }
   if (ch.placed) removeFromCal(editingId);
   document.querySelector(`#chip-pool .chip[data-id="${editingId}"]`)?.remove();
   delete chips[editingId];
@@ -2056,7 +2137,23 @@ document.addEventListener('click', e => {
 
 // ─── done ──────────────────────────────────────────────
 function markDone(id) {
-  chips[id].done=true;
+  chips[id].done = true;
+  const ch = chips[id];
+  if (ch.goalId) {
+    const g = goalData.goals.find(g => g.id === ch.goalId);
+    if (g) {
+      if (!g.logs) g.logs = [];
+      g.logs.push({ date: new Date().toISOString(), hrs: ch.dur, note: ch.note || '', chipId: id });
+      goalSave();
+      const invested = g.logs.reduce((s, l) => s + (l.hrs || 0), 0);
+      if (invested >= g.target) {
+        setTimeout(() => {
+          document.getElementById('ai-coach-modal').classList.add('show');
+          medalCheckAndFlash(ch.goalId);
+        }, 300);
+      }
+    }
+  }
   renderPlaced(id);
   updateStats(); showPraise();
 }
@@ -2168,16 +2265,18 @@ function updateStats() {
   const inPool=all.filter(c=>!c.placed&&!c.done);
   const pct=all.length>0?Math.round(done.length/all.length*100):0;
 
-  // 本週一到週日
+  // 本週一到週日（清零時間避免比較錯誤）
   const today0 = new Date();
   const dow0 = today0.getDay();
   const diffMon = dow0 === 0 ? -6 : 1 - dow0;
-  const weekMon = new Date(today0); weekMon.setDate(today0.getDate() + diffMon);
-  const weekSun = new Date(weekMon); weekSun.setDate(weekMon.getDate() + 6);
+  const weekMon = new Date(today0.getFullYear(), today0.getMonth(), today0.getDate() + diffMon);
+  const weekSun = new Date(today0.getFullYear(), today0.getMonth(), today0.getDate() + diffMon + 6);
 
   const isThisWeek = c => {
     if (!c.month || !c.day) return false;
+    // 用 chips 自己的年份（2026）
     const d = new Date(2026, c.month - 1, c.day);
+    // 比較純日期（weekMon/weekSun 已清零時間）
     return d >= weekMon && d <= weekSun;
   };
 
@@ -2194,7 +2293,7 @@ function updateStats() {
     const d = new Date(weekMon); d.setDate(weekMon.getDate() + i);
     const m = d.getMonth() + 1, day = d.getDate();
     const occupied = new Set();
-    weekChips.filter(c => c.month === m && c.day === day).forEach(c => {
+    weekChips.filter(c => c.month === m && c.day === day && c.startSlot != null).forEach(c => {
       const end = c.startSlot + durSlots(c.dur);
       for (let s = c.startSlot; s < end; s++) occupied.add(s);
     });
@@ -2578,6 +2677,30 @@ document.getElementById('import-input').addEventListener('change', e => {
   e.target.value = ''; // reset so same file can be re-imported
 });
 
+// ─── scroll to today ───────────────────────────────────
+function scrollToToday() {
+  const today = new Date();
+  const m = today.getMonth() + 1;
+  const d = today.getDate();
+  // 只在目前顯示的月份才捲
+  if (m !== currentMonth) return;
+  // 找今天的 header cell
+  const headers = document.querySelectorAll('#cal-grid .ch:not(.corner)');
+  let targetCell = null;
+  headers.forEach(cell => {
+    if (parseInt(cell.textContent) === d) targetCell = cell;
+  });
+  if (!targetCell) return;
+  const calWrap = document.querySelector('.cal-wrap') || document.querySelector('.cal-outer');
+  if (!calWrap) return;
+  // 讓今天欄出現在距左邊約 60px（時間欄寬度）的位置
+  const wrapRect = calWrap.getBoundingClientRect();
+  const cellRect = targetCell.getBoundingClientRect();
+  const timeColWidth = 46; // .tc width
+  const targetScrollLeft = calWrap.scrollLeft + (cellRect.left - wrapRect.left) - timeColWidth;
+  calWrap.scrollTo({ left: Math.max(0, targetScrollLeft), behavior: 'smooth' });
+}
+
 // init
 updateForm();
 const saved = loadFromLocal();
@@ -2589,6 +2712,8 @@ if (saved) {
   updateStats();
 }
 renderExpShortcuts();
+// 啟動後捲到今天
+setTimeout(scrollToToday, 100);
 
 // ══════════════════════════════════════════
 // ── DAILY REVIEW WHITEBOARD ──────────────
@@ -3150,22 +3275,22 @@ function aiGenerateWeekly() {
   const goal     = document.getElementById('ai-plan-goal')?.value?.trim() || '';
   const question = document.getElementById('ai-plan-question')?.value?.trim() || '';
 
-  const lastWeek = aiGetWeekChips(-1);
-  const nextWeek = aiGetWeekChips(0);  // 「本週」行程當作下週規劃參考
-  const { mon: lastMon, sun: lastSun } = aiGetWeekRange(-1);
-  const { mon: nextMon, sun: nextSun } = aiGetWeekRange(0);
+  const lastWeek = aiGetWeekChips(0);  // 本週
+  const nextWeek = aiGetWeekChips(1);   // 下週
+  const { mon: lastMon, sun: lastSun } = aiGetWeekRange(0);
+  const { mon: nextMon, sun: nextSun } = aiGetWeekRange(1);
 
   const today = new Date();
   const dateStr = `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()}`;
 
   const lines = [];
   lines.push(`【AI 教練週報｜${dateStr}】`);
-  lines.push('你好！以下是我使用行程規劃工具的數據＋我自己的感受，請以生活教練的角色幫我做上週複盤，並協助規劃下週。');
+  lines.push('你好！以下是我使用行程規劃工具的數據＋我自己的感受，請以生活教練的角色幫我做本週複盤，並協助規劃下週。');
   lines.push('');
 
   // ── 上週數據 ──
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
-  lines.push(`📊 上週執行數據（${lastMon.getMonth()+1}/${lastMon.getDate()} – ${lastSun.getMonth()+1}/${lastSun.getDate()}）`);
+  lines.push(`📊 本週執行數據（${lastMon.getMonth()+1}/${lastMon.getDate()} – ${lastSun.getMonth()+1}/${lastSun.getDate()}）`);
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
 
   if (lastWeek.length > 0) {
@@ -3214,7 +3339,7 @@ function aiGenerateWeekly() {
     const spend = lastWeek.reduce((s,c)=>s+(c.expenses||[]).reduce((ss,e)=>ss+e.amt,0),0);
     if (spend > 0) {
       lines.push('');
-      lines.push(`上週總花費：$${spend.toLocaleString()}`);
+      lines.push(`本週總花費：$${spend.toLocaleString()}`);
       lastWeek.flatMap(c=>(c.expenses||[]).map(e=>({...e,cat:c.cat}))).forEach(e=>{
         const info=getCatInfo(e.cat);
         lines.push(`  ${info.icon} ${e.name}：$${e.amt}`);
@@ -3227,7 +3352,7 @@ function aiGenerateWeekly() {
   // ── 上週感受 ──
   lines.push('');
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
-  lines.push('💬 上週主觀感受');
+  lines.push('💬 本週主觀感受');
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
   lines.push(`🌟 最有成就感的事：${win || '（未填寫）'}`);
   lines.push(`😓 最難的事：${struggle || '（未填寫）'}`);
@@ -3364,7 +3489,7 @@ function aiGenerateWeekly() {
       catTotals[c.cat] = (catTotals[c.cat]||0) + c.dur;
     });
     const totalDoneHrs = Object.values(catTotals).reduce((a,b)=>a+b,0);
-    lines.push(`上週實際完成總時數：${totalDoneHrs}hr`);
+    lines.push(`本週實際完成總時數：${totalDoneHrs}hr`);
     lines.push('');
     lines.push('各類別佔比（請依下列數據評估是否健康，並給出建議）：');
     const catBenchmarks = {
@@ -3390,14 +3515,14 @@ function aiGenerateWeekly() {
   // ── AI 請求 ──
   lines.push('');
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
-  lines.push('【重要提示】以下所有「上週」數據已是過去完成的行程，請以過去式回應（例如「你上週做了…」「這一週你完成了…」），不要建議我去做已結束的事。');
+  lines.push('【重要提示】以下「本週」數據為這週已完成或已排入的行程，請以過去式或進行式回應實際完成的項目，並聚焦在下週的規劃建議。');
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
   lines.push('');
   lines.push('請以生活教練的角色：');
-  lines.push('1. 分析上週完成率與時間分配（以過去式），肯定做得好的地方，並指出可以改善的地方。');
-  lines.push('2. 根據上方時間比例分析，評估各類別時數是否健康，特別指出異常（例如工作超時、休息不足），並給具體建議。');
-  lines.push('3. 找出未完成的項目，推測可能原因並給具體改善建議。');
-  lines.push('4. 結合我的感受與下週行程，給我 3 個下週可以執行的調整建議。');
+  lines.push('1. 分析本週完成率與時間分配，肯定做得好的地方，並指出可以改善的地方。');
+  lines.push('2. 根據本週時間比例，評估各類別時數是否健康，特別指出異常（例如工作超時、休息不足），並給具體建議。');
+  lines.push('3. 找出本週未完成的項目，推測可能原因並給具體改善建議。');
+  lines.push('4. 結合我的感受與下週行程，給我 3 個下週可以執行的具體調整建議。');
   lines.push('5. 評估下週目標的可行性，必要時幫我微調優先順序。');
   lines.push('6. 根據財務數據，給我本月花費的觀察與建議。');
   if (question) lines.push('7. 針對我的疑問給一些實用建議。');
@@ -3406,8 +3531,8 @@ function aiGenerateWeekly() {
   lines.push('請用溫暖親切的語氣，像朋友一樣跟我說話 😊');
   lines.push('');
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
-  lines.push('最後，請用一句話總結：「上週你______，下週讓我們______，朝______出發！」');
-  lines.push('（格式：上週總結 → 下週方向 → 目標）');
+  lines.push('最後，請用一句話總結：「本週你______，下週讓我們______，朝______出發！」');
+  lines.push('（格式：本週總結 → 下週方向 → 目標）');
   lines.push('━━━━━━━━━━━━━━━━━━━━━━');
 
   return lines.join('\n');
@@ -3418,7 +3543,7 @@ function openAiCoach(){
   const savedLast = (() => { try { return JSON.parse(localStorage.getItem('ai-last-week-report') || 'null'); } catch(e){ return null; } })();
   const saveBtn = document.getElementById('ai-coach-save-last');
   if (saveBtn) {
-    saveBtn.textContent = savedLast ? `📌 上週已儲存（${savedLast.label}）` : '📌 儲存上週';
+    saveBtn.textContent = savedLast ? `📌 本週已儲存（${savedLast.label}）` : '📌 儲存本週';
     saveBtn.style.opacity = savedLast ? '0.65' : '1';
   }
   document.getElementById('ai-coach-output').value = '';
@@ -3432,14 +3557,14 @@ document.getElementById('ai-coach-save-last').addEventListener('click', () => {
     text = aiGenerateWeekly();
     document.getElementById('ai-coach-output').value = text;
   }
-  const { mon: lastMon, sun: lastSun } = aiGetWeekRange(-1);
+  const { mon: lastMon, sun: lastSun } = aiGetWeekRange(0);
   const label = `${lastMon.getMonth()+1}/${lastMon.getDate()}–${lastSun.getMonth()+1}/${lastSun.getDate()}`;
   try {
     localStorage.setItem('ai-last-week-report', JSON.stringify({ label, text, savedAt: new Date().toISOString() }));
     const saveBtn = document.getElementById('ai-coach-save-last');
     saveBtn.textContent = `📌 已儲存（${label}）`;
     saveBtn.style.opacity = '0.65';
-    alert(`✅ 上週複盤（${label}）已儲存！
+    alert(`✅ 本週複盤（${label}）已儲存！
 下次產生週報時會自動帶入兩週數據。`);
   } catch(e) { alert('儲存失敗，請稍後再試。'); }
 });
@@ -3507,18 +3632,20 @@ document.getElementById('ai-coach-download').addEventListener('click', ()=>{
   <div class="goal-invest-panel">
     <div class="gi-title" id="gi-title">目標名稱</div>
     <div class="gi-sub">今天要投入多少時間？</div>
-    <!-- 里程碑下拉（有里程碑才顯示） -->
-    <div id="gi-milestone-wrap" style="display:none;margin-bottom:14px;">
-      <div style="font-size:10px;color:rgba(255,255,255,.6);margin-bottom:5px;">選擇里程碑</div>
-      <select id="gi-milestone-select" style="width:100%;padding:8px 10px;font-size:12px;font-family:'Noto Sans TC',sans-serif;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.1);color:#fff;outline:none;cursor:pointer;">
-      </select>
+    <!-- 備註欄 -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10px;color:rgba(255,255,255,.6);margin-bottom:5px;">備註（選填）：今天在做什麼？</div>
+      <input id="gi-note" placeholder="例如：讀第三章、練習口說…" style="width:100%;box-sizing:border-box;padding:8px 10px;font-size:12px;font-family:'Noto Sans TC',sans-serif;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.1);color:#fff;outline:none;">
     </div>
     <div class="gi-display"><span id="gi-val">0</span><span class="gi-display-unit">小時</span></div>
     <div class="gi-quick">
       <button class="gi-qbtn" data-v="0.5">0.5hr</button>
       <button class="gi-qbtn" data-v="1">1hr</button>
       <button class="gi-qbtn" data-v="1.5">1.5hr</button>
-      <button class="gi-qbtn" data-v="2">2hr</button>
+      <div class="gi-custom-wrap">
+        <input id="gi-custom" type="number" min="0.5" max="24" step="0.5" placeholder="自訂" inputmode="decimal"
+          style="width:100%;height:100%;box-sizing:border-box;padding:9px 4px;font-size:13px;font-weight:700;font-family:'DM Mono',monospace;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.08);color:#fff;text-align:center;outline:none;-moz-appearance:textfield;">
+      </div>
     </div>
     <div class="gi-actions">
       <button class="gi-cancel" id="gi-cancel">取消</button>
@@ -4706,38 +4833,22 @@ function goalRender() {
     const color = goalBarColor(g.type);
     const streakTxt = goalStreakText(g);
 
-    // 里程碑列表
-    const milestones = g.milestones || [];
-    let msHtml = '';
-    if (milestones.length > 0) {
-      msHtml = `<div style="margin:10px 0 8px;border-top:0.5px solid rgba(0,0,0,.06);padding-top:8px;">
-        <div style="font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">里程碑</div>`;
-      milestones.forEach((ms, idx) => {
-        const msDone = (ms.doneHrs || 0) >= (ms.hrs || 1);
-        const msPct = Math.min(100, Math.round((ms.doneHrs || 0) / (ms.hrs || 1) * 100));
-        msHtml += `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
-          <span style="font-size:11px;flex-shrink:0;">${msDone ? '✅' : '⬜'}</span>
-          <div style="flex:1;min-width:0;">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:4px;">
-              <span style="font-size:10px;font-weight:600;color:${msDone ? 'var(--text3)' : 'var(--text)'};${msDone ? 'text-decoration:line-through;' : ''}">${ms.name}</span>
-              <span style="font-size:9px;color:var(--text3);white-space:nowrap;flex-shrink:0;">${ms.doneHrs || 0}/${ms.hrs}hr</span>
-            </div>
-            <div style="height:3px;background:var(--border2);border-radius:2px;margin-top:2px;overflow:hidden;">
-              <div style="height:100%;width:${msPct}%;background:${color};border-radius:2px;transition:width .4s;"></div>
-            </div>
-          </div>
-          <button onclick="goalDelMilestone('${g.id}',${idx})" style="background:none;border:none;font-size:9px;color:var(--text3);cursor:pointer;padding:0 2px;flex-shrink:0;opacity:.5;">✕</button>
+    // 最近完成記錄（有備註才顯示）
+    const recentLogs = (g.logs || []).filter(l => l.note).slice(-3).reverse();
+    let logsHtml = '';
+    if (recentLogs.length > 0) {
+      logsHtml = `<div style="margin:10px 0 4px;border-top:0.5px solid rgba(0,0,0,.06);padding-top:8px;">
+        <div style="font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">最近完成記錄</div>`;
+      recentLogs.forEach(l => {
+        const d = new Date(l.date);
+        const dateStr = `${d.getMonth()+1}/${d.getDate()}`;
+        logsHtml += `<div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">
+          <span style="font-size:9px;color:var(--text3);white-space:nowrap;flex-shrink:0;">✓ ${dateStr} · ${l.hrs}hr</span>
+          <span style="font-size:10px;color:var(--text2);">${l.note}</span>
         </div>`;
       });
-      msHtml += `</div>`;
+      logsHtml += `</div>`;
     }
-
-    // 新增里程碑表單（inline）
-    msHtml += `<div style="display:flex;gap:5px;margin-top:6px;">
-      <input id="ms-name-${g.id}" placeholder="里程碑名稱" style="flex:2;padding:5px 8px;font-size:10px;font-family:'Noto Sans TC',sans-serif;border:0.5px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);outline:none;">
-      <input id="ms-hrs-${g.id}" type="number" min="1" placeholder="時數" style="width:52px;padding:5px 6px;font-size:10px;font-family:'DM Mono',monospace;border:0.5px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);outline:none;" inputmode="numeric">
-      <button onclick="goalAddMilestone('${g.id}')" style="padding:5px 8px;font-size:10px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:6px;background:#3D6B5C;color:#fff;cursor:pointer;white-space:nowrap;">＋</button>
-    </div>`;
 
     html += `
     <div class="goal-card" data-id="${g.id}">
@@ -4746,9 +4857,10 @@ function goalRender() {
           <div class="goal-card-name">${g.name}</div>
           <div class="goal-card-streak">${streakTxt}</div>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-          <span class="goal-badge ${g.type}">${goalTypeLabel(g.type)}</span>
-          <button onclick="goalDelete('${g.id}')" style="background:none;border:none;font-size:10px;color:var(--text3);cursor:pointer;padding:0;">✕ 刪除</button>
+        <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
+          <span class="goal-badge ${g.type}">${goalTypeLabel(g.type)}${g.days ? '・' + g.days + '天' : ''}</span>
+          ${g.endDate ? `<span style="font-size:8px;color:var(--text3);white-space:nowrap;">截止 ${g.endDate.slice(5).replace('-','/')}</span>` : ''}
+          <button onclick="goalDelete('${g.id}')" style="background:none;border:none;font-size:10px;color:var(--text3);cursor:pointer;padding:0;line-height:1;">✕</button>
         </div>
       </div>
       <div class="goal-progress-label">已投入 ${invested}hr / 目標 ${target}hr</div>
@@ -4756,9 +4868,9 @@ function goalRender() {
         <div class="goal-progress-bar" style="width:${pct}%;background:${color};"></div>
       </div>
       <div class="goal-pct">${pct}%</div>
-      ${msHtml}
+      ${logsHtml}
       <div class="goal-card-footer">
-        <div class="goal-last-info">${streakTxt}</div>
+        <div class="goal-last-info" style="font-size:9px;">${streakTxt}</div>
         <button class="goal-invest-btn" onclick="goalOpenInvest('${g.id}')">＋ 今天投入</button>
       </div>
     </div>`;
@@ -4770,24 +4882,35 @@ function goalRender() {
     <div class="goal-add-title">＋ 新增目標</div>
     <div class="goal-form-row">
       <label>目標名稱</label>
-      <input id="g-name" placeholder="例如：學會影片剪輯" />
+      <input id="g-name" placeholder="例如：開始接觸法文" />
+    </div>
+    <div class="goal-form-row">
+      <label>給自己幾天</label>
+      <input id="g-days" type="number" min="1" placeholder="例如：30" inputmode="numeric" />
     </div>
     <div class="goal-form-row">
       <label>目標總時數 (hr)</label>
-      <input id="g-target" type="number" min="1" placeholder="例如：120" inputmode="numeric" />
+      <input id="g-target" type="number" min="1" placeholder="例如：20" inputmode="numeric" />
     </div>
-    <div style="font-size:10px;color:var(--text2);margin-bottom:6px;">期限類型</div>
-    <div class="goal-type-row">
-      <button class="goal-type-btn long on" data-type="long" id="gtype-long" onclick="goalSelectType('long')">🔵 長期<br><span style="font-size:9px;opacity:.7;">1年</span></button>
-      <button class="goal-type-btn mid" data-type="mid" id="gtype-mid" onclick="goalSelectType('mid')">🟡 中期<br><span style="font-size:9px;opacity:.7;">3個月</span></button>
-      <button class="goal-type-btn short" data-type="short" id="gtype-short" onclick="goalSelectType('short')">🟢 短期<br><span style="font-size:9px;opacity:.7;">2週</span></button>
-    </div>
+    <div id="g-type-preview" style="font-size:10px;color:var(--text3);margin-bottom:8px;min-height:16px;"></div>
     <button class="goal-add-btn" onclick="goalAdd()">新增目標</button>
   </div>`;
 
   body.innerHTML = html;
   goalQuickBarRender();
-}
+
+  // 天數輸入即時預覽長中短期
+  const daysEl = document.getElementById('g-days');
+  if (daysEl) {
+    daysEl.addEventListener('input', () => {
+      const d = parseInt(daysEl.value);
+      const preview = document.getElementById('g-type-preview');
+      if (!d || d <= 0) { preview.textContent = ''; return; }
+      const type = d <= 30 ? '🟢 短期' : d <= 90 ? '🟡 中期' : '🔵 長期';
+      preview.textContent = `系統判斷：${type}（${d} 天）`;
+    });
+  }
+} // end goalRender
 
 let selectedGoalType = 'long';
 
@@ -4819,31 +4942,39 @@ function goalQuickBarRender() {
     const c = colors[g.type] || colors.mid;
     const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
     const pct = Math.min(100, Math.round(invested / (g.target || 1) * 100));
-    // 找目前進行中的里程碑
-    const activems = (g.milestones || []).find(ms => (ms.doneHrs||0) < (ms.hrs||1));
-    const hint = activems ? `・${activems.name}` : '';
     return `<button onclick="goalOpenInvest('${g.id}')"
       style="display:flex;align-items:center;gap:5px;padding:4px 8px 4px 6px;
         border-radius:20px;border:0.5px solid ${c.border};background:${c.bg};
         color:${c.text};font-size:9px;font-weight:700;font-family:'Noto Sans TC',sans-serif;
         cursor:pointer;transition:all .15s;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
         line-height:1.3;">
-      <span style="font-size:11px;">🏆</span>
-      <span style="overflow:hidden;text-overflow:ellipsis;">${g.name}${hint}</span>
+      <span style="font-size:13px;">${g.icon || '🎯'}</span>
+      <span style="overflow:hidden;text-overflow:ellipsis;">${g.name}</span>
       <span style="font-size:8px;opacity:.7;flex-shrink:0;">${pct}%</span>
     </button>`;
   }).join('');
 }
 
 function goalAdd() {
-  const name = document.getElementById('g-name').value.trim();
+  const name   = document.getElementById('g-name').value.trim();
   const target = parseFloat(document.getElementById('g-target').value);
-  if (!name) { document.getElementById('g-name').focus(); return; }
+  const days   = parseInt(document.getElementById('g-days').value);
+  const icon = '🎯';
+  if (!name)   { document.getElementById('g-name').focus(); return; }
+  if (!days || days <= 0) { document.getElementById('g-days').focus(); return; }
   if (!target || target <= 0) { document.getElementById('g-target').focus(); return; }
+
+  // 自動判斷長中短期
+  const type = days <= 30 ? 'short' : days <= 90 ? 'mid' : 'long';
+
+  const startDate = new Date();
+  const endDate   = new Date(); endDate.setDate(endDate.getDate() + days);
+
   goalData.goals.push({
     id: 'goal_' + Date.now(),
-    name, target,
-    type: selectedGoalType,
+    name, target, type, icon, days,
+    startDate: startDate.toISOString().slice(0, 10),
+    endDate:   endDate.toISOString().slice(0, 10),
     logs: [],
     createdAt: new Date().toISOString()
   });
@@ -4864,26 +4995,14 @@ function goalOpenInvest(id) {
   document.getElementById('gi-title').textContent = g ? g.name : '';
   document.getElementById('gi-val').textContent = '0';
   document.querySelectorAll('.gi-qbtn').forEach(b => b.classList.remove('on'));
-
-  // 里程碑下拉
-  const msWrap = document.getElementById('gi-milestone-wrap');
-  const msSel  = document.getElementById('gi-milestone-select');
-  const milestones = (g && g.milestones) ? g.milestones.filter(ms => (ms.doneHrs||0) < (ms.hrs||1)) : [];
-  if (milestones.length > 0) {
-    msSel.innerHTML = milestones.map((ms, i) =>
-      `<option value="${i}">${ms.name}（剩 ${Math.max(0, (ms.hrs||0) - (ms.doneHrs||0))}hr）</option>`
-    ).join('');
-    msWrap.style.display = '';
-  } else {
-    msWrap.style.display = 'none';
-  }
-
+  const ci = document.getElementById('gi-custom');
+  if (ci) { ci.value = ''; ci.style.borderColor = ''; }
+  const noteEl = document.getElementById('gi-note');
+  if (noteEl) noteEl.value = '';
   document.getElementById('goal-invest-overlay').classList.add('show');
 }
 
-// Quick buttons
-document.addEventListener('DOMContentLoaded', () => {});
-// wire after DOM ready (we're at end of script so DOM is ready)
+// Quick buttons + custom input
 (function wireGoalInvest() {
   document.querySelectorAll('.gi-qbtn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -4891,8 +5010,26 @@ document.addEventListener('DOMContentLoaded', () => {});
       document.getElementById('gi-val').textContent = giCurrentVal;
       document.querySelectorAll('.gi-qbtn').forEach(b => b.classList.remove('on'));
       btn.classList.add('on');
+      // clear custom input
+      const ci = document.getElementById('gi-custom');
+      if (ci) { ci.value = ''; ci.style.borderColor = ''; }
     });
   });
+
+  const customInput = document.getElementById('gi-custom');
+  if (customInput) {
+    customInput.addEventListener('input', () => {
+      const v = parseFloat(customInput.value);
+      if (v > 0) {
+        giCurrentVal = v;
+        document.getElementById('gi-val').textContent = v;
+        document.querySelectorAll('.gi-qbtn').forEach(b => b.classList.remove('on'));
+        customInput.style.borderColor = 'rgba(255,255,255,.5)';
+      } else {
+        customInput.style.borderColor = '';
+      }
+    });
+  }
 })();
 
 document.getElementById('gi-cancel').addEventListener('click', () => {
@@ -4907,56 +5044,28 @@ document.getElementById('gi-confirm').addEventListener('click', () => {
   }
   const g = goalData.goals.find(g => g.id === giTargetId);
   if (g) {
-    if (!g.logs) g.logs = [];
-    g.logs.push({ date: new Date().toISOString(), hrs: giCurrentVal });
-
-    // 里程碑進度累積
-    const msSel = document.getElementById('gi-milestone-select');
-    const msWrap = document.getElementById('gi-milestone-wrap');
-    let chipName = g.name;
-    let msIdx = -1;
-    if (msWrap.style.display !== 'none' && msSel.options.length > 0) {
-      // 找到未完成里程碑的實際 index
-      const activeMilestones = (g.milestones || []).map((ms, i) => ({ms, i}))
-        .filter(({ms}) => (ms.doneHrs||0) < (ms.hrs||1));
-      const selectedActive = activeMilestones[parseInt(msSel.value)];
-      if (selectedActive) {
-        msIdx = selectedActive.i;
-        const ms = g.milestones[msIdx];
-        ms.doneHrs = Math.round(((ms.doneHrs || 0) + giCurrentVal) * 10) / 10;
-        chipName = ms.name; // 方塊名稱 = 里程碑名稱
-      }
-    }
-    goalSave();
-
-    // 獎杯色調對應 cat
-    const catMap = { long: 'class', mid: 'class', short: 'chore' };
-    const cat = catMap[g.type] || 'class';
+    const note = (document.getElementById('gi-note')?.value || '').trim();
     const id = ++chipId;
-    // goalId 和 milestoneIdx 存在方塊上供識別
     chips[id] = {
-      id, name: chipName, cat, dur: giCurrentVal,
+      id, name: g.name, cat: 'goal',
+      customIcon: g.icon || '🎯',
+      dur: giCurrentVal,
       isRev: false, placed: false, done: false,
-      goalId: g.id, milestoneIdx: msIdx,
+      goalId: g.id,
+      note: note || '',
     };
     appendToPool(id);
     updatePoolHint();
     updateStats();
     saveToLocal();
 
-    const savedId = giTargetId;
     document.getElementById('goal-invest-overlay').classList.remove('show');
     document.getElementById('goal-overlay').classList.remove('show');
+    const ci = document.getElementById('gi-custom');
+    if (ci) { ci.value = ''; ci.style.borderColor = ''; }
+    if (document.getElementById('gi-note')) document.getElementById('gi-note').value = '';
     giTargetId = null;
     goalRender();
-
-    const invested = (g.logs || []).reduce((s, l) => s + (l.hrs || 0), 0);
-    if (invested >= g.target) {
-      setTimeout(() => {
-        document.getElementById('ai-coach-modal').classList.add('show');
-        medalCheckAndFlash(savedId);
-      }, 200);
-    }
   } else {
     document.getElementById('goal-invest-overlay').classList.remove('show');
     document.getElementById('goal-overlay').classList.remove('show');
@@ -4978,39 +5087,19 @@ document.getElementById('goal-overlay').addEventListener('click', e => {
 });
 
 goalLoad();
+// 一次性 migration：清除舊 logs（改為完成方塊才計入）
+if (!goalData._logsMigrated_v2) {
+  goalData.goals.forEach(g => { g.logs = []; });
+  goalData._logsMigrated_v2 = true;
+  goalSave();
+}
 goalQuickBarRender();
 
-// 掛到 window 讓 inline onclick 可以呼叫
-function goalAddMilestone(goalId) {
-  const nameEl = document.getElementById('ms-name-' + goalId);
-  const hrsEl  = document.getElementById('ms-hrs-' + goalId);
-  if (!nameEl || !hrsEl) return;
-  const name = nameEl.value.trim();
-  const hrs  = parseFloat(hrsEl.value);
-  if (!name) { nameEl.focus(); return; }
-  if (!hrs || hrs <= 0) { hrsEl.focus(); return; }
-  const g = goalData.goals.find(g => g.id === goalId);
-  if (!g) return;
-  if (!g.milestones) g.milestones = [];
-  g.milestones.push({ name, hrs, doneHrs: 0 });
-  goalSave();
-  goalRender();
-}
-
-function goalDelMilestone(goalId, idx) {
-  const g = goalData.goals.find(g => g.id === goalId);
-  if (!g || !g.milestones) return;
-  g.milestones.splice(idx, 1);
-  goalSave();
-  goalRender();
-}
 
 window.goalAdd = goalAdd;
 window.goalDelete = goalDelete;
 window.goalSelectType = goalSelectType;
 window.goalOpenInvest = goalOpenInvest;
-window.goalAddMilestone = goalAddMilestone;
-window.goalDelMilestone = goalDelMilestone;
 window.goalQuickBarRender = goalQuickBarRender;
 window.medalRender = medalRender;
 

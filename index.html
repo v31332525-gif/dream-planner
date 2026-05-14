@@ -333,7 +333,6 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
   body{padding:10px 0 0 0;padding-top:calc(10px + env(safe-area-inset-top));}
   h1{font-size:14px;padding:0 12px 8px;}
   .page-sub{padding:0 12px;margin-bottom:8px;}
-  .stats-bar{grid-template-columns:repeat(5,1fr);gap:4px;padding:0 12px;margin-bottom:8px;}
   .stat-card{padding:7px 6px;}
   .stat-val{font-size:14px;}
   .stat-lbl{font-size:7px;}
@@ -350,7 +349,7 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 
   /* 日曆橫向捲動 */
   .cal-outer{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:0;}
-  .cal-grid{min-width:900px;}
+  .cal-grid{min-width:0;}
 
   /* sidebar panel 折疊成手風琴 */
   .panel{border-radius:0;border-left:none;border-right:none;border-top:none;margin-bottom:0;}
@@ -366,13 +365,29 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
   .bd-dot{width:6px;height:6px;}
   .bd-val{font-size:8px;}
 
-  /* 新增目標 + 待排方塊並排 */
-  .mobile-row-panels{display:flex;gap:8px;padding:0 12px;margin-bottom:4px;}
-  .mobile-row-panels .panel{flex:1;min-width:0;border:0.5px solid var(--border2);border-radius:var(--radius);padding:8px 10px;margin-bottom:0;}
-  .mobile-row-panels .ptitle{font-size:9px;}
-  .mobile-row-panels .ptitle::after{display:none;}
-  .mobile-row-panels .panel.collapsed > *:not(.ptitle){display:block!important;}
-  .mobile-row-panels .chip-pool{max-height:120px;}
+  /* 新增方塊 + 待排池：上下全寬堆疊 */
+  .mobile-row-panels{display:flex;flex-direction:column;gap:0;padding:0;margin-bottom:0;}
+  .mobile-row-panels .panel{flex:none;width:100%;border:none;border-radius:0;border-bottom:0.5px solid var(--border2);padding:8px 14px;margin-bottom:0;}
+  .mobile-row-panels .ptitle::after{display:inline;}
+  .mobile-row-panels .chip-pool{max-height:160px;}
+  /* 分類格：手機顯示 emoji + 文字，改 3 欄 */
+  .cat-grid{grid-template-columns:repeat(3,1fr);gap:4px;}
+  .cbt{font-size:12px;padding:5px 2px;line-height:1.4;}
+  .cbt span{display:block;font-size:8px;margin-top:1px;opacity:.8;}
+  .cbt::after{display:none;}
+
+  /* 統計區 2+3 排列 */
+  .stats-bar{grid-template-columns:repeat(2,1fr);gap:6px;padding:8px 12px;margin-bottom:4px;}
+  .stats-bar .stat-card:last-child{grid-column:span 2;}
+  .stat-val{font-size:16px;}
+  .stat-lbl{font-size:8px;}
+
+  /* 工具列：只顯示 emoji，label 隱藏 */
+  .data-bar{gap:5px;padding:4px 12px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .data-bar::-webkit-scrollbar{display:none;}
+  .data-btn .btn-label{display:none;}
+  .data-btn{padding:5px 7px;font-size:13px;white-space:nowrap;}
+  .data-label{display:none;}
 
   /* 編輯卡片：底部彈出 */
   .edit-card{
@@ -556,6 +571,23 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 .gi-confirm{flex:2;padding:11px;font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;border:none;border-radius:10px;background:#3D9B7A;color:#fff;cursor:pointer;transition:all .15s;}
 .gi-confirm:hover{opacity:.85;}
 @media(max-width:768px){.goal-panel{max-height:88vh;border-radius:16px 16px 0 0;}.goal-fab{bottom:calc(72px + env(safe-area-inset-bottom));}}
+
+/* ── click-to-pick styles ───────────────────────────── */
+.chip-picked {
+  outline: 2.5px solid var(--accent) !important;
+  opacity: 0.55 !important;
+  transform: scale(0.97);
+  transition: opacity .15s, transform .15s;
+}
+body.picking #cal-grid .cc {
+  cursor: crosshair;
+}
+body.picking #chip-pool {
+  cursor: pointer;
+}
+body.picking .chip:not(.chip-picked) {
+  opacity: 0.7;
+}
 </style>
 </head>
 <body>
@@ -630,16 +662,16 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 <div class="data-bar">
   <span class="data-label">資料</span>
   <button class="data-btn" id="btn-gist-sync" title="GitHub Gist 雲端同步" style="display:flex;align-items:center;gap:4px;">
-    <span id="gist-sync-icon">☁</span> 雲端同步
+    <span id="gist-sync-icon">☁</span><span class="btn-label"> 雲端同步</span>
   </button>
-  <button class="data-btn" id="btn-voice-import" title="貼上 AI 解析的口語行程 JSON" style="border-color:#4A7FD4;color:#4A7FD4;">🗣 口語登記</button>
-  <button class="data-btn" id="btn-ai-coach" title="一鍵產生本週複盤＋下週規劃，複製給 AI 或存成紀錄" style="border-color:var(--accent);color:var(--accent);">🤖 AI 教練</button>
-  <button class="data-btn" id="btn-export" title="匯出 JSON 備份">⬇ 匯出備份</button>
+  <button class="data-btn" id="btn-voice-import" title="貼上 AI 解析的口語行程 JSON" style="border-color:#4A7FD4;color:#4A7FD4;">🗣<span class="btn-label"> 口語登記</span></button>
+  <button class="data-btn" id="btn-ai-coach" title="一鍵產生本週複盤＋下週規劃，複製給 AI 或存成紀錄" style="border-color:var(--accent);color:var(--accent);">🤖<span class="btn-label"> AI 教練</span></button>
+  <button class="data-btn" id="btn-export" title="匯出 JSON 備份">⬇<span class="btn-label"> 匯出備份</span></button>
   <label class="data-btn" title="匯入 JSON 還原" style="cursor:pointer">
-    ⬆ 匯入資料
+    ⬆<span class="btn-label"> 匯入資料</span>
     <input type="file" id="import-input" accept=".json" style="display:none">
   </label>
-  <button class="data-btn" id="btn-ics" title="匯出 Google Calendar 可讀格式">📅 匯出至 Google</button>
+  <button class="data-btn" id="btn-ics" title="匯出 Google Calendar 可讀格式">📅<span class="btn-label"> 匯出至 Google</span></button>
   <span class="save-status" id="save-status"></span>
 </div>
 
@@ -667,18 +699,18 @@ h1{font-size:18px;font-weight:600;letter-spacing:.04em;margin-bottom:2px;font-fa
 
       <div class="form-row" style="margin-bottom:4px;">
         <div class="cat-grid">
-          <button class="cbt on" data-c="medical" data-label="醫療">🏥</button>
-          <button class="cbt" data-c="work" data-label="工作">💼</button>
-          <button class="cbt" data-c="fun" data-label="娛樂">🎮</button>
-          <button class="cbt" data-c="chore" data-label="雜務">🗂️</button>
-          <button class="cbt" data-c="class" data-label="課程">📚</button>
-          <button class="cbt" data-c="movie" data-label="電影">🎬</button>
-          <button class="cbt" data-c="read" data-label="閱讀">📖</button>
-          <button class="cbt" data-c="sport" data-label="運動">🏃</button>
-          <button class="cbt" data-c="flex" data-label="彈性">✨</button>
-          <button class="cbt" data-c="rest" data-label="休息">😴</button>
-          <button class="cbt" data-c="eat" data-label="吃飯">🍽️</button>
-          <button class="cbt" data-c="custom" id="custom-cat-btn" data-label="自訂">＋</button>
+          <button class="cbt on" data-c="medical" data-label="醫療">🏥<span>醫療</span></button>
+          <button class="cbt" data-c="work" data-label="工作">💼<span>工作</span></button>
+          <button class="cbt" data-c="fun" data-label="娛樂">🎮<span>娛樂</span></button>
+          <button class="cbt" data-c="chore" data-label="雜務">🗂️<span>雜務</span></button>
+          <button class="cbt" data-c="class" data-label="課程">📚<span>課程</span></button>
+          <button class="cbt" data-c="movie" data-label="電影">🎬<span>電影</span></button>
+          <button class="cbt" data-c="read" data-label="閱讀">📖<span>閱讀</span></button>
+          <button class="cbt" data-c="sport" data-label="運動">🏃<span>運動</span></button>
+          <button class="cbt" data-c="flex" data-label="彈性">✨<span>彈性</span></button>
+          <button class="cbt" data-c="rest" data-label="休息">😴<span>休息</span></button>
+          <button class="cbt" data-c="eat" data-label="吃飯">🍽️<span>吃飯</span></button>
+          <button class="cbt" data-c="custom" id="custom-cat-btn" data-label="自訂">＋<span>自訂</span></button>
         </div>
       </div>
 
@@ -1116,7 +1148,7 @@ function rebuildCustomCatGrid() {
     btn.dataset.c = key;
     btn.dataset.custom = '1';
     btn.dataset.label = info.label;
-    btn.textContent = info.icon;
+    btn.innerHTML = info.icon + '<span>' + info.label + '</span>';
     btn.style.cssText = `--cc-bg:${info.color}22;--cc-border:${info.color}88;--cc-text:${info.color};`;
     btn.addEventListener('click', () => {
       document.querySelectorAll('.cbt').forEach(b=>b.classList.remove('on'));
@@ -1221,96 +1253,44 @@ let currentMonth = 5; // 5=May, 6=June
 let currentCat = 'medical';
 let chipId = 0;
 let chips = {};
-let dragging = null;
+let picked = null;   // { id, from, srcEl } — the "held" chip
+let dragging = null; // kept for HTML5 drag API compat
 let prevCells = [];
 
-// ─── touch drag support ────────────────────────────────
-let touchDragEl = null;   // the ghost element following finger
-let touchDragId = null;
-let touchDragFrom = null;
-
-function getCellFromPoint(x, y) {
-  const els = document.elementsFromPoint(x, y);
-  for (const el of els) {
-    if (el.dataset.m && el.dataset.d && el.dataset.s) return el;
-  }
-  return null;
+// ─── click-to-pick / click-to-place ───────────────────
+function pickUp(id, from, srcEl) {
+  if (picked && picked.id === id) { cancelPick(); return; }
+  cancelPick();
+  picked = { id, from, srcEl };
+  srcEl.classList.add('chip-picked');
+  document.body.classList.add('picking');
 }
 
-function createTouchGhost(srcEl) {
-  const ghost = srcEl.cloneNode(true);
-  ghost.style.cssText = `position:fixed;z-index:9999;pointer-events:none;opacity:0.75;width:${srcEl.offsetWidth}px;height:${srcEl.offsetHeight}px;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.25);`;
-  document.body.appendChild(ghost);
-  return ghost;
+function cancelPick() {
+  if (!picked) return;
+  picked.srcEl.classList.remove('chip-picked');
+  clearPreview();
+  document.body.classList.remove('picking');
+  picked = null;
 }
 
-function moveTouchGhost(ghost, x, y) {
-  ghost.style.left = (x - ghost.offsetWidth/2) + 'px';
-  ghost.style.top  = (y - ghost.offsetHeight/2) + 'px';
+function dropOnCell(m, d, s) {
+  if (!picked) return;
+  const { id } = picked;
+  cancelPick();
+  placeChip(id, m, d, s);
 }
 
-function addTouchDrag(el, id, from) {
-  el.addEventListener('touchstart', e => {
-    if (e.touches.length !== 1) return;
-    const t = e.touches[0];
-    // long press 300ms to start drag
-    el._touchTimer = setTimeout(() => {
-      e.preventDefault();
-      touchDragId = id;
-      touchDragFrom = from;
-      dragging = { id, from };
-      touchDragEl = createTouchGhost(el);
-      moveTouchGhost(touchDragEl, t.clientX, t.clientY);
-      el.style.opacity = '0.2';
-      if (navigator.vibrate) navigator.vibrate(30);
-    }, 300);
-  }, { passive: true });
-
-  el.addEventListener('touchmove', e => {
-    clearTimeout(el._touchTimer);
-    if (!touchDragEl) return;
-    e.preventDefault();
-    const t = e.touches[0];
-    moveTouchGhost(touchDragEl, t.clientX, t.clientY);
-    // highlight target cell
-    const cell = getCellFromPoint(t.clientX, t.clientY);
-    clearPreview();
-    if (cell && dragging) showPreview(cell, durSlots(chips[dragging.id]?.dur||1));
-  }, { passive: false });
-
-  el.addEventListener('touchend', e => {
-    clearTimeout(el._touchTimer);
-    if (!touchDragEl) return;
-    e.preventDefault();
-    const t = e.changedTouches[0];
-    touchDragEl.remove(); touchDragEl = null;
-    el.style.opacity = '';
-    clearPreview();
-
-    const cell = getCellFromPoint(t.clientX, t.clientY);
-    if (cell && cell.dataset.m) {
-      placeChip(touchDragId, parseInt(cell.dataset.m), parseInt(cell.dataset.d), parseInt(cell.dataset.s));
-    } else {
-      // dropped on pool area → return to pool
-      const poolEl = document.getElementById('chip-pool');
-      if (poolEl) {
-        const pr = poolEl.getBoundingClientRect();
-        if (t.clientX >= pr.left && t.clientX <= pr.right && t.clientY >= pr.top && t.clientY <= pr.bottom) {
-          if (touchDragFrom === 'cell') returnToPool(touchDragId);
-        }
-      }
-    }
-    dragging = null; touchDragId = null; touchDragFrom = null;
-  }, { passive: false });
-
-  el.addEventListener('touchcancel', () => {
-    clearTimeout(el._touchTimer);
-    if (touchDragEl) { touchDragEl.remove(); touchDragEl = null; }
-    el.style.opacity = '';
-    clearPreview();
-    dragging = null; touchDragId = null; touchDragFrom = null;
-  });
+function dropOnPool() {
+  if (!picked) return;
+  const { id, from } = picked;
+  cancelPick();
+  if (from === 'cell') returnToPool(id);
 }
+
+// Esc cancels
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cancelPick(); });
+
 
 // ─── helpers ───────────────────────────────────────────
 function el(tag, cls, txt) {
@@ -1362,7 +1342,10 @@ function buildCalendar() {
   const grid = document.getElementById('cal-grid');
   grid.innerHTML = '';
   const days = monthDays(currentMonth);
-  grid.style.gridTemplateColumns = `46px repeat(${days}, minmax(36px,1fr))`;
+  const isMobile = window.innerWidth <= 600;
+  const colW = isMobile ? 'minmax(42px,1fr)' : 'minmax(36px,1fr)';
+  const tcW  = isMobile ? '40px' : '46px';
+  grid.style.gridTemplateColumns = `${tcW} repeat(${days}, ${colW})`;
 
   // header
   grid.appendChild(el('div','ch corner',''));
@@ -1396,6 +1379,7 @@ function buildCalendar() {
       cell.addEventListener('dragover', e => {
         e.preventDefault();
         if (dragging) showPreview(cell, durSlots(chips[dragging.id]?.dur||1));
+        else if (picked) showPreview(cell, durSlots(chips[picked.id]?.dur||1));
       });
       cell.addEventListener('dragleave', e => {
         if (!e.relatedTarget?.closest?.('#cal-grid')) clearPreview();
@@ -1403,6 +1387,13 @@ function buildCalendar() {
       cell.addEventListener('drop', e => {
         e.preventDefault(); clearPreview();
         if (dragging) placeChip(dragging.id, currentMonth, d, s);
+      });
+      // click-to-place
+      cell.addEventListener('click', () => {
+        if (picked) dropOnCell(currentMonth, d, s);
+      });
+      cell.addEventListener('mouseover', () => {
+        if (picked) showPreview(cell, durSlots(chips[picked.id]?.dur||1));
       });
       grid.appendChild(cell);
 
@@ -1454,13 +1445,16 @@ function makePoolChip(id) {
   const ch=chips[id], cat=getCatInfoForChip(ch);
   const div=document.createElement('div');
   div.className='chip '+cat.cc;
-  div.dataset.id=id; div.draggable=true;
+  div.dataset.id=id;
   div.innerHTML=`<div class="chip-n">${ch.name}</div><div class="chip-m">${cat.icon} ${cat.label} · ${ch.dur}hr</div>`;
-  div.addEventListener('dragstart',()=>{dragging={id,from:'pool'};setTimeout(()=>div.classList.add('drag'),0);});
-  div.addEventListener('dragend',()=>{div.classList.remove('drag');clearPreview();});
-  addTouchDrag(div, id, 'pool');
+  div.addEventListener('click', e => {
+    e.stopPropagation();
+    if (picked && picked.id === id) { cancelPick(); return; }
+    pickUp(id, 'pool', div);
+  });
   div.addEventListener('dblclick', e => {
     e.stopPropagation();
+    cancelPick();
     div.remove();
     delete chips[id];
     updatePoolHint();
@@ -1468,7 +1462,6 @@ function makePoolChip(id) {
     updateStats();
     showSaveStatus('已刪除方塊', false);
   });
-  div.addEventListener('click', e => { if (!dragging) openEditCard(id, div); });
   return div;
 }
 
@@ -1656,9 +1649,16 @@ function renderPlaced(id) {
     db.className='pdone-btn pexp-line'; db.textContent='✓ 完成'; db.title='標記完成';
     db.addEventListener('click',e=>{e.stopPropagation();markDone(id);});
     div.appendChild(db);
-    div.addEventListener('dragstart',()=>{dragging={id,from:'cell'};setTimeout(()=>div.style.opacity='.2',0);});
-    div.addEventListener('dragend',()=>{div.style.opacity='1';clearPreview();});
-    addTouchDrag(div, id, 'cell');
+    div.addEventListener('click', e => {
+      e.stopPropagation();
+      if (e.target.classList.contains('pdone-btn')) return;
+      // if already picked this chip, cancel
+      if (picked && picked.id === id) { cancelPick(); return; }
+      // if holding another chip, don't pick this one up
+      if (picked) return;
+      // tap to pick up (move)
+      pickUp(id, 'cell', div);
+    });
     div.addEventListener('dblclick', e => {
       e.stopPropagation();
       removeFromCal(id);
@@ -1673,7 +1673,7 @@ function renderPlaced(id) {
   // click handler applies to ALL blocks (done or not)
   div.addEventListener('click', e => {
     e.stopPropagation();
-    if (e.target.classList.contains('pdone-btn') || dragging) return;
+    if (e.target.classList.contains('pdone-btn') || dragging || picked) return;
     const isExpanded = div.classList.contains('expanded');
     document.querySelectorAll(`.placed[data-id]`).forEach(p => {
       if (parseInt(p.dataset.id) !== id) {
@@ -2419,12 +2419,15 @@ document.getElementById('add-btn').addEventListener('click',()=>{
   updateStats();
 });
 
-// pool drop (drag back)
+// pool drop (drag back) + click-to-place back
 document.getElementById('chip-pool').addEventListener('dragover',e=>e.preventDefault());
 document.getElementById('chip-pool').addEventListener('drop',e=>{
   e.preventDefault(); clearPreview();
   if (dragging?.from==='cell') returnToPool(dragging.id);
   dragging=null;
+});
+document.getElementById('chip-pool').addEventListener('click', e => {
+  if (picked?.from === 'cell') dropOnPool();
 });
 
 document.getElementById('cal-grid').addEventListener('dragleave',e=>{

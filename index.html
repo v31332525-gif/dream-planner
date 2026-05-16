@@ -1244,9 +1244,9 @@ document.getElementById('custom-cat-modal').addEventListener('click', e => {
 });
 
 const SLOT_START = 17; // 8:30 = 8*2+1
-const SLOT_END   = 47; // 23:30 結束邊界（最後可起始的 slot 是 46，佔到 23:30）
+const SLOT_END   = 45; // 最後可填入的格子：22:30（結尾 23:00）
 const SLOT_BUFFER = 6; // 緩衝格：23:00 之後額外 3hr（不顯示時間、不能填入）
-const SLOT_COUNT = SLOT_END - SLOT_START; // 30 slots per day（8:30–23:30 = 15hr，不含結束邊界）
+const SLOT_COUNT = SLOT_END - SLOT_START + 1; // 29 slots per day（8:30–23:00 = 14.5hr）
 const CELL_H = 22; // px per slot
 
 let currentMonth = 5; // 5=May, 6=June
@@ -1395,6 +1395,8 @@ function buildCalendar() {
       cell.addEventListener('mouseover', () => {
         if (picked) showPreview(cell, durSlots(chips[picked.id]?.dur||1));
       });
+      // 最後一格底部加 23:00 底線
+      if (s === SLOT_END) cell.style.borderBottom = '2px solid #B0A898';
       grid.appendChild(cell);
 
       // re-render any chips that belong here
@@ -1403,12 +1405,13 @@ function buildCalendar() {
     }
   }
 
-  // 緩衝格：22:30 之後，不顯示時間、不能拖入，純粹讓跨時段方塊有空間顯示
+  // 緩衝格：23:00 之後，不顯示時間、不能拖入，純粹讓跨時段方塊有空間顯示
   for (let b=0; b<SLOT_BUFFER; b++) {
-    // 時間欄空白
-    const tl = el('div','tc hf','');
+    // 第一行緩衝格時間欄顯示 23:00 標籤（底線標記）
+    const tl = el('div','tc hf', b===0 ? '23:00' : '');
+    if (b===0) { tl.style.color='#B0A898'; tl.style.fontWeight='700'; tl.style.opacity='1'; }
+    else { tl.style.opacity='0'; }
     tl.style.borderBottom = 'none';
-    tl.style.opacity = '0';
     grid.appendChild(tl);
     for (let d=1;d<=days;d++) {
       const dow = getDayOfWeek(currentMonth, d);
@@ -2297,7 +2300,7 @@ function updateStats() {
       const end = c.startSlot + durSlots(c.dur);
       for (let s = c.startSlot; s < end; s++) occupied.add(s);
     });
-    for (let s = SLOT_START; s < SLOT_END; s++) {
+    for (let s = SLOT_START; s <= SLOT_END; s++) {
       if (!occupied.has(s)) emptySlots++;
     }
   }

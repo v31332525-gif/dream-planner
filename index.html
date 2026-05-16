@@ -1244,9 +1244,9 @@ document.getElementById('custom-cat-modal').addEventListener('click', e => {
 });
 
 const SLOT_START = 17; // 8:30 = 8*2+1
-const SLOT_END   = 47; // 23:00 = 23*2+1 // 22:30 = 22*2+1
+const SLOT_END   = 46; // 23:00 = 46*30min = 1380min = 23:00（slotLabel(46)='23:00'）
 const SLOT_BUFFER = 6; // 緩衝格：23:00 之後額外 3hr（不顯示時間、不能填入）
-const SLOT_COUNT = SLOT_END - SLOT_START + 1; // 29 slots per day
+const SLOT_COUNT = SLOT_END - SLOT_START + 1; // 30 slots per day（8:30–23:00 = 15hr）
 const CELL_H = 22; // px per slot
 
 let currentMonth = 5; // 5=May, 6=June

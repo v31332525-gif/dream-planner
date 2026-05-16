@@ -1244,9 +1244,9 @@ document.getElementById('custom-cat-modal').addEventListener('click', e => {
 });
 
 const SLOT_START = 17; // 8:30 = 8*2+1
-const SLOT_END   = 46; // 23:00 = 46*30min = 1380min = 23:00（slotLabel(46)='23:00'）
+const SLOT_END   = 47; // 23:30 結束邊界（最後可起始的 slot 是 46，佔到 23:30）
 const SLOT_BUFFER = 6; // 緩衝格：23:00 之後額外 3hr（不顯示時間、不能填入）
-const SLOT_COUNT = SLOT_END - SLOT_START + 1; // 30 slots per day（8:30–23:00 = 15hr）
+const SLOT_COUNT = SLOT_END - SLOT_START; // 30 slots per day（8:30–23:30 = 15hr，不含結束邊界）
 const CELL_H = 22; // px per slot
 
 let currentMonth = 5; // 5=May, 6=June
@@ -2297,7 +2297,7 @@ function updateStats() {
       const end = c.startSlot + durSlots(c.dur);
       for (let s = c.startSlot; s < end; s++) occupied.add(s);
     });
-    for (let s = SLOT_START; s <= SLOT_END; s++) {
+    for (let s = SLOT_START; s < SLOT_END; s++) {
       if (!occupied.has(s)) emptySlots++;
     }
   }
